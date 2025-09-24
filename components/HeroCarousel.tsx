@@ -41,7 +41,7 @@ export default function HeroCarousel() {
             </div>
 
             <Link
-              href="/hinoki-collection"
+              href="/catalog"
               className="inline-flex items-center gap-3 px-10 py-4 bg-white/90 backdrop-blur-sm text-stone-800 text-base font-medium rounded-lg hover:bg-white transition-all duration-300 whitespace-nowrap cursor-pointer shadow-lg"
             >
               檜コレクションを見る
