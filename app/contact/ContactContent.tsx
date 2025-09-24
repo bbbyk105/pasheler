@@ -1,46 +1,52 @@
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import { useState } from "react";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 export default function ContactContent() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Contact form submitted:', formData);
+    console.log("Contact form submitted:", formData);
     // Handle form submission here
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    alert("Thank you for your message! We will get back to you soon.");
+    setFormData({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
+
       {/* Hero Section */}
-      <section className="relative h-96 bg-cover bg-center bg-no-repeat" style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://readdy.ai/api/search-image?query=Modern%20minimalist%20office%20space%2C%20clean%20white%20walls%2C%20natural%20lighting%20streaming%20through%20large%20windows%2C%20elegant%20desk%20setup%20with%20plants%2C%20professional%20and%20welcoming%20atmosphere%20for%20customer%20service%20and%20business%20communication&width=1200&height=400&seq=contact-hero&orientation=landscape')`
-      }}>
+      <section
+        className="relative h-96 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://readdy.ai/api/search-image?query=Modern%20minimalist%20office%20space%2C%20clean%20white%20walls%2C%20natural%20lighting%20streaming%20through%20large%20windows%2C%20elegant%20desk%20setup%20with%20plants%2C%20professional%20and%20welcoming%20atmosphere%20for%20customer%20service%20and%20business%20communication&width=1200&height=400&seq=contact-hero&orientation=landscape')`,
+        }}
+      >
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white">
             <h1 className="text-5xl font-serif mb-4">Contact Us</h1>
-            <p className="text-xl text-stone-200">We'd love to hear from you</p>
+            <p className="text-xl text-stone-200">
+              We&apos;d love to hear from you
+            </p>
           </div>
         </div>
       </section>
@@ -52,9 +58,13 @@ export default function ContactContent() {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-serif text-stone-800 mb-6">Get in Touch</h2>
+                <h2 className="text-3xl font-serif text-stone-800 mb-6">
+                  Get in Touch
+                </h2>
                 <p className="text-stone-600 text-lg leading-relaxed">
-                  Have questions about our products or need skincare advice? Our team of experts is here to help you achieve your best skin. Reach out to us through any of the channels below.
+                  Have questions about our products or need skincare advice? Our
+                  team of experts is here to help you achieve your best skin.
+                  Reach out to us through any of the channels below.
                 </p>
               </div>
 
@@ -65,8 +75,14 @@ export default function ContactContent() {
                     <i className="ri-map-pin-line text-xl text-stone-600"></i>
                   </div>
                   <div>
-                    <h3 className="font-medium text-stone-800 mb-1">Visit Our Store</h3>
-                    <p className="text-stone-600">123 Beauty Avenue<br />New York, NY 10001</p>
+                    <h3 className="font-medium text-stone-800 mb-1">
+                      Visit Our Store
+                    </h3>
+                    <p className="text-stone-600">
+                      123 Beauty Avenue
+                      <br />
+                      New York, NY 10001
+                    </p>
                   </div>
                 </div>
 
@@ -76,7 +92,11 @@ export default function ContactContent() {
                   </div>
                   <div>
                     <h3 className="font-medium text-stone-800 mb-1">Call Us</h3>
-                    <p className="text-stone-600">+1 (555) 123-4567<br />Mon-Fri 9AM-6PM EST</p>
+                    <p className="text-stone-600">
+                      +1 (555) 123-4567
+                      <br />
+                      Mon-Fri 9AM-6PM EST
+                    </p>
                   </div>
                 </div>
 
@@ -85,8 +105,14 @@ export default function ContactContent() {
                     <i className="ri-mail-line text-xl text-stone-600"></i>
                   </div>
                   <div>
-                    <h3 className="font-medium text-stone-800 mb-1">Email Us</h3>
-                    <p className="text-stone-600">hello@beautybrand.com<br />support@beautybrand.com</p>
+                    <h3 className="font-medium text-stone-800 mb-1">
+                      Email Us
+                    </h3>
+                    <p className="text-stone-600">
+                      hello@beautybrand.com
+                      <br />
+                      support@beautybrand.com
+                    </p>
                   </div>
                 </div>
 
@@ -95,8 +121,14 @@ export default function ContactContent() {
                     <i className="ri-time-line text-xl text-stone-600"></i>
                   </div>
                   <div>
-                    <h3 className="font-medium text-stone-800 mb-1">Store Hours</h3>
-                    <p className="text-stone-600">Monday - Friday: 10AM - 8PM<br />Saturday - Sunday: 10AM - 6PM</p>
+                    <h3 className="font-medium text-stone-800 mb-1">
+                      Store Hours
+                    </h3>
+                    <p className="text-stone-600">
+                      Monday - Friday: 10AM - 8PM
+                      <br />
+                      Saturday - Sunday: 10AM - 6PM
+                    </p>
                   </div>
                 </div>
               </div>
@@ -123,12 +155,17 @@ export default function ContactContent() {
 
             {/* Contact Form */}
             <div className="bg-stone-50 p-8 rounded-lg">
-              <h2 className="text-2xl font-serif text-stone-800 mb-6">Send us a Message</h2>
-              
+              <h2 className="text-2xl font-serif text-stone-800 mb-6">
+                Send us a Message
+              </h2>
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-stone-700 mb-2"
+                    >
                       Full Name *
                     </label>
                     <input
@@ -142,9 +179,12 @@ export default function ContactContent() {
                       placeholder="Enter your full name"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-stone-700 mb-2"
+                    >
                       Email Address *
                     </label>
                     <input
@@ -161,7 +201,10 @@ export default function ContactContent() {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-stone-700 mb-2">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-stone-700 mb-2"
+                  >
                     Subject *
                   </label>
                   <input
@@ -177,7 +220,10 @@ export default function ContactContent() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-stone-700 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-stone-700 mb-2"
+                  >
                     Message *
                   </label>
                   <textarea
@@ -191,7 +237,9 @@ export default function ContactContent() {
                     className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm resize-none"
                     placeholder="Tell us how we can help you..."
                   ></textarea>
-                  <p className="text-xs text-stone-500 mt-1">{formData.message.length}/500 characters</p>
+                  <p className="text-xs text-stone-500 mt-1">
+                    {formData.message.length}/500 characters
+                  </p>
                 </div>
 
                 <button
