@@ -1,15 +1,20 @@
+"use client";
 
-'use client';
-
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { Language, Currency, CartItem } from '../lib/types';
-import { convertPrice, formatPrice } from '../lib/currency';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import { Language, Currency, CartItem } from "../lib/types";
+import { convertPrice } from "../lib/currency";
 
 interface CartContextType {
   items: CartItem[];
   language: Language;
   currency: Currency;
-  addToCart: (product: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (product: Omit<CartItem, "quantity">) => void;
   removeFromCart: (id: number, variantId: string) => void;
   updateQuantity: (id: number, variantId: string, quantity: number) => void;
   getTotalItems: () => number;
@@ -23,48 +28,50 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [language, setLanguage] = useState<Language>('ja');
-  const [currency, setCurrency] = useState<Currency>('JPY');
+  const [language, setLanguage] = useState<Language>("ja");
+  const [currency, setCurrency] = useState<Currency>("JPY");
 
   // Load saved preferences
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    const savedCurrency = localStorage.getItem('currency') as Currency;
-    
+    const savedLanguage = localStorage.getItem("language") as Language;
+    const savedCurrency = localStorage.getItem("currency") as Currency;
+
     if (savedLanguage) setLanguage(savedLanguage);
     if (savedCurrency) setCurrency(savedCurrency);
   }, []);
 
   // Save preferences
   useEffect(() => {
-    localStorage.setItem('language', language);
+    localStorage.setItem("language", language);
   }, [language]);
 
   useEffect(() => {
-    localStorage.setItem('currency', currency);
+    localStorage.setItem("currency", currency);
   }, [currency]);
 
-  const addToCart = (product: Omit<CartItem, 'quantity'>) => {
-    setItems(prevItems => {
-      const existingItem = prevItems.find(item => 
-        item.id === product.id && item.variantId === product.variantId
+  const addToCart = (product: Omit<CartItem, "quantity">) => {
+    setItems((prevItems) => {
+      const existingItem = prevItems.find(
+        (item) => item.id === product.id && item.variantId === product.variantId
       );
-      
+
       if (existingItem) {
-        return prevItems.map(item =>
+        return prevItems.map((item) =>
           item.id === product.id && item.variantId === product.variantId
             ? { ...item, quantity: Math.min(item.quantity + 1, item.stock) }
             : item
         );
       }
-      
+
       return [...prevItems, { ...product, quantity: 1 }];
     });
   };
 
   const removeFromCart = (id: number, variantId: string) => {
-    setItems(prevItems => 
-      prevItems.filter(item => !(item.id === id && item.variantId === variantId))
+    setItems((prevItems) =>
+      prevItems.filter(
+        (item) => !(item.id === id && item.variantId === variantId)
+      )
     );
   };
 
@@ -73,10 +80,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeFromCart(id, variantId);
       return;
     }
-    
-    setItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id && item.variantId === variantId 
+
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id && item.variantId === variantId
           ? { ...item, quantity: Math.min(quantity, item.stock) }
           : item
       )
@@ -89,8 +96,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalPrice = () => {
     return items.reduce((total, item) => {
-      const priceInCurrentCurrency = convertPrice(item.price, 'JPY', currency);
-      return total + (priceInCurrentCurrency * item.quantity);
+      const priceInCurrentCurrency = convertPrice(item.price, "JPY", currency);
+      return total + priceInCurrentCurrency * item.quantity;
     }, 0);
   };
 
@@ -99,19 +106,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{
-      items,
-      language,
-      currency,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      getTotalItems,
-      getTotalPrice,
-      clearCart,
-      setLanguage,
-      setCurrency
-    }}>
+    <CartContext.Provider
+      value={{
+        items,
+        language,
+        currency,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        getTotalItems,
+        getTotalPrice,
+        clearCart,
+        setLanguage,
+        setCurrency,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -120,7 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

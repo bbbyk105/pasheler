@@ -1,11 +1,11 @@
+"use client";
 
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useCart } from './CartContext';
-import { formatPrice, convertPrice } from '../lib/currency';
-import { translations } from '../lib/translations';
-import { Product } from '../lib/products';
+import { useState, useEffect } from "react";
+import { useCart } from "./CartContext";
+import { formatPrice, convertPrice } from "../lib/currency";
+import { translations } from "../lib/translations";
+import { Product } from "../lib/products";
+import Image from "next/image";
 
 interface ProductQuickViewProps {
   product: Product | null;
@@ -14,15 +14,21 @@ interface ProductQuickViewProps {
   onAddToCart: (product: Product, variantId: string) => void;
 }
 
-export default function ProductQuickView({ product, isOpen, onClose, onAddToCart }: ProductQuickViewProps) {
+export default function ProductQuickView({
+  product,
+  isOpen,
+  onClose,
+  onAddToCart,
+}: ProductQuickViewProps) {
   const { language, currency } = useCart();
-  const [selectedVariant, setSelectedVariant] = useState('');
+  const [selectedVariant, setSelectedVariant] = useState("");
   const [quantity, setQuantity] = useState(1);
   const t = translations[language];
 
   useEffect(() => {
     if (product && product.variants.length > 0) {
-      const firstAvailableVariant = product.variants.find(v => v.stock > 0) || product.variants[0];
+      const firstAvailableVariant =
+        product.variants.find((v) => v.stock > 0) || product.variants[0];
       setSelectedVariant(firstAvailableVariant.id);
       setQuantity(1);
     }
@@ -30,10 +36,14 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
 
   if (!product || !isOpen) return null;
 
-  const currentVariant = product.variants.find(v => v.id === selectedVariant);
+  const currentVariant = product.variants.find((v) => v.id === selectedVariant);
   if (!currentVariant) return null;
 
-  const priceInCurrentCurrency = convertPrice(currentVariant.price, 'JPY', currency);
+  const priceInCurrentCurrency = convertPrice(
+    currentVariant.price,
+    "JPY",
+    currency
+  );
   const isOutOfStock = currentVariant.stock === 0;
   const maxQuantity = Math.min(currentVariant.stock, 10);
 
@@ -57,11 +67,15 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
         <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
           <div className="grid md:grid-cols-2 gap-8 p-8">
             {/* Product Image */}
-            <div className="aspect-square bg-stone-50 rounded-lg overflow-hidden">
-              <img
+            <div className="aspect-square bg-stone-50 rounded-lg overflow-hidden relative">
+              <Image
                 src={product.image}
-                alt={product.name[language]}
-                className="w-full h-full object-cover object-top"
+                alt={`${product.name[language]}の商品画像`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top"
+                loading="eager"
+                priority
               />
             </div>
 
@@ -86,7 +100,9 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
 
               {/* Description */}
               <div>
-                <h3 className="font-medium text-stone-800 mb-2">{t.product.description}</h3>
+                <h3 className="font-medium text-stone-800 mb-2">
+                  {t.product.description}
+                </h3>
                 <p className="text-stone-600 text-sm leading-relaxed">
                   {product.description[language]}
                 </p>
@@ -95,10 +111,16 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
               {/* Size Selection */}
               {product.variants.length > 1 && (
                 <div>
-                  <h3 className="font-medium text-stone-800 mb-3">{t.product.selectSize}</h3>
+                  <h3 className="font-medium text-stone-800 mb-3">
+                    {t.product.selectSize}
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {product.variants.map((variant) => {
-                      const variantPrice = convertPrice(variant.price, 'JPY', currency);
+                      const variantPrice = convertPrice(
+                        variant.price,
+                        "JPY",
+                        currency
+                      );
                       return (
                         <button
                           key={variant.id}
@@ -106,8 +128,8 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
                           disabled={variant.stock === 0}
                           className={`px-4 py-2 text-sm border rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
                             selectedVariant === variant.id
-                              ? 'border-stone-800 bg-stone-800 text-white'
-                              : 'border-stone-300 text-stone-700 hover:border-stone-800'
+                              ? "border-stone-800 bg-stone-800 text-white"
+                              : "border-stone-300 text-stone-700 hover:border-stone-800"
                           }`}
                         >
                           <div className="text-center">
@@ -136,7 +158,9 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
                   </span>
                 ) : currentVariant.stock <= 5 ? (
                   <span className="px-3 py-1 text-sm bg-orange-100 text-orange-700 rounded-full">
-                    {language === 'ja' ? `残り${currentVariant.stock}個` : `${currentVariant.stock} left`}
+                    {language === "ja"
+                      ? `残り${currentVariant.stock}個`
+                      : `${currentVariant.stock} left`}
                   </span>
                 ) : (
                   <span className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-full">
@@ -148,7 +172,9 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
               {/* Quantity Selection */}
               {!isOutOfStock && (
                 <div>
-                  <h3 className="font-medium text-stone-800 mb-3">{t.common.quantity}</h3>
+                  <h3 className="font-medium text-stone-800 mb-3">
+                    {t.common.quantity}
+                  </h3>
                   <div className="flex items-center border border-stone-300 rounded-lg w-fit">
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -156,9 +182,13 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
                     >
                       <i className="ri-subtract-line"></i>
                     </button>
-                    <span className="w-12 text-center font-medium">{quantity}</span>
+                    <span className="w-12 text-center font-medium">
+                      {quantity}
+                    </span>
                     <button
-                      onClick={() => setQuantity(Math.min(maxQuantity, quantity + 1))}
+                      onClick={() =>
+                        setQuantity(Math.min(maxQuantity, quantity + 1))
+                      }
                       disabled={quantity >= maxQuantity}
                       className="w-10 h-10 flex items-center justify-center text-stone-600 hover:bg-stone-100 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
@@ -179,15 +209,19 @@ export default function ProductQuickView({ product, isOpen, onClose, onAddToCart
 
               {/* Ingredients */}
               <div>
-                <h3 className="font-medium text-stone-800 mb-2">{t.product.ingredients}</h3>
+                <h3 className="font-medium text-stone-800 mb-2">
+                  {t.product.ingredients}
+                </h3>
                 <p className="text-stone-600 text-sm">
-                  {product.ingredients[language].join(', ')}
+                  {product.ingredients[language].join(", ")}
                 </p>
               </div>
 
               {/* How to Use */}
               <div>
-                <h3 className="font-medium text-stone-800 mb-2">{t.product.howToUse}</h3>
+                <h3 className="font-medium text-stone-800 mb-2">
+                  {t.product.howToUse}
+                </h3>
                 <p className="text-stone-600 text-sm leading-relaxed">
                   {product.howToUse[language]}
                 </p>
