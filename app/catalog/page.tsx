@@ -1,42 +1,51 @@
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import { useCart } from '../../components/CartContext';
-import CartNotification from '../../components/CartNotification';
-import ProductQuickView from '../../components/ProductQuickView';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import { products } from '../../lib/products';
-import { translations } from '../../lib/translations';
-import { formatPrice, convertPrice } from '../../lib/currency';
+import { useState } from "react";
+import Image from "next/image";
+import { useCart } from "../../components/CartContext";
+import CartNotification from "../../components/CartNotification";
+import ProductQuickView from "../../components/ProductQuickView";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import { products } from "../../lib/products";
+import { translations } from "../../lib/translations";
+import { formatPrice, convertPrice } from "../../lib/currency";
 
 export default function CatalogPage() {
   const { addToCart, language, currency } = useCart();
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [notification, setNotification] = useState({ show: false, productName: '' });
-  const [sortBy, setSortBy] = useState('name');
-  const [quickViewProduct, setQuickViewProduct] = useState<typeof products[0] | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [notification, setNotification] = useState({
+    show: false,
+    productName: "",
+  });
+  const [sortBy, setSortBy] = useState("name");
+  const [quickViewProduct, setQuickViewProduct] = useState<
+    (typeof products)[0] | null
+  >(null);
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
-  
-  const t = translations[language];
-  const categories = ['all', 'cleansers', 'moisturizers', 'serums', 'masks', 'suncare'];
 
-  const filteredProducts = products.filter(product => 
-    selectedCategory === 'all' || product.category === selectedCategory
+  const t = translations[language];
+  const categories = ["all", "cleansers", "moisturizers", "serums", "masks"];
+
+  const filteredProducts = products.filter(
+    (product) =>
+      selectedCategory === "all" || product.category === selectedCategory
   );
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === 'price') {
-      const aPrice = convertPrice(a.variants[0].price, 'JPY', currency);
-      const bPrice = convertPrice(b.variants[0].price, 'JPY', currency);
+    if (sortBy === "price") {
+      const aPrice = convertPrice(a.variants[0].price, "JPY", currency);
+      const bPrice = convertPrice(b.variants[0].price, "JPY", currency);
       return aPrice - bPrice;
     }
     return a.name[language].localeCompare(b.name[language]);
   });
 
-  const handleAddToCart = (product: typeof products[0], variantId: string) => {
-    const variant = product.variants.find(v => v.id === variantId);
+  const handleAddToCart = (
+    product: (typeof products)[0],
+    variantId: string
+  ) => {
+    const variant = product.variants.find((v) => v.id === variantId);
     if (!variant || variant.stock === 0) return;
 
     addToCart({
@@ -46,13 +55,13 @@ export default function CatalogPage() {
       size: variant.size,
       price: variant.price,
       image: product.image,
-      stock: variant.stock
+      stock: variant.stock,
     });
-    
+
     setNotification({ show: true, productName: product.name[language] });
   };
 
-  const handleQuickView = (product: typeof products[0]) => {
+  const handleQuickView = (product: (typeof products)[0]) => {
     setQuickViewProduct(product);
     setIsQuickViewOpen(true);
   };
@@ -63,18 +72,20 @@ export default function CatalogPage() {
   };
 
   const closeNotification = () => {
-    setNotification({ show: false, productName: '' });
+    setNotification({ show: false, productName: "" });
   };
 
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
+
       <main className="py-16 px-6">
         <div className="max-w-7xl mx-auto">
           {/* Page Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-serif text-stone-800 mb-4">{t.catalog.title}</h1>
+            <h1 className="text-4xl font-serif text-stone-800 mb-4">
+              {t.catalog.title}
+            </h1>
             <p className="text-stone-600 max-w-2xl mx-auto">
               {t.catalog.description}
             </p>
@@ -90,8 +101,8 @@ export default function CatalogPage() {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 text-sm font-medium rounded-full transition-colors whitespace-nowrap cursor-pointer ${
                     selectedCategory === category
-                      ? 'bg-stone-800 text-white'
-                      : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                      ? "bg-stone-800 text-white"
+                      : "bg-stone-100 text-stone-700 hover:bg-stone-200"
                   }`}
                 >
                   {t.categories[category as keyof typeof t.categories]}
@@ -119,25 +130,36 @@ export default function CatalogPage() {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-product-shop>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+            data-product-shop
+          >
             {sortedProducts.map((product) => {
-              const lowestPriceVariant = product.variants.reduce((min, variant) => 
-                variant.price < min.price ? variant : min
+              const lowestPriceVariant = product.variants.reduce(
+                (min, variant) => (variant.price < min.price ? variant : min)
               );
-              const isOutOfStock = product.variants.every(v => v.stock === 0);
-              const hasLowStock = product.variants.some(v => v.stock > 0 && v.stock <= 5);
-              const priceInCurrentCurrency = convertPrice(lowestPriceVariant.price, 'JPY', currency);
-              
+              const isOutOfStock = product.variants.every((v) => v.stock === 0);
+              const hasLowStock = product.variants.some(
+                (v) => v.stock > 0 && v.stock <= 5
+              );
+              const priceInCurrentCurrency = convertPrice(
+                lowestPriceVariant.price,
+                "JPY",
+                currency
+              );
+
               return (
                 <div key={product.id} className="group">
                   <div className="relative aspect-square mb-4 overflow-hidden bg-stone-50 rounded-lg">
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.name[language]}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
-                    
+
                     {/* Stock Status Badge */}
                     <div className="absolute top-4 left-4">
                       {isOutOfStock ? (
@@ -146,7 +168,7 @@ export default function CatalogPage() {
                         </span>
                       ) : hasLowStock ? (
                         <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 rounded-full">
-                          {language === 'ja' ? '残りわずか' : 'Low Stock'}
+                          {language === "ja" ? "残りわずか" : "Low Stock"}
                         </span>
                       ) : (
                         <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
@@ -157,9 +179,10 @@ export default function CatalogPage() {
 
                     {/* Quick Action Buttons */}
                     <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <button 
+                      <button
                         onClick={() => handleQuickView(product)}
                         className="w-8 h-8 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-sm transition-colors cursor-pointer"
+                        aria-label={`${product.name[language]}のクイックビュー`}
                       >
                         <i className="ri-eye-line text-sm text-stone-700"></i>
                       </button>
@@ -172,33 +195,39 @@ export default function CatalogPage() {
                     </h3>
                     <p className="text-sm text-stone-600">
                       {formatPrice(priceInCurrentCurrency, currency)}
-                      {product.variants.length > 1 && <span className="text-xs ml-1">~</span>}
                     </p>
-                    
-                    <button 
-                      onClick={() => handleAddToCart(product, lowestPriceVariant.id)}
+
+                    <button
+                      onClick={() =>
+                        handleAddToCart(product, lowestPriceVariant.id)
+                      }
                       disabled={isOutOfStock}
                       className="w-full mt-3 py-2 text-sm font-medium transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{
-                        color: isOutOfStock ? '#9ca3af' : '#57534e',
-                        borderColor: isOutOfStock ? '#d1d5db' : '#d6d3d1',
-                        border: '1px solid',
-                        backgroundColor: isOutOfStock ? '#f9fafb' : 'transparent'
+                        color: isOutOfStock ? "#9ca3af" : "#57534e",
+                        borderColor: isOutOfStock ? "#d1d5db" : "#d6d3d1",
+                        border: "1px solid",
+                        backgroundColor: isOutOfStock
+                          ? "#f9fafb"
+                          : "transparent",
                       }}
                       onMouseEnter={(e) => {
                         if (!isOutOfStock) {
-                          e.currentTarget.style.backgroundColor = '#1c1917';
-                          e.currentTarget.style.color = 'white';
+                          e.currentTarget.style.backgroundColor = "#1c1917";
+                          e.currentTarget.style.color = "white";
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (!isOutOfStock) {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#57534e';
+                          e.currentTarget.style.backgroundColor = "transparent";
+                          e.currentTarget.style.color = "#57534e";
                         }
                       }}
+                      aria-label={`${product.name[language]}をカートに追加`}
                     >
-                      {isOutOfStock ? t.common.waitingForStock : t.common.addToCart}
+                      {isOutOfStock
+                        ? t.common.waitingForStock
+                        : t.common.addToCart}
                     </button>
                   </div>
                 </div>
@@ -209,8 +238,12 @@ export default function CatalogPage() {
           {/* Results Info */}
           <div className="text-center mt-12 pt-8 border-t border-stone-200">
             <p className="text-stone-600">
-              {t.catalog.showing} {sortedProducts.length} {t.catalog.of} {products.length}
-              {selectedCategory !== 'all' && ` ${t.catalog.in} ${t.categories[selectedCategory as keyof typeof t.categories]}`}
+              {t.catalog.showing} {sortedProducts.length} {t.catalog.of}{" "}
+              {products.length}
+              {selectedCategory !== "all" &&
+                ` ${t.catalog.in} ${
+                  t.categories[selectedCategory as keyof typeof t.categories]
+                }`}
             </p>
           </div>
         </div>

@@ -135,7 +135,7 @@ export default function TestimonialsSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-stone-100 rounded-full">
             <i className="ri-shield-check-line text-stone-600"></i>
             <span className="text-sm text-stone-600 font-medium">
-              100% 天然成分 | 国産檜使用 | 満足度98%
+              100% 天然成分 | 国産檜使用
             </span>
           </div>
         </div>
