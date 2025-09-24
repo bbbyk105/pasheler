@@ -72,15 +72,8 @@ export const translations = {
     },
     categories: {
       all: "すべて",
-      cleansers: "クレンザー",
       moisturizers: "保湿剤",
-      serums: "美容液",
       masks: "マスク",
-      suncare: "日焼け止め",
-    },
-    footer: {
-      quickLinks: "クイックリンク",
-      madeWith: "Readdy で作成",
     },
     orderConfirmation: {
       title: "注文確認",

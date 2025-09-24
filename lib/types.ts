@@ -1,6 +1,5 @@
-
-export type Language = 'ja' | 'en';
-export type Currency = 'JPY' | 'USD';
+export type Language = "ja" | "en";
+export type Currency = "JPY" | "AUD";
 
 export interface CartItem {
   id: number;
@@ -14,7 +13,7 @@ export interface CartItem {
 }
 
 export interface DeliveryMethod {
-  id: 'delivery' | 'pickup';
+  id: "delivery" | "pickup";
   name: string;
   fee: number;
   description?: string;

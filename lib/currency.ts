@@ -1,13 +1,16 @@
-export type Currency = "JPY" | "USD";
+// utils/currency.ts
 
+export type Currency = "JPY" | "AUD";
+
+// 最新の為替レート（2025年9月24日現在）
 export const exchangeRates = {
-  JPY_TO_USD: 0.0067,
-  USD_TO_JPY: 149.25,
+  JPY_TO_AUD: 0.0103, // 1円 = 0.0103豪ドル（97.30円/1AUDから逆算）
+  AUD_TO_JPY: 97.3, // 1豪ドル = 97.30円
 };
 
 export const currencySymbols = {
   JPY: "¥",
-  USD: "$",
+  AUD: "A$",
 };
 
 export const formatPrice = (price: number, currency: Currency): string => {
@@ -27,15 +30,15 @@ export const convertPrice = (
 ): number => {
   if (fromCurrency === toCurrency) return price;
 
-  if (fromCurrency === "JPY" && toCurrency === "USD") {
-    return price * exchangeRates.JPY_TO_USD;
-  } else if (fromCurrency === "USD" && toCurrency === "JPY") {
-    return price * exchangeRates.USD_TO_JPY;
+  if (fromCurrency === "JPY" && toCurrency === "AUD") {
+    return price * exchangeRates.JPY_TO_AUD;
+  } else if (fromCurrency === "AUD" && toCurrency === "JPY") {
+    return price * exchangeRates.AUD_TO_JPY;
   }
 
   return price;
 };
 
 export const getShippingFee = (currency: Currency): number => {
-  return currency === "JPY" ? 550 : 5.5;
+  return currency === "JPY" ? 550 : 5.65; // 550円 ≈ 5.65豪ドル（550 * 0.0103）
 };

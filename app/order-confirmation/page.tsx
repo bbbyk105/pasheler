@@ -37,7 +37,7 @@ interface OrderData {
   customerInfo: CustomerInfo;
   deliveryMethod: "delivery" | "pickup";
   language: "ja" | "en";
-  currency: "JPY" | "USD";
+  currency: "JPY" | "AUD";
   subtotal: number;
   shipping: number;
   tax: number;
