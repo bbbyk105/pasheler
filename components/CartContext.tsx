@@ -8,7 +8,6 @@ import {
   useEffect,
 } from "react";
 import { Language, Currency, CartItem } from "../lib/types";
-import { convertPrice } from "../lib/currency";
 
 interface CartContextType {
   items: CartItem[];
@@ -96,8 +95,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalPrice = () => {
     return items.reduce((total, item) => {
-      const priceInCurrentCurrency = convertPrice(item.price, "JPY", currency);
-      return total + priceInCurrentCurrency * item.quantity;
+      // item.priceは既に現在の通貨での価格として保存されている
+      return total + item.price * item.quantity;
     }, 0);
   };
 

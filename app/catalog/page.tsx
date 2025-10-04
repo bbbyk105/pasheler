@@ -7,9 +7,9 @@ import CartNotification from "../../components/CartNotification";
 import ProductQuickView from "../../components/ProductQuickView";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { products } from "../../lib/products";
+import { products, type Product } from "../../lib/products";
 import { translations } from "../../lib/translations";
-import { formatPrice, convertPrice } from "../../lib/currency";
+import { formatPrice } from "../../lib/currency";
 
 export default function CatalogPage() {
   const { addToCart, language, currency } = useCart();
@@ -19,9 +19,9 @@ export default function CatalogPage() {
     productName: "",
   });
   const [sortBy, setSortBy] = useState("name");
-  const [quickViewProduct, setQuickViewProduct] = useState<
-    (typeof products)[0] | null
-  >(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(
+    null
+  );
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const t = translations[language];
@@ -34,17 +34,14 @@ export default function CatalogPage() {
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === "price") {
-      const aPrice = convertPrice(a.variants[0].price, "JPY", currency);
-      const bPrice = convertPrice(b.variants[0].price, "JPY", currency);
+      const aPrice = a.variants[0]?.prices?.[currency] ?? 0;
+      const bPrice = b.variants[0]?.prices?.[currency] ?? 0;
       return aPrice - bPrice;
     }
     return a.name[language].localeCompare(b.name[language]);
   });
 
-  const handleAddToCart = (
-    product: (typeof products)[0],
-    variantId: string
-  ) => {
+  const handleAddToCart = (product: Product, variantId: string) => {
     const variant = product.variants.find((v) => v.id === variantId);
     if (!variant || variant.stock === 0) return;
 
@@ -53,7 +50,7 @@ export default function CatalogPage() {
       variantId: variant.id,
       name: product.name[language],
       size: variant.size,
-      price: variant.price,
+      price: variant.prices[currency],
       image: product.image,
       stock: variant.stock,
     });
@@ -61,7 +58,7 @@ export default function CatalogPage() {
     setNotification({ show: true, productName: product.name[language] });
   };
 
-  const handleQuickView = (product: (typeof products)[0]) => {
+  const handleQuickView = (product: Product) => {
     setQuickViewProduct(product);
     setIsQuickViewOpen(true);
   };
@@ -135,18 +132,24 @@ export default function CatalogPage() {
             data-product-shop
           >
             {sortedProducts.map((product) => {
-              const lowestPriceVariant = product.variants.reduce(
-                (min, variant) => (variant.price < min.price ? variant : min)
-              );
+              // 最安値のバリアントを取得
+              const lowestPriceVariant =
+                product.variants.length > 0
+                  ? product.variants.reduce(
+                      (min, variant) =>
+                        variant.prices[currency] < min.prices[currency]
+                          ? variant
+                          : min,
+                      product.variants[0]
+                    )
+                  : product.variants[0];
+
               const isOutOfStock = product.variants.every((v) => v.stock === 0);
               const hasLowStock = product.variants.some(
                 (v) => v.stock > 0 && v.stock <= 5
               );
-              const priceInCurrentCurrency = convertPrice(
-                lowestPriceVariant.price,
-                "JPY",
-                currency
-              );
+              const priceInCurrentCurrency =
+                lowestPriceVariant?.prices[currency] ?? 0;
 
               return (
                 <div key={product.id} className="group">
@@ -199,7 +202,7 @@ export default function CatalogPage() {
 
                     <button
                       onClick={() =>
-                        handleAddToCart(product, lowestPriceVariant.id)
+                        handleAddToCart(product, lowestPriceVariant?.id ?? "")
                       }
                       disabled={isOutOfStock}
                       className="w-full mt-3 py-2 text-sm font-medium transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"

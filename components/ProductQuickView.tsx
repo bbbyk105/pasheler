@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useCart } from "./CartContext";
-import { formatPrice, convertPrice } from "../lib/currency";
+import { formatPrice } from "../lib/currency";
 import { translations } from "../lib/translations";
 import { Product } from "../lib/products";
 import Image from "next/image";
@@ -39,11 +39,7 @@ export default function ProductQuickView({
   const currentVariant = product.variants.find((v) => v.id === selectedVariant);
   if (!currentVariant) return null;
 
-  const priceInCurrentCurrency = convertPrice(
-    currentVariant.price,
-    "JPY",
-    currency
-  );
+  const priceInCurrentCurrency = currentVariant.prices[currency];
   const isOutOfStock = currentVariant.stock === 0;
   const maxQuantity = Math.min(currentVariant.stock, 10);
 
@@ -116,11 +112,7 @@ export default function ProductQuickView({
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {product.variants.map((variant) => {
-                      const variantPrice = convertPrice(
-                        variant.price,
-                        "JPY",
-                        currency
-                      );
+                      const variantPrice = variant.prices[currency];
                       return (
                         <button
                           key={variant.id}

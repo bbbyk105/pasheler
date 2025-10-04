@@ -1,7 +1,10 @@
 export interface ProductVariant {
   id: string;
   size: string;
-  price: number;
+  prices: {
+    JPY: number;
+    AUD: number;
+  };
   stock: number;
 }
 
@@ -41,7 +44,17 @@ export const products: Product[] = [
     },
     category: "masks",
     image: "/products/fragrance.webp",
-    variants: [{ id: "1-50ml", size: "50ml", price: 1650, stock: 15 }],
+    variants: [
+      {
+        id: "1-50ml",
+        size: "50ml",
+        prices: {
+          JPY: 1650,
+          AUD: 25,
+        },
+        stock: 15,
+      },
+    ],
     ingredients: {
       ja: ["イチジクエキス", "カオリン", "シアバター", "ホホバオイル"],
       en: ["Fig Extract", "Kaolin", "Shea Butter", "Jojoba Oil"],
@@ -63,7 +76,17 @@ export const products: Product[] = [
     },
     category: "moisturizers",
     image: "/products/fragrance2.webp",
-    variants: [{ id: "2-4g", size: "4g", price: 1650, stock: 25 }],
+    variants: [
+      {
+        id: "2-4g",
+        size: "4g",
+        prices: {
+          JPY: 1650,
+          AUD: 25,
+        },
+        stock: 25,
+      },
+    ],
     ingredients: {
       ja: ["ハチミツ", "シアバター", "ミツロウ", "ココナッツオイル"],
       en: ["Honey", "Shea Butter", "Beeswax", "Coconut Oil"],
@@ -85,7 +108,17 @@ export const products: Product[] = [
     },
     category: "suncare",
     image: "/products/fragrance3.webp",
-    variants: [{ id: "3-50ml", size: "50ml", price: 2913, stock: 20 }],
+    variants: [
+      {
+        id: "3-50ml",
+        size: "50ml",
+        prices: {
+          JPY: 2913,
+          AUD: 30,
+        },
+        stock: 20,
+      },
+    ],
     ingredients: {
       ja: ["ライスエキス", "酸化亜鉛", "酸化チタン", "アロエベラ"],
       en: ["Rice Extract", "Zinc Oxide", "Titanium Dioxide", "Aloe Vera"],

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "../../components/CartContext";
-import { formatPrice, convertPrice, getShippingFee } from "../../lib/currency";
+import { formatPrice, getShippingFee } from "../../lib/currency";
 import { translations } from "../../lib/translations";
 import Image from "next/image";
 
@@ -28,12 +28,7 @@ export default function OrderSummary({ deliveryMethod }: OrderSummaryProps) {
       {/* Items */}
       <div className="space-y-4 mb-6">
         {items.map((item) => {
-          const priceInCurrentCurrency = convertPrice(
-            item.price,
-            "JPY",
-            currency
-          );
-          const totalItemPrice = priceInCurrentCurrency * item.quantity;
+          const totalItemPrice = item.price * item.quantity;
 
           return (
             <div key={`${item.id}-${item.variantId}`} className="flex gap-4">
