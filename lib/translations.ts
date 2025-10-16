@@ -72,8 +72,8 @@ export const translations = {
     },
     categories: {
       all: "すべて",
-      moisturizers: "保湿剤",
-      masks: "マスク",
+      fragrances: "フレグランス",
+      fragrancePapers: "フレグランスペーパー",
     },
     orderConfirmation: {
       title: "注文確認",
@@ -157,11 +157,8 @@ export const translations = {
     },
     categories: {
       all: "All",
-      cleansers: "Cleansers",
-      moisturizers: "Moisturizers",
-      serums: "Serums",
-      masks: "Masks",
-      suncare: "Suncare",
+      fragrances: "Fragrances",
+      fragrancePapers: "Fragrance Papers",
     },
     footer: {
       quickLinks: "Quick Links",

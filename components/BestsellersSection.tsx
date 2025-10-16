@@ -1,51 +1,47 @@
 "use client";
-
-import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { useCart } from "./CartContext";
 import CartNotification from "./CartNotification";
 import ProductQuickView from "./ProductQuickView";
-
-const bestsellers = [
-  {
-    id: 1,
-    name: "檜エッセンシャルオイル",
-    price: "¥4,800",
-    category: "フレグランスオイル",
-    image: "products/fragrance.webp",
-  },
-  {
-    id: 2,
-    name: "檜リードディフューザー",
-    price: "¥6,200",
-    category: "ホームフレグランス",
-    image: "products/fragrance2.webp",
-  },
-  {
-    id: 3,
-    name: "檜ハンドクリーム",
-    price: "¥2,980",
-    category: "ボディケア",
-    image: "products/fragrance3.webp",
-  },
-];
+import { products, type Product } from "../lib/products";
+import { translations } from "../lib/translations";
+import { formatPrice } from "../lib/currency";
 
 export default function BestsellersSection() {
-  const { addToCart } = useCart();
+  const { addToCart, language, currency } = useCart();
   const [cartNotification, setCartNotification] = useState({
     show: false,
     productName: "",
   });
-  const [quickViewProduct, setQuickViewProduct] = useState(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(
+    null
+  );
   const [showQuickView, setShowQuickView] = useState(false);
 
-  const handleAddToCart = (product: any) => {
-    addToCart({ ...product, quantity: 1 });
-    setCartNotification({ show: true, productName: product.name });
+  const t = translations[language];
+
+  // lib/productsから最初の3つの商品を取得（または特定の条件で選択）
+  const bestsellers = products.slice(0, 3);
+
+  const handleAddToCart = (product: Product, variantId: string) => {
+    const variant = product.variants.find((v) => v.id === variantId);
+    if (!variant || variant.stock === 0) return;
+
+    addToCart({
+      id: product.id,
+      variantId: variant.id,
+      name: product.name[language],
+      size: variant.size,
+      price: variant.prices[currency],
+      image: product.image,
+      stock: variant.stock,
+    });
+
+    setCartNotification({ show: true, productName: product.name[language] });
   };
 
-  const handleQuickView = (product: any) => {
+  const handleQuickView = (product: Product) => {
     setQuickViewProduct(product);
     setShowQuickView(true);
   };
@@ -65,82 +61,126 @@ export default function BestsellersSection() {
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="text-3xl font-serif text-stone-800 mb-2">
-              人気の檜製品
+              {language === "ja" ? "人気の檜製品" : "Popular Hinoki Products"}
             </h2>
             <p className="text-sm text-stone-600">
-              自然の恵みを込めた、厳選された檜コレクション
+              {language === "ja"
+                ? "自然の恵みを込めた、厳選された檜コレクション"
+                : "Carefully selected hinoki collection infused with nature's blessings"}
             </p>
           </div>
-          <Link
-            href="/hinoki-collection"
-            className="text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors border-b border-stone-400 hover:border-stone-800 whitespace-nowrap cursor-pointer"
-          >
-            すべて見る
-          </Link>
         </div>
 
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           data-product-shop
         >
-          {bestsellers.map((product) => (
-            <div key={product.id} className="group">
-              <div className="relative aspect-square mb-4 overflow-hidden bg-stone-50 rounded-lg">
-                <Image
-                  src={product.image}
-                  alt={`${product.name} - ${product.category}`}
-                  fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+          {bestsellers.map((product) => {
+            // 最安値のバリアントを取得
+            const lowestPriceVariant =
+              product.variants.length > 0
+                ? product.variants.reduce(
+                    (min, variant) =>
+                      variant.prices[currency] < min.prices[currency]
+                        ? variant
+                        : min,
+                    product.variants[0]
+                  )
+                : product.variants[0];
 
-                {/* Quick Action Buttons */}
-                <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            const isOutOfStock = product.variants.every((v) => v.stock === 0);
+            const hasLowStock = product.variants.some(
+              (v) => v.stock > 0 && v.stock <= 5
+            );
+            const priceInCurrentCurrency =
+              lowestPriceVariant?.prices[currency] ?? 0;
+
+            return (
+              <div key={product.id} className="group">
+                <div className="relative aspect-square mb-4 overflow-hidden bg-stone-50 rounded-lg">
+                  <Image
+                    src={product.image}
+                    alt={product.name[language]}
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+
+                  {/* Stock Status Badge */}
+                  <div className="absolute top-4 left-4">
+                    {isOutOfStock ? (
+                      <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
+                        {t.common.outOfStock}
+                      </span>
+                    ) : hasLowStock ? (
+                      <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 rounded-full">
+                        {language === "ja" ? "残りわずか" : "Low Stock"}
+                      </span>
+                    ) : (
+                      <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
+                        {t.common.inStock}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Quick Action Buttons */}
+                  <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button
+                      onClick={() => handleQuickView(product)}
+                      className="w-8 h-8 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-sm transition-colors cursor-pointer"
+                      aria-label={`${product.name[language]}のクイックビュー`}
+                    >
+                      <i className="ri-eye-line text-sm text-stone-700"></i>
+                    </button>
+                  </div>
+
+                  {/* カテゴリバッジ */}
+                  <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="px-2 py-1 text-xs font-medium bg-stone-100 text-stone-700 rounded-full">
+                      {t.categories[
+                        product.category as keyof typeof t.categories
+                      ] || product.category}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="font-medium text-stone-800 group-hover:text-stone-600 transition-colors">
+                    {product.name[language]}
+                  </h3>
+                  <p className="text-sm text-stone-600 font-medium">
+                    {formatPrice(priceInCurrentCurrency, currency)}
+                  </p>
+
                   <button
-                    onClick={() => handleQuickView(product)}
-                    className="w-8 h-8 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-sm transition-colors cursor-pointer"
-                    aria-label={`${product.name}のクイックビュー`}
+                    onClick={() =>
+                      handleAddToCart(product, lowestPriceVariant?.id ?? "")
+                    }
+                    disabled={isOutOfStock}
+                    className="w-full mt-3 py-2 text-sm font-medium text-stone-700 border border-stone-300 hover:bg-stone-800 hover:text-white transition-colors whitespace-nowrap cursor-pointer rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label={`${product.name[language]}をカートに追加`}
                   >
-                    <i className="ri-eye-line text-sm text-stone-700"></i>
+                    {isOutOfStock
+                      ? t.common.waitingForStock
+                      : t.common.addToCart}
                   </button>
                 </div>
-
-                {/* カテゴリバッジ */}
-                <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="px-2 py-1 text-xs font-medium bg-stone-100 text-stone-700 rounded-full">
-                    {product.category}
-                  </span>
-                </div>
               </div>
-
-              <div className="space-y-2">
-                <h3 className="font-medium text-stone-800 group-hover:text-stone-600 transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-stone-600 font-medium">
-                  {product.price}
-                </p>
-
-                <button
-                  onClick={() => handleAddToCart(product)}
-                  className="w-full mt-3 py-2 text-sm font-medium text-stone-700 border border-stone-300 hover:bg-stone-800 hover:text-white transition-colors whitespace-nowrap cursor-pointer rounded-md"
-                  aria-label={`${product.name}をカートに追加`}
-                >
-                  カートに追加
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* 特徴セクション */}
         <div className="mt-16 text-center">
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-xl font-serif text-stone-800 mb-4">檜の恵み</h3>
+            <h3 className="text-xl font-serif text-stone-800 mb-4">
+              {language === "ja" ? "檜の恵み" : "The Blessing of Hinoki"}
+            </h3>
             <p className="text-stone-600 leading-relaxed">
-              日本古来から愛され続ける檜の香りは、心を落ち着かせ、リラックス効果をもたらします。
-              抗菌・防虫効果もあり、自然の恵みを日常生活に取り入れることができます。
+              {language === "ja"
+                ? "日本古来から愛され続ける檜の香りは、心を落ち着かせ、リラックス効果をもたらします。抗菌・防虫効果もあり、自然の恵みを日常生活に取り入れることができます。"
+                : "The fragrance of hinoki, beloved in Japan since ancient times, calms the mind and brings relaxation. With its antibacterial and insect-repelling properties, you can incorporate nature's blessings into your daily life."}
             </p>
           </div>
         </div>

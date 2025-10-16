@@ -42,7 +42,7 @@ export const products: Product[] = [
       ja: "天然イチジクエキス配合のスクラブマスクで、古い角質を優しく除去し、なめらかな肌に導きます。",
       en: "A gentle scrub mask with natural fig extract that removes dead skin cells for smooth, radiant skin.",
     },
-    category: "masks",
+    category: "fragrancePapers",
     image: "/products/fragrance.webp",
     variants: [
       {
@@ -74,7 +74,7 @@ export const products: Product[] = [
       ja: "天然ハチミツとシアバターで唇を深く保湿し、柔らかく滑らかな唇に仕上げます。",
       en: "Deeply moisturizes lips with natural honey and shea butter for soft, smooth lips.",
     },
-    category: "moisturizers",
+    category: "fragrancePapers",
     image: "/products/fragrance2.webp",
     variants: [
       {
@@ -106,7 +106,7 @@ export const products: Product[] = [
       ja: "ライスエキス配合のSPF50+日焼け止め。肌を守りながら明るく健康的な肌色をキープします。",
       en: "SPF50+ sunscreen with rice extract that protects while maintaining bright, healthy skin tone.",
     },
-    category: "suncare",
+    category: "fragrances",
     image: "/products/fragrance3.webp",
     variants: [
       {

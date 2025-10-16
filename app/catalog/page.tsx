@@ -25,7 +25,7 @@ export default function CatalogPage() {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const t = translations[language];
-  const categories = ["all", "moisturizers", "masks"];
+  const categories = ["all", "fragrances", "fragrancePapers"];
 
   const filteredProducts = products.filter(
     (product) =>
