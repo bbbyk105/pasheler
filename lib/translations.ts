@@ -83,6 +83,43 @@ export const translations = {
       deliveryInfo: "配送情報",
       pickupInfo: "受け取り情報",
     },
+
+    contact: {
+      heroTitle: "Contact",
+      heroSubtitle: "ご意見・ご質問をお待ちしております",
+      getInTouch: "お問い合わせ",
+      intro:
+        "製品に関するご質問やご相談はございますか？\n以下のいずれの方法からでもお気軽にご連絡ください。",
+      ourStore: "店舗",
+      callUs: "お電話",
+      emailUs: "メール",
+      followUs: "SNS",
+      sendMessage: "メッセージを送る",
+      fields: {
+        fullName: "お名前 *",
+        email: "メールアドレス *",
+        subject: "件名 *",
+        message: "本文 *",
+      },
+      placeholders: {
+        fullName: "お名前を入力してください",
+        email: "メールアドレスを入力してください",
+        subject: "お問い合わせの内容",
+        message: "どのようにお手伝いできますか？",
+      },
+      submit: "送信",
+      phoneHours: "平日 9:00–18:00（日本時間）",
+      charactersSuffix: "文字",
+      addressMultiline: "静岡県富士市松本 42-31\n日本",
+      aria: {
+        openInstagram: "Instagramを開く",
+        openX: "X（旧Twitter）を開く",
+      },
+      alerts: {
+        submittedTitle: "ありがとうございます",
+        submittedBody: "折り返しご連絡いたします。",
+      },
+    },
   },
   en: {
     nav: {
@@ -171,6 +208,43 @@ export const translations = {
       orderSummary: "Order Summary",
       deliveryInfo: "Delivery Information",
       pickupInfo: "Pickup Information",
+    },
+
+    contact: {
+      heroTitle: "Contact Us",
+      heroSubtitle: "We'd love to hear from you",
+      getInTouch: "Get in Touch",
+      intro:
+        "Do you have any questions or inquiries about our products? Please feel free to contact us through any of the methods below.",
+      ourStore: "Our Store",
+      callUs: "Call Us",
+      emailUs: "Email Us",
+      followUs: "Follow Us",
+      sendMessage: "Send us a Message",
+      fields: {
+        fullName: "Full Name *",
+        email: "Email Address *",
+        subject: "Subject *",
+        message: "Message *",
+      },
+      placeholders: {
+        fullName: "Enter your full name",
+        email: "Enter your email",
+        subject: "What's this about?",
+        message: "Tell us how we can help you...",
+      },
+      submit: "SEND MESSAGE",
+      phoneHours: "Mon–Fri 9AM–6PM JST",
+      charactersSuffix: "characters",
+      addressMultiline: "42-31 Matsumoto, Fuji-shi,\nShizuoka, Japan",
+      aria: {
+        openInstagram: "Open Instagram",
+        openX: "Open X (Twitter)",
+      },
+      alerts: {
+        submittedTitle: "Thank you for your message!",
+        submittedBody: "We will get back to you soon.",
+      },
     },
   },
 };
