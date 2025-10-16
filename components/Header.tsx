@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
 import { useCart } from "./CartContext";
 import CartSidebar from "./CartSidebar";
 import LanguageCurrencySelector from "./LanguageCurrencySelector";
@@ -13,21 +12,8 @@ export default function Header() {
   const { getTotalItems, language, currency, setLanguage, setCurrency } =
     useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
   const totalItems = getTotalItems();
   const t = translations[language];
-
-  const handleAboutClick = () => {
-    if (pathname === "/") {
-      const aboutSection = document.getElementById("about");
-      if (aboutSection) {
-        aboutSection.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      router.push("/#about");
-    }
-  };
 
   return (
     <>
@@ -73,12 +59,6 @@ export default function Header() {
               >
                 {t.nav.products}
               </Link>
-              <button
-                onClick={handleAboutClick}
-                className="text-stone-700 hover:text-stone-900 transition-colors duration-200"
-              >
-                {t.nav.about}
-              </button>
               <Link
                 href="/contact"
                 className="text-stone-700 hover:text-stone-900 transition-colors duration-200"

@@ -3,7 +3,6 @@ export const translations = {
     nav: {
       home: "ホーム",
       products: "商品",
-      about: " 概要",
       contact: "お問い合わせ",
     },
     common: {
@@ -125,7 +124,6 @@ export const translations = {
     nav: {
       home: "Home",
       products: "Products",
-      about: "About",
       contact: "Contact",
     },
     common: {
