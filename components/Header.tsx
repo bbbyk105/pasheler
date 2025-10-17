@@ -7,6 +7,7 @@ import CartSidebar from "./CartSidebar";
 import LanguageCurrencySelector from "./LanguageCurrencySelector";
 import { translations } from "../lib/translations";
 import Image from "next/image";
+import HamburgerMenu from "./HamburgerMenu";
 
 export default function Header() {
   const { getTotalItems, language, currency, setLanguage, setCurrency } =
@@ -88,6 +89,7 @@ export default function Header() {
                   </span>
                 )}
               </button>
+              <HamburgerMenu />
             </div>
           </div>
         </div>
