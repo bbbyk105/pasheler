@@ -46,7 +46,6 @@ export default function OrderSummary({ deliveryMethod }: OrderSummaryProps) {
                 <h3 className="font-medium text-stone-800 text-sm">
                   {item.name}
                 </h3>
-                <p className="text-stone-600 text-xs">{item.size}</p>
                 <p className="text-stone-600 text-sm">
                   {t.common.quantity}: {item.quantity}
                 </p>

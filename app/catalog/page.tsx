@@ -49,7 +49,6 @@ export default function CatalogPage() {
       id: product.id,
       variantId: variant.id,
       name: product.name[language],
-      size: variant.size,
       price: variant.prices[currency],
       image: product.image,
       stock: variant.stock,

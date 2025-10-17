@@ -92,7 +92,6 @@ export default function CartContent() {
                         <h3 className="font-medium text-stone-800">
                           {item.name}
                         </h3>
-                        <p className="text-stone-600 text-sm">{item.size}</p>
                         <p className="text-stone-600">
                           {formatPrice(item.price, currency)}
                         </p>

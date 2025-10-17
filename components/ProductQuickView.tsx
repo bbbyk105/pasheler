@@ -125,7 +125,6 @@ export default function ProductQuickView({
                           }`}
                         >
                           <div className="text-center">
-                            <div className="font-medium">{variant.size}</div>
                             <div className="text-xs">
                               {formatPrice(variantPrice, currency)}
                             </div>
