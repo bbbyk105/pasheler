@@ -88,13 +88,6 @@ export default function Header() {
                   </span>
                 )}
               </button>
-
-              <button
-                className="md:hidden p-2 rounded-lg hover:bg-stone-50 transition-colors duration-200"
-                aria-label="メニュー"
-              >
-                <i className="ri-menu-line text-xl text-stone-700"></i>
-              </button>
             </div>
           </div>
         </div>
