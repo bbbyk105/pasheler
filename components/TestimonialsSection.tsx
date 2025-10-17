@@ -7,30 +7,27 @@ export default function TestimonialsSection() {
   const testimonials = [
     {
       id: 1,
-      name: "田中 美香",
+      name: "Joel Kim",
       location: "東京",
       rating: 5,
-      text: "檜エッセンシャルオイルを使い始めて2週間で、毎日の疲れがすっと抜けるようになりました。森林浴をしているような深いリラックス効果を感じています。",
-      image:
-        "https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20Japanese%20woman%20in%20her%2030s%20with%20serene%20expression%2C%20natural%20beauty%2C%20warm%20smile%2C%20clean%20white%20background%2C%20soft%20lighting&width=80&height=80&seq=hinoki_testimonial1&orientation=squarish",
+      text: "ヒノキフレグランスを使い始めて2週間で、毎日の疲れがすっと抜けるようになりました。森林浴をしているような深いリラックス効果を感じています。",
+      image: "/people/joel.webp",
     },
     {
       id: 2,
       name: "佐藤 恵子",
       location: "大阪",
-      rating: 5,
+      rating: 4,
       text: "リードディフューザーを寝室に置いてから、睡眠の質が格段に向上しました。檜の香りに包まれて眠るのが毎日の楽しみになっています。",
-      image:
-        "https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20Japanese%20woman%20in%20her%2040s%20with%20peaceful%20expression%2C%20healthy%20skin%2C%20gentle%20smile%2C%20clean%20background%2C%20natural%20lighting&width=80&height=80&seq=hinoki_testimonial2&orientation=squarish",
+      image: "/people/kimono.webp",
     },
     {
       id: 3,
       name: "山田 真理子",
       location: "京都",
       rating: 5,
-      text: "檜キャンドルの香りは本当に心が落ち着きます。仕事で疲れた夜に灯すと、まるで温泉旅館にいるような癒しを感じられます。",
-      image:
-        "https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20Japanese%20woman%20in%20her%2020s%20with%20radiant%20skin%2C%20natural%20glow%2C%20confident%20smile%2C%20clean%20white%20background%2C%20professional%20lighting&width=80&height=80&seq=hinoki_testimonial3&orientation=squarish",
+      text: "檜の香りは本当に心が落ち着きます。仕事で疲れた夜に灯すと、まるで温泉旅館にいるような癒しを感じられます。",
+      image: "/people/japan.webp",
     },
   ];
 
