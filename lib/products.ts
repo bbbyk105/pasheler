@@ -49,8 +49,8 @@ export const products: Product[] = [
         id: "1-50ml",
         size: "50ml",
         prices: {
-          JPY: 1650,
-          AUD: 25,
+          JPY: 880,
+          AUD: 17,
         },
         stock: 15,
       },
@@ -81,8 +81,8 @@ export const products: Product[] = [
         id: "2-4g",
         size: "4g",
         prices: {
-          JPY: 1650,
-          AUD: 25,
+          JPY: 880,
+          AUD: 17,
         },
         stock: 25,
       },
@@ -113,8 +113,8 @@ export const products: Product[] = [
         id: "3-50ml",
         size: "50ml",
         prices: {
-          JPY: 2913,
-          AUD: 30,
+          JPY: 1100,
+          AUD: 20,
         },
         stock: 20,
       },
