@@ -1,6 +1,5 @@
 export interface ProductVariant {
   id: string;
-  size: string;
   prices: {
     JPY: number;
     AUD: number;
@@ -39,15 +38,14 @@ export const products: Product[] = [
       en: "Hinoki Fragrance Paper (Tree Shape)",
     },
     description: {
-      ja: "天然イチジクエキス配合のスクラブマスクで、古い角質を優しく除去し、なめらかな肌に導きます。",
-      en: "A gentle scrub mask with natural fig extract that removes dead skin cells for smooth, radiant skin.",
+      ja: "100％ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
+      en: "Fragrance paper infused with 100% hinoki extract liquid, offering a refreshing and calming scent. Spray with the included mini bottle of hinoki water to revive the fragrance.",
     },
     category: "fragrancePapers",
     image: "/products/fragrance.webp",
     variants: [
       {
-        id: "1-50ml",
-        size: "50ml",
+        id: "1-standard",
         prices: {
           JPY: 880,
           AUD: 17,
@@ -56,30 +54,37 @@ export const products: Product[] = [
       },
     ],
     ingredients: {
-      ja: ["イチジクエキス", "カオリン", "シアバター", "ホホバオイル"],
-      en: ["Fig Extract", "Kaolin", "Shea Butter", "Jojoba Oil"],
+      ja: [
+        "富士ひのき蒸留水",
+        "国産ひのきアロマオイル",
+        "バイオマス不織布（セルロース・PLA）",
+      ],
+      en: [
+        "Fuji Hinoki Distilled Water",
+        "Domestic Hinoki Aroma Oil",
+        "Biomass Non-woven Fabric (Cellulose, PLA)",
+      ],
     },
     howToUse: {
-      ja: "週に1-2回、清潔な肌に適量を塗り、円を描くようにマッサージしてから洗い流してください。",
-      en: "Apply to clean skin 1-2 times per week, massage in circular motions, then rinse thoroughly.",
+      ja: "バッグに入れて持ち歩いたり、キャンドルのそばに置いたり、マスクにひと吹きしたり、モビールとして吊るしたり、様々な場面で香りをお楽しみください。香りが弱くなったら付属のひのきウォーターを吹きかけてください。",
+      en: "Carry in your bag, place near candles, spray on masks, or hang as a mobile. When the scent fades, spray with the included hinoki water to revive it.",
     },
   },
   {
     id: 2,
     name: {
       ja: "ヒノキフレグランスペーパー (四角形)",
-      en: "Hinoki Fragrance Paper",
+      en: "Hinoki Fragrance Paper (Square Shape)",
     },
     description: {
-      ja: "天然ハチミツとシアバターで唇を深く保湿し、柔らかく滑らかな唇に仕上げます。",
-      en: "Deeply moisturizes lips with natural honey and shea butter for soft, smooth lips.",
+      ja: "100％ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
+      en: "Fragrance paper infused with 100% hinoki extract liquid, offering a refreshing and calming scent. Spray with the included mini bottle of hinoki water to revive the fragrance.",
     },
     category: "fragrancePapers",
     image: "/products/fragrance2.webp",
     variants: [
       {
-        id: "2-4g",
-        size: "4g",
+        id: "2-standard",
         prices: {
           JPY: 880,
           AUD: 17,
@@ -88,30 +93,37 @@ export const products: Product[] = [
       },
     ],
     ingredients: {
-      ja: ["ハチミツ", "シアバター", "ミツロウ", "ココナッツオイル"],
-      en: ["Honey", "Shea Butter", "Beeswax", "Coconut Oil"],
+      ja: [
+        "富士ひのき蒸留水",
+        "国産ひのきアロマオイル",
+        "バイオマス不織布（セルロース・PLA）",
+      ],
+      en: [
+        "Fuji Hinoki Distilled Water",
+        "Domestic Hinoki Aroma Oil",
+        "Biomass Non-woven Fabric (Cellulose, PLA)",
+      ],
     },
     howToUse: {
-      ja: "必要に応じて唇に優しく塗布してください。",
-      en: "Apply gently to lips as needed.",
+      ja: "バッグに入れて持ち歩いたり、キャンドルのそばに置いたり、マスクにひと吹きしたり、モビールとして吊るしたり、様々な場面で香りをお楽しみください。香りが弱くなったら付属のひのきウォーターを吹きかけてください。",
+      en: "Carry in your bag, place near candles, spray on masks, or hang as a mobile. When the scent fades, spray with the included hinoki water to revive it.",
     },
   },
   {
     id: 3,
     name: {
-      ja: "ヒノキアロマウォーター",
-      en: "Hinoki aroma water",
+      ja: "ひのきウォーター (3本セット)",
+      en: "Hinoki Aroma Water Mini Bottle (3-Pack)",
     },
     description: {
-      ja: "ライスエキス配合のSPF50+日焼け止め。肌を守りながら明るく健康的な肌色をキープします。",
-      en: "SPF50+ sunscreen with rice extract that protects while maintaining bright, healthy skin tone.",
+      ja: "富士山の麓のひのき抽出液に、国産ひのきアロマをブレンドしたポータブルタイプのひのきウォーター3本セット。携帯用としてフレグランスペーパーと併せて使ったり、空間のリフレッシュミストとしても活用できます。",
+      en: "A 3-pack of portable hinoki water blending Fuji hinoki extract with domestic hinoki aroma. Use with fragrance paper or as a refreshing room mist.",
     },
     category: "fragrances",
     image: "/products/fragrance3.webp",
     variants: [
       {
-        id: "3-50ml",
-        size: "50ml",
+        id: "3-3pack",
         prices: {
           JPY: 1100,
           AUD: 20,
@@ -120,12 +132,20 @@ export const products: Product[] = [
       },
     ],
     ingredients: {
-      ja: ["ライスエキス", "酸化亜鉛", "酸化チタン", "アロエベラ"],
-      en: ["Rice Extract", "Zinc Oxide", "Titanium Dioxide", "Aloe Vera"],
+      ja: [
+        "富士ひのき蒸留水（100％天然）",
+        "国産ひのきアロマオイル（天然100％）",
+        "ミネラル",
+      ],
+      en: [
+        "Fuji Hinoki Distilled Water (100% Natural)",
+        "Domestic Hinoki Aroma Oil (100% Natural)",
+        "Minerals",
+      ],
     },
     howToUse: {
-      ja: "外出の30分前に顔と体に均等に塗布し、2時間ごとに塗り直してください。",
-      en: "Apply evenly to face and body 30 minutes before sun exposure. Reapply every 2 hours.",
+      ja: "フレグランスペーパーに吹きかけて香りを復活させたり、バッグや寝具、衣類などに軽くスプレーしたり、お部屋や車内のリフレッシュミストとしてお使いください。空間・肌・髪など多用途に活躍します。",
+      en: "Spray on fragrance paper to revive the scent, lightly spray on bags, bedding, or clothing, or use as a refreshing mist for rooms and cars. Suitable for space, skin, and hair.",
     },
   },
 ];
