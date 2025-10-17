@@ -62,9 +62,9 @@ export const translations = {
       addedToCart: "カートに追加されました",
     },
     catalog: {
-      title: "商品カタログ",
+      title: "商品一覧",
       description:
-        "自然なスキンケア製品の完全なコレクションをご覧ください。毎日の美容ルーチンのために、オーガニック成分で丁寧に作られています。",
+        "富士山の麓で育った檜から生まれた、自然の香りシリーズ。日常に癒しと安らぎをもたらす、天然由来の香りアイテムをお届けします。",
       showing: "件の商品を表示中",
       of: "件中",
       in: "カテゴリー：",
@@ -185,7 +185,7 @@ export const translations = {
     catalog: {
       title: "Product Catalog",
       description:
-        "Discover our complete collection of natural skincare products, carefully crafted with organic ingredients for your daily beauty routine.",
+        "Discover our natural fragrance collection born from hinoki cypress grown at the foot of Mount Fuji, bringing healing and tranquility to your daily life.",
       showing: "Showing",
       of: "of",
       in: "in",
