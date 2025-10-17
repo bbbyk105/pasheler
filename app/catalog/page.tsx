@@ -241,8 +241,8 @@ export default function CatalogPage() {
           {/* Results Info */}
           <div className="text-center mt-12 pt-8 border-t border-stone-200">
             <p className="text-stone-600">
-              {t.catalog.showing} {sortedProducts.length} {t.catalog.of}{" "}
               {products.length}
+              {t.catalog.showing} {sortedProducts.length} {t.catalog.of}
               {selectedCategory !== "all" &&
                 ` ${t.catalog.in} ${
                   t.categories[selectedCategory as keyof typeof t.categories]
