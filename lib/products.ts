@@ -34,8 +34,8 @@ export const products: Product[] = [
   {
     id: 1,
     name: {
-      ja: "ヒノキフレグランスペーパー (木型)",
-      en: "Hinoki Fragrance Paper (Tree Shape)",
+      ja: "ヒノキフレグランスペーパー \n(木型)",
+      en: "Hinoki Fragrance Paper \n(Tree Shape)",
     },
     description: {
       ja: "100％ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
@@ -73,8 +73,8 @@ export const products: Product[] = [
   {
     id: 2,
     name: {
-      ja: "ヒノキフレグランスペーパー (四角形)",
-      en: "Hinoki Fragrance Paper (Square Shape)",
+      ja: "ヒノキフレグランスペーパー \n(四角形)",
+      en: "Hinoki Fragrance Paper \n(Square Shape)",
     },
     description: {
       ja: "100％ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",

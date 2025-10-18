@@ -104,7 +104,7 @@ export const translations = {
         fullName: "お名前を入力してください",
         email: "メールアドレスを入力してください",
         subject: "お問い合わせの内容",
-        message: "どのようにお手伝いできますか？",
+        message: "メッセージを入力してください",
       },
       submit: "送信",
       phoneHours: "平日 9:00–18:00（日本時間）",
