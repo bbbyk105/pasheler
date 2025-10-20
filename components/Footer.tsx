@@ -55,12 +55,6 @@ export default function Footer() {
                   Shopping Cart
                 </Link>
                 <Link
-                  href="/wishlist"
-                  className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  Wishlist
-                </Link>
-                <Link
                   href="/contact"
                   className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
                 >

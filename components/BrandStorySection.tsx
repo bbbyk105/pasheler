@@ -1,49 +1,31 @@
+// components/BrandStorySection.tsx
+
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
+import { useCart } from "./CartContext";
+import { translations } from "../lib/translations";
 
 interface HinokiEffectsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+// アイコンマッピング（言語に依存しない）
+const effectIcons = [
+  "ri-mental-health-line",
+  "ri-shield-check-line",
+  "ri-leaf-line",
+  "ri-refresh-line",
+];
+
 // モーダルコンポーネント
 function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
+  const { language } = useCart();
+  const t = translations[language];
+
   if (!isOpen) return null;
-
-  const effects = [
-    {
-      name: "リラックス・リフレッシュ",
-      description:
-        "心と脳に働きかけ、心を落ち着ける鎮静作用と、気持ちを前向きにする強壮作用があります",
-      icon: "ri-mental-health-line",
-    },
-    {
-      name: "抗菌・消臭",
-      description: "抗菌性・消臭性に優れ、空間を清潔に保ちます",
-      icon: "ri-shield-check-line",
-    },
-    {
-      name: "防虫・清浄",
-      description: "天然の防虫効果で、安全に空間を守ります",
-      icon: "ri-leaf-line",
-    },
-    {
-      name: "代謝促進",
-      description: "潤いを与え、細胞を引き締め、代謝を促し活性力を高めます",
-      icon: "ri-refresh-line",
-    },
-  ];
-
-  const usageScenes = [
-    "バッグに入れて持ち歩く",
-    "キャンドルとともに灯りと香りを楽しむ",
-    "マスクにひと吹きしてリフレッシュ",
-    "モビールとして吊るし、香りとインテリアを同時に楽しむ",
-    "お部屋や車内のリフレッシュミストとして",
-    "寝具や衣類に軽くスプレー",
-  ];
 
   return (
     <>
@@ -60,15 +42,14 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
           <div className="flex items-center justify-between p-8 border-b border-stone-200 animate-in slide-in-from-top duration-700 ease-out">
             <div>
               <h2 className="text-3xl font-serif text-stone-800 mb-2">
-                檜の効果と特徴
+                {t.hinokiEffects.modal.title}
               </h2>
-              <p className="text-stone-600">
-                富士山の麓で育った檜がもたらす自然の恵み
-              </p>
+              <p className="text-stone-600">{t.hinokiEffects.modal.subtitle}</p>
             </div>
             <button
               onClick={onClose}
               className="w-10 h-10 flex items-center justify-center text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-full transition-all duration-300 ease-in-out hover:scale-110 cursor-pointer"
+              aria-label={t.common.close}
             >
               <i className="ri-close-line text-xl"></i>
             </button>
@@ -79,10 +60,10 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
             {/* Effects Grid */}
             <div className="mb-8 animate-in slide-in-from-bottom duration-700 ease-out delay-100">
               <h3 className="text-xl font-serif text-stone-800 mb-4">
-                檜の主な効果
+                {t.hinokiEffects.effectsTitle}
               </h3>
               <div className="grid md:grid-cols-2 gap-4">
-                {effects.map((effect, index) => (
+                {t.hinokiEffects.effects.map((effect, index) => (
                   <div
                     key={index}
                     className="bg-stone-50 p-6 rounded-xl transition-all duration-500 ease-out hover:shadow-lg hover:-translate-y-1 hover:bg-white animate-in slide-in-from-bottom"
@@ -93,7 +74,7 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
                   >
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 flex items-center justify-center bg-green-700 text-white rounded-full flex-shrink-0 transition-transform duration-300 ease-out hover:scale-110 hover:rotate-6">
-                        <i className={`${effect.icon} text-lg`}></i>
+                        <i className={`${effectIcons[index]} text-lg`}></i>
                       </div>
                       <div className="flex-1">
                         <h4 className="text-lg font-medium text-stone-800 mb-2">
@@ -112,10 +93,10 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
             {/* Usage Scenes */}
             <div className="mb-8 animate-in slide-in-from-bottom duration-700 ease-out delay-300">
               <h3 className="text-xl font-serif text-stone-800 mb-4">
-                使用シーン
+                {t.hinokiEffects.usageScenesTitle}
               </h3>
               <div className="grid md:grid-cols-2 gap-3">
-                {usageScenes.map((scene, index) => (
+                {t.hinokiEffects.usageScenes.map((scene, index) => (
                   <div
                     key={index}
                     className="flex items-center gap-3 p-3 bg-white border border-stone-200 rounded-lg transition-all duration-300 ease-out hover:border-green-600 hover:bg-stone-50 hover:shadow-md hover:scale-[1.02] animate-in slide-in-from-left"
@@ -133,24 +114,24 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
 
             {/* Promise Section */}
             <div className="mt-8 p-6 bg-gradient-to-r from-green-800 to-green-700 rounded-xl text-white transition-all duration-500 ease-out hover:shadow-2xl hover:scale-[1.02] animate-in slide-in-from-bottom delay-500">
-              <h3 className="text-xl font-serif mb-3">私たちのこだわり</h3>
+              <h3 className="text-xl font-serif mb-3">
+                {t.hinokiEffects.promise.title}
+              </h3>
               <p className="text-green-50 mb-4">
-                富士山の麓で育ったひのきを低温乾燥する際に発生する蒸気から抽出した、
-                100％天然の抽出水を使用。ミネラルを豊富に含み、
-                天然100％の国産ひのきアロマオイルをブレンドしています。
+                {t.hinokiEffects.promise.description}
               </p>
               <div className="flex flex-wrap gap-4 text-sm">
                 <div className="flex items-center gap-2 transition-transform duration-300 ease-out hover:scale-110">
                   <i className="ri-check-line text-green-300"></i>
-                  <span>100% 天然成分</span>
+                  <span>{t.hinokiEffects.promise.features.natural}</span>
                 </div>
                 <div className="flex items-center gap-2 transition-transform duration-300 ease-out hover:scale-110">
                   <i className="ri-check-line text-green-300"></i>
-                  <span>国産檜使用</span>
+                  <span>{t.hinokiEffects.promise.features.domestic}</span>
                 </div>
                 <div className="flex items-center gap-2 transition-transform duration-300 ease-out hover:scale-110">
                   <i className="ri-check-line text-green-300"></i>
-                  <span>環境にやさしい</span>
+                  <span>{t.hinokiEffects.promise.features.eco}</span>
                 </div>
               </div>
             </div>
@@ -163,6 +144,8 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
 
 // メインコンポーネント
 export default function BrandStorySection() {
+  const { language } = useCart();
+  const t = translations[language];
   const [showMoreInfo, setShowMoreInfo] = useState(false);
   const [showEffectsModal, setShowEffectsModal] = useState(false);
 
@@ -175,7 +158,7 @@ export default function BrandStorySection() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl transition-transform duration-700 ease-out hover:scale-[1.02] hover:shadow-2xl">
               <Image
                 src="/images/top1.webp"
-                alt="富士山の麓の檜の森"
+                alt={t.brandStory.imageAlt}
                 fill
                 className="object-cover object-center transition-transform duration-700 ease-out hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -189,27 +172,21 @@ export default function BrandStorySection() {
           <div className="order-1 lg:order-2 space-y-8">
             <div className="space-y-6">
               <div className="text-sm text-stone-600 italic animate-in fade-in slide-in-from-top duration-700 ease-out">
-                HINOKI ESSENCE - 富士の麓から届く、自然の香り
+                {t.brandStory.tagline}
               </div>
 
               <h2 className="text-4xl lg:text-5xl font-serif text-stone-800 leading-tight animate-in fade-in slide-in-from-top duration-700 ease-out delay-100">
-                千年の香り、
+                {t.brandStory.mainTitle}
                 <br />
-                自然の恵み
+                {t.brandStory.mainTitleLine2}
               </h2>
 
               <p className="text-lg text-stone-600 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 ease-out delay-200">
-                富士山の麓で育ったひのきから生まれた、
-                自然の香りを持ち歩けるアイテムシリーズです。
-                ひのきの蒸留水と天然アロマをブレンドした「ひのきウォーター」と、
-                その香りを楽しむための「フレグランスペーパー」を組み合わせ、
-                日常のさまざまなシーンで自然のやさしい香りをお届けします。
+                {t.brandStory.intro}
               </p>
 
               <p className="text-stone-600 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 ease-out delay-300">
-                100％天然の抽出水に、国産ひのきアロマオイルをブレンド。
-                ミネラル豊富で、空間・肌・髪など多用途に活躍します。
-                天然のひのき成分が、心を穏やかにしながら空間を清浄に整えます。
+                {t.brandStory.description}
               </p>
 
               {/* Additional content shown when "もっと見る" is clicked */}
@@ -222,28 +199,25 @@ export default function BrandStorySection() {
               >
                 <div className="space-y-4 mt-6 p-6 bg-white/60 rounded-xl border border-stone-200 animate-in slide-in-from-top duration-500 ease-out">
                   <h3 className="text-xl font-serif text-stone-800">
-                    私たちのこだわり
+                    {t.brandStory.ourCommitment.title}
                   </h3>
 
                   <div className="space-y-4">
                     <div className="transition-all duration-500 ease-out hover:translate-x-2">
                       <h4 className="font-medium text-stone-800 mb-2">
-                        フレグランスペーパーについて
+                        {t.brandStory.ourCommitment.fragrancePaper.title}
                       </h4>
                       <p className="text-stone-600 text-sm leading-relaxed">
-                        木材パルプを主原料としたバイオマス不織布に、ひのきウォーターを染み込ませています。
-                        使用しているセルロースやバイオマスプラスチック(PLA)は生分解性を持ち、
-                        一定条件のもとで分解され自然に還る、環境にやさしい素材です。
+                        {t.brandStory.ourCommitment.fragrancePaper.description}
                       </p>
                     </div>
 
                     <div className="transition-all duration-500 ease-out hover:translate-x-2">
                       <h4 className="font-medium text-stone-800 mb-2">
-                        ひのきウォーターについて
+                        {t.brandStory.ourCommitment.hinokiWater.title}
                       </h4>
                       <p className="text-stone-600 text-sm leading-relaxed">
-                        富士山の麓で育つひのきを低温乾燥させる際の蒸気から抽出した、天然100％のひのき抽出水。
-                        天然ひのきアロマオイルをブレンドし、清涼感と深い森林香を実現しています。
+                        {t.brandStory.ourCommitment.hinokiWater.description}
                       </p>
                     </div>
                   </div>
@@ -251,15 +225,19 @@ export default function BrandStorySection() {
                   <div className="grid grid-cols-2 gap-4 mt-6">
                     <div className="text-center p-4 bg-stone-100 rounded-lg">
                       <div className="text-2xl font-serif text-stone-800">
-                        100%
+                        {t.brandStory.ourCommitment.stats.natural.value}
                       </div>
-                      <div className="text-sm text-stone-600">天然成分</div>
+                      <div className="text-sm text-stone-600">
+                        {t.brandStory.ourCommitment.stats.natural.label}
+                      </div>
                     </div>
                     <div className="text-center p-4 bg-stone-100 rounded-lg">
                       <div className="text-2xl font-serif text-stone-800">
-                        富士山麓
+                        {t.brandStory.ourCommitment.stats.origin.value}
                       </div>
-                      <div className="text-sm text-stone-600">産地直送</div>
+                      <div className="text-sm text-stone-600">
+                        {t.brandStory.ourCommitment.stats.origin.label}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -271,13 +249,13 @@ export default function BrandStorySection() {
                 onClick={() => setShowMoreInfo(!showMoreInfo)}
                 className="px-8 py-3 bg-green-800 text-white text-sm font-medium hover:bg-green-700 transition-all duration-500 ease-out whitespace-nowrap cursor-pointer rounded-md hover:shadow-lg hover:scale-105 active:scale-95"
               >
-                {showMoreInfo ? "閉じる" : "もっと見る"}
+                {showMoreInfo ? t.brandStory.showLess : t.brandStory.readMore}
               </button>
               <button
                 onClick={() => setShowEffectsModal(true)}
                 className="px-8 py-3 border border-stone-300 text-stone-700 text-sm font-medium hover:bg-stone-50 transition-all duration-500 ease-out whitespace-nowrap cursor-pointer rounded-md hover:border-green-700 hover:text-green-700 hover:shadow-lg hover:scale-105 active:scale-95"
               >
-                檜の効果について
+                {t.brandStory.effectsButton}
               </button>
             </div>
 
@@ -287,18 +265,22 @@ export default function BrandStorySection() {
                 <div className="w-8 h-8 flex items-center justify-center text-green-700 transition-transform duration-300 ease-out hover:scale-125 hover:rotate-12">
                   <i className="ri-tree-line text-xl"></i>
                 </div>
-                <h4 className="font-medium text-stone-800">100% 国産檜</h4>
+                <h4 className="font-medium text-stone-800">
+                  {t.brandStory.features.domestic.title}
+                </h4>
                 <p className="text-sm text-stone-600">
-                  富士山麓産の厳選された檜のみ使用
+                  {t.brandStory.features.domestic.description}
                 </p>
               </div>
               <div className="space-y-2 transition-all duration-500 ease-out hover:translate-y-[-4px] animate-in fade-in slide-in-from-right delay-600">
                 <div className="w-8 h-8 flex items-center justify-center text-green-700 transition-transform duration-300 ease-out hover:scale-125 hover:rotate-12">
                   <i className="ri-recycle-line text-xl"></i>
                 </div>
-                <h4 className="font-medium text-stone-800">環境配慮</h4>
+                <h4 className="font-medium text-stone-800">
+                  {t.brandStory.features.eco.title}
+                </h4>
                 <p className="text-sm text-stone-600">
-                  生分解性素材で自然に還る設計
+                  {t.brandStory.features.eco.description}
                 </p>
               </div>
             </div>

@@ -1,3 +1,5 @@
+// lib/translations.ts
+
 export const translations = {
   ja: {
     nav: {
@@ -27,6 +29,8 @@ export const translations = {
       outOfStock: "在庫切れ",
       inStock: "在庫あり",
       waitingForStock: "入荷待ち",
+      close: "閉じる",
+      readMore: "もっと見る",
     },
     cart: {
       title: "ショッピングカート",
@@ -90,7 +94,6 @@ export const translations = {
       deliveryInfo: "配送情報",
       pickupInfo: "受け取り情報",
     },
-
     contact: {
       heroTitle: "Contact",
       heroSubtitle: "ご意見・ご質問をお待ちしております",
@@ -127,6 +130,97 @@ export const translations = {
         submittedBody: "折り返しご連絡いたします。",
       },
     },
+    brandStory: {
+      tagline: "HINOKI ESSENCE - 富士の麓から届く、自然の香り",
+      mainTitle: "千年の香り、",
+      mainTitleLine2: "自然の恵み",
+      intro:
+        "富士山の麓で育ったひのきから生まれた、自然の香りを持ち歩けるアイテムシリーズです。ひのきの蒸留水と天然アロマをブレンドした「ひのきウォーター」と、その香りを楽しむための「フレグランスペーパー」を組み合わせ、日常のさまざまなシーンで自然のやさしい香りをお届けします。",
+      description:
+        "100％天然の抽出水に、国産ひのきアロマオイルをブレンド。ミネラル豊富で、空間・肌・髪など多用途に活躍します。天然のひのき成分が、心を穏やかにしながら空間を清浄に整えます。",
+      imageAlt: "富士山の麓の檜の森",
+      readMore: "もっと見る",
+      showLess: "閉じる",
+      effectsButton: "檜の効果について",
+      ourCommitment: {
+        title: "私たちのこだわり",
+        fragrancePaper: {
+          title: "フレグランスペーパーについて",
+          description:
+            "木材パルプを主原料としたバイオマス不織布に、ひのきウォーターを染み込ませています。使用しているセルロースやバイオマスプラスチック(PLA)は生分解性を持ち、一定条件のもとで分解され自然に還る、環境にやさしい素材です。",
+        },
+        hinokiWater: {
+          title: "ひのきウォーターについて",
+          description:
+            "富士山の麓で育つひのきを低温乾燥させる際の蒸気から抽出した、天然100％のひのき抽出水。天然ひのきアロマオイルをブレンドし、清涼感と深い森林香を実現しています。",
+        },
+        stats: {
+          natural: {
+            value: "100%",
+            label: "天然成分",
+          },
+          origin: {
+            value: "富士山麓",
+            label: "産地直送",
+          },
+        },
+      },
+      features: {
+        domestic: {
+          title: "100% 国産檜",
+          description: "富士山麓産の厳選された檜のみ使用",
+        },
+        eco: {
+          title: "環境配慮",
+          description: "生分解性素材で自然に還る設計",
+        },
+      },
+    },
+    hinokiEffects: {
+      modal: {
+        title: "檜の効果と特徴",
+        subtitle: "富士山の麓で育った檜がもたらす自然の恵み",
+      },
+      effectsTitle: "檜の主な効果",
+      effects: [
+        {
+          name: "リラックス・リフレッシュ",
+          description:
+            "心と脳に働きかけ、心を落ち着ける鎮静作用と、気持ちを前向きにする強壮作用があります",
+        },
+        {
+          name: "抗菌・消臭",
+          description: "抗菌性・消臭性に優れ、空間を清潔に保ちます",
+        },
+        {
+          name: "防虫・清浄",
+          description: "天然の防虫効果で、安全に空間を守ります",
+        },
+        {
+          name: "代謝促進",
+          description: "潤いを与え、細胞を引き締め、代謝を促し活性力を高めます",
+        },
+      ],
+      usageScenesTitle: "使用シーン",
+      usageScenes: [
+        "バッグに入れて持ち歩く",
+        "キャンドルとともに灯りと香りを楽しむ",
+        "マスクにひと吹きしてリフレッシュ",
+        "モビールとして吊るし、香りとインテリアを同時に楽しむ",
+        "お部屋や車内のリフレッシュミストとして",
+        "寝具や衣類に軽くスプレー",
+      ],
+      promise: {
+        title: "私たちのこだわり",
+        description:
+          "富士山の麓で育ったひのきを低温乾燥する際に発生する蒸気から抽出した、100％天然の抽出水を使用。ミネラルを豊富に含み、天然100％の国産ひのきアロマオイルをブレンドしています。",
+        features: {
+          natural: "100% 天然成分",
+          domestic: "国産檜使用",
+          eco: "環境にやさしい",
+        },
+      },
+    },
   },
   en: {
     nav: {
@@ -156,6 +250,8 @@ export const translations = {
       outOfStock: "Out of Stock",
       inStock: "In Stock",
       waitingForStock: "Awaiting Stock",
+      close: "Close",
+      readMore: "Read More",
     },
     cart: {
       title: "Shopping Cart",
@@ -223,7 +319,6 @@ export const translations = {
       deliveryInfo: "Delivery Information",
       pickupInfo: "Pickup Information",
     },
-
     contact: {
       heroTitle: "Contact Us",
       heroSubtitle: "We'd love to hear from you",
@@ -258,6 +353,101 @@ export const translations = {
       alerts: {
         submittedTitle: "Thank you for your message!",
         submittedBody: "We will get back to you soon.",
+      },
+    },
+    brandStory: {
+      tagline: "HINOKI ESSENCE - Natural Fragrance from the Foot of Mt. Fuji",
+      mainTitle: "Millennium Scent,",
+      mainTitleLine2: "Nature's Blessing",
+      intro:
+        "Born from hinoki grown at the foot of Mt. Fuji, this is a series of items that lets you carry nature's fragrance with you. Combining 'Hinoki Water' blended with distilled hinoki water and natural aroma, and 'Fragrance Paper' to enjoy its scent, we deliver the gentle fragrance of nature to various scenes of daily life.",
+      description:
+        "Blending 100% natural extract water with domestic hinoki aroma oil. Rich in minerals, it serves multiple purposes for spaces, skin, and hair. Natural hinoki components calm the mind while purifying the space.",
+      imageAlt: "Hinoki forest at the foot of Mt. Fuji",
+      readMore: "Read More",
+      showLess: "Show Less",
+      effectsButton: "About Hinoki Effects",
+      ourCommitment: {
+        title: "Our Commitment",
+        fragrancePaper: {
+          title: "About Fragrance Paper",
+          description:
+            "Biomass non-woven fabric made mainly from wood pulp, infused with hinoki water. The cellulose and biomass plastic (PLA) used are biodegradable, decomposing under certain conditions and returning to nature - an environmentally friendly material.",
+        },
+        hinokiWater: {
+          title: "About Hinoki Water",
+          description:
+            "100% natural hinoki extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Blended with natural hinoki aroma oil to achieve a refreshing and deep forest fragrance.",
+        },
+        stats: {
+          natural: {
+            value: "100%",
+            label: "Natural Ingredients",
+          },
+          origin: {
+            value: "Mt. Fuji",
+            label: "Direct from Source",
+          },
+        },
+      },
+      features: {
+        domestic: {
+          title: "100% Domestic Hinoki",
+          description: "Using only carefully selected hinoki from Mt. Fuji",
+        },
+        eco: {
+          title: "Eco-Friendly",
+          description: "Biodegradable materials designed to return to nature",
+        },
+      },
+    },
+    hinokiEffects: {
+      modal: {
+        title: "Hinoki Effects & Features",
+        subtitle:
+          "Nature's blessings brought by hinoki grown at the foot of Mt. Fuji",
+      },
+      effectsTitle: "Main Effects of Hinoki",
+      effects: [
+        {
+          name: "Relaxation & Refresh",
+          description:
+            "Works on the mind and brain, with sedative effects that calm the mind and tonic effects that uplift the mood",
+        },
+        {
+          name: "Antibacterial & Deodorizing",
+          description:
+            "Excellent antibacterial and deodorizing properties keep spaces clean",
+        },
+        {
+          name: "Insect Repellent & Purification",
+          description:
+            "Natural insect repellent effect safely protects your space",
+        },
+        {
+          name: "Metabolism Boost",
+          description:
+            "Provides moisture, tightens cells, promotes metabolism and enhances vitality",
+        },
+      ],
+      usageScenesTitle: "Usage Scenes",
+      usageScenes: [
+        "Carry in your bag",
+        "Enjoy light and fragrance with candles",
+        "Spray on mask for refreshment",
+        "Hang as mobile to enjoy fragrance and interior simultaneously",
+        "As refresh mist for rooms and cars",
+        "Lightly spray on bedding and clothes",
+      ],
+      promise: {
+        title: "Our Commitment",
+        description:
+          "Using 100% natural extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Rich in minerals and blended with 100% natural domestic hinoki aroma oil.",
+        features: {
+          natural: "100% Natural Ingredients",
+          domestic: "Domestic Hinoki",
+          eco: "Eco-Friendly",
+        },
       },
     },
   },
