@@ -47,7 +47,7 @@ export const products: Product[] = [
       {
         id: "1-standard",
         prices: {
-          JPY: 880,
+          JPY: 1430,
           AUD: 17,
         },
         stock: 15,
@@ -86,7 +86,7 @@ export const products: Product[] = [
       {
         id: "2-standard",
         prices: {
-          JPY: 880,
+          JPY: 1430,
           AUD: 17,
         },
         stock: 25,

@@ -49,12 +49,6 @@ export default function Footer() {
                   All Products
                 </Link>
                 <Link
-                  href="/cart"
-                  className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  Shopping Cart
-                </Link>
-                <Link
                   href="/contact"
                   className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
                 >
