@@ -6,29 +6,74 @@ import Footer from "../../components/Footer";
 import { translations as baseTranslations } from "../../lib/translations";
 import { useCart } from "../../components/CartContext";
 import Link from "next/link";
+import type { ContactFormData, ContactApiResponse } from "@/types/contact";
 
 export default function ContactContent() {
   const { language } = useCart();
   const t = baseTranslations[language]?.contact ?? baseTranslations.en.contact;
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // エラーメッセージをクリア
+    if (submitStatus.type === "error") {
+      setSubmitStatus({ type: null, message: "" });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`${t.alerts.submittedTitle}\n${t.alerts.submittedBody}`);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data: ContactApiResponse = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus({
+          type: "success",
+          message: data.message || "お問い合わせを送信しました",
+        });
+        // フォームをリセット
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: data.message || "送信に失敗しました",
+        });
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      setSubmitStatus({
+        type: "error",
+        message: "ネットワークエラーが発生しました",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const addressLines = t.addressMultiline.split("\n");
@@ -155,6 +200,30 @@ export default function ContactContent() {
                 {t.sendMessage}
               </h2>
 
+              {/* ステータスメッセージ */}
+              {submitStatus.type && (
+                <div
+                  className={`mb-6 p-4 rounded-lg ${
+                    submitStatus.type === "success"
+                      ? "bg-green-50 border border-green-200 text-green-800"
+                      : "bg-red-50 border border-red-200 text-red-800"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <i
+                      className={`${
+                        submitStatus.type === "success"
+                          ? "ri-checkbox-circle-line"
+                          : "ri-error-warning-line"
+                      } text-xl`}
+                    ></i>
+                    <p className="text-sm sm:text-base font-medium">
+                      {submitStatus.message}
+                    </p>
+                  </div>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -171,7 +240,8 @@ export default function ContactContent() {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base disabled:bg-stone-100 disabled:cursor-not-allowed"
                       placeholder={t.placeholders.fullName}
                     />
                   </div>
@@ -190,7 +260,8 @@ export default function ContactContent() {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base disabled:bg-stone-100 disabled:cursor-not-allowed"
                       placeholder={t.placeholders.email}
                     />
                   </div>
@@ -210,7 +281,8 @@ export default function ContactContent() {
                     required
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base disabled:bg-stone-100 disabled:cursor-not-allowed"
                     placeholder={t.placeholders.subject}
                   />
                 </div>
@@ -229,8 +301,9 @@ export default function ContactContent() {
                     rows={6}
                     value={formData.message}
                     onChange={handleInputChange}
+                    disabled={isSubmitting}
                     maxLength={500}
-                    className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base resize-none"
+                    className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-stone-500 focus:border-stone-500 outline-none transition-colors text-sm sm:text-base resize-none disabled:bg-stone-100 disabled:cursor-not-allowed"
                     placeholder={t.placeholders.message}
                   />
                   <p className="text-xs sm:text-sm text-stone-500 mt-1">
@@ -240,9 +313,17 @@ export default function ContactContent() {
 
                 <button
                   type="submit"
-                  className="w-full py-3 bg-stone-800 text-white text-sm sm:text-base font-medium rounded-lg hover:bg-stone-700 transition-colors whitespace-nowrap cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full py-3 bg-stone-800 text-white text-sm sm:text-base font-medium rounded-lg hover:bg-stone-700 transition-colors whitespace-nowrap cursor-pointer disabled:bg-stone-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {t.submit}
+                  {isSubmitting ? (
+                    <>
+                      <i className="ri-loader-4-line animate-spin"></i>
+                      送信中...
+                    </>
+                  ) : (
+                    t.submit
+                  )}
                 </button>
               </form>
             </div>
