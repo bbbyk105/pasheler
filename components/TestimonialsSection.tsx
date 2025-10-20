@@ -1,58 +1,45 @@
+// components/TestimonialsSection.tsx
+
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
+import { useCart } from "./CartContext";
+import { translations } from "../lib/translations";
+
+// 画像パスの配列（言語に依存しない）
+const testimonialImages = [
+  "/people/joel.webp",
+  "/people/kimono.webp",
+  "/people/japan.webp",
+];
 
 export default function TestimonialsSection() {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Joel Kim",
-      location: "東京",
-      rating: 5,
-      text: "ヒノキフレグランスを使い始めて2週間で、毎日の疲れがすっと抜けるようになりました。森林浴をしているような深いリラックス効果を感じています。",
-      image: "/people/joel.webp",
-    },
-    {
-      id: 2,
-      name: "佐藤 恵子",
-      location: "大阪",
-      rating: 4,
-      text: "リードディフューザーを寝室に置いてから、睡眠の質が格段に向上しました。檜の香りに包まれて眠るのが毎日の楽しみになっています。",
-      image: "/people/kimono.webp",
-    },
-    {
-      id: 3,
-      name: "山田 真理子",
-      location: "京都",
-      rating: 5,
-      text: "檜の香りは本当に心が落ち着きます。仕事で疲れた夜に灯すと、まるで温泉旅館にいるような癒しを感じられます。",
-      image: "/people/japan.webp",
-    },
-  ];
-
+  const { language } = useCart();
+  const t = translations[language];
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    setCurrentTestimonial((prev) => (prev + 1) % t.testimonials.items.length);
   };
 
   const prevTestimonial = () => {
     setCurrentTestimonial(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) =>
+        (prev - 1 + t.testimonials.items.length) % t.testimonials.items.length
     );
   };
+
+  const currentItem = t.testimonials.items[currentTestimonial];
 
   return (
     <section className="py-16 px-6 bg-gradient-to-br from-amber-50/30 to-stone-50">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-serif text-stone-800 mb-4">
-            お客様の声
+            {t.testimonials.title}
           </h2>
-          <p className="text-lg text-stone-600">
-            檜の香りで癒しを感じているお客様からの実際のご感想
-          </p>
+          <p className="text-lg text-stone-600">{t.testimonials.subtitle}</p>
         </div>
 
         <div className="relative">
@@ -60,8 +47,8 @@ export default function TestimonialsSection() {
             <div className="flex flex-col items-center text-center">
               <div className="w-20 h-20 rounded-full overflow-hidden mb-6">
                 <Image
-                  src={testimonials[currentTestimonial].image}
-                  alt={`${testimonials[currentTestimonial].name}様の写真`}
+                  src={testimonialImages[currentTestimonial]}
+                  alt={`${currentItem.name}${t.testimonials.imageAlt}`}
                   width={80}
                   height={80}
                   className="w-full h-full object-cover object-center"
@@ -69,26 +56,27 @@ export default function TestimonialsSection() {
               </div>
 
               <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonials[currentTestimonial].rating)].map(
-                  (_, i) => (
-                    <i
-                      key={i}
-                      className="ri-star-fill text-amber-400 text-lg"
-                    ></i>
-                  )
-                )}
+                {[...Array(currentItem.rating)].map((_, i) => (
+                  <i
+                    key={i}
+                    className="ri-star-fill text-amber-400 text-lg"
+                  ></i>
+                ))}
               </div>
 
               <blockquote className="text-lg lg:text-xl text-stone-700 leading-relaxed mb-6 max-w-2xl">
-                &ldquo;{testimonials[currentTestimonial].text}&rdquo;
+                &ldquo;{currentItem.text}&rdquo;
               </blockquote>
 
               <div className="space-y-1">
                 <h4 className="font-medium text-stone-800">
-                  {testimonials[currentTestimonial].name}様
+                  {currentItem.name}
+                  {t.testimonials.honorific}
                 </h4>
                 <p className="text-sm text-stone-500">
-                  {testimonials[currentTestimonial].location}在住
+                  {language === "ja"
+                    ? `${currentItem.location}${t.testimonials.location}`
+                    : `${t.testimonials.location} ${currentItem.location}`}
                 </p>
               </div>
             </div>
@@ -99,14 +87,14 @@ export default function TestimonialsSection() {
             <button
               onClick={prevTestimonial}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-stone-200 hover:bg-stone-50 transition-colors cursor-pointer"
-              aria-label="前のお客様の声"
+              aria-label={t.testimonials.prevButton}
             >
               <i className="ri-arrow-left-line text-stone-600"></i>
             </button>
             <button
               onClick={nextTestimonial}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-stone-200 hover:bg-stone-50 transition-colors cursor-pointer"
-              aria-label="次のお客様の声"
+              aria-label={t.testimonials.nextButton}
             >
               <i className="ri-arrow-right-line text-stone-600"></i>
             </button>
@@ -114,14 +102,14 @@ export default function TestimonialsSection() {
 
           {/* Dots indicator */}
           <div className="flex justify-center gap-2 mt-4">
-            {testimonials.map((_, index) => (
+            {t.testimonials.items.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
                 className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
                   index === currentTestimonial ? "bg-stone-400" : "bg-stone-200"
                 }`}
-                aria-label={`${index + 1}番目のお客様の声を表示`}
+                aria-label={`${index + 1}${t.testimonials.dotButton}`}
               />
             ))}
           </div>
@@ -132,7 +120,7 @@ export default function TestimonialsSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-stone-100 rounded-full">
             <i className="ri-shield-check-line text-stone-600"></i>
             <span className="text-sm text-stone-600 font-medium">
-              100% 天然成分 | 国産檜使用
+              {t.testimonials.trustBadge}
             </span>
           </div>
         </div>

@@ -221,6 +221,37 @@ export const translations = {
         },
       },
     },
+    testimonials: {
+      title: "お客様の声",
+      subtitle: "檜の香りで癒しを感じているお客様からの実際のご感想",
+      honorific: "様",
+      location: "在住",
+      prevButton: "前のお客様の声",
+      nextButton: "次のお客様の声",
+      dotButton: "番目のお客様の声を表示",
+      trustBadge: "100% 天然成分 | 国産檜使用",
+      imageAlt: "様の写真",
+      items: [
+        {
+          name: "Joel Kim",
+          location: "東京",
+          rating: 5,
+          text: "ヒノキフレグランスを使い始めて2週間で、毎日の疲れがすっと抜けるようになりました。森林浴をしているような深いリラックス効果を感じています。",
+        },
+        {
+          name: "佐藤 恵子",
+          location: "大阪",
+          rating: 4,
+          text: "リードディフューザーを寝室に置いてから、睡眠の質が格段に向上しました。檜の香りに包まれて眠るのが毎日の楽しみになっています。",
+        },
+        {
+          name: "山田 真理子",
+          location: "京都",
+          rating: 5,
+          text: "檜の香りは本当に心が落ち着きます。仕事で疲れた夜に灯すと、まるで温泉旅館にいるような癒しを感じられます。",
+        },
+      ],
+    },
   },
   en: {
     nav: {
@@ -449,6 +480,38 @@ export const translations = {
           eco: "Eco-Friendly",
         },
       },
+    },
+    testimonials: {
+      title: "Customer Reviews",
+      subtitle:
+        "Real testimonials from customers experiencing the healing power of hinoki",
+      honorific: "",
+      location: "from",
+      prevButton: "Previous testimonial",
+      nextButton: "Next testimonial",
+      dotButton: "Show testimonial",
+      trustBadge: "100% Natural Ingredients | Domestic Hinoki",
+      imageAlt: "'s photo",
+      items: [
+        {
+          name: "Joel Kim",
+          location: "Tokyo",
+          rating: 5,
+          text: "After using Hinoki Fragrance for two weeks, I feel my daily fatigue melting away. It provides a deep relaxation effect as if I'm taking a forest bath.",
+        },
+        {
+          name: "Keiko Sato",
+          location: "Osaka",
+          rating: 4,
+          text: "Since placing the reed diffuser in my bedroom, my sleep quality has improved dramatically. Falling asleep surrounded by the scent of hinoki has become my daily pleasure.",
+        },
+        {
+          name: "Mariko Yamada",
+          location: "Kyoto",
+          rating: 5,
+          text: "The scent of hinoki truly calms my mind. When I light it on tired evenings after work, I feel the healing as if I were at a hot spring inn.",
+        },
+      ],
     },
   },
 };
