@@ -74,6 +74,14 @@ export const translations = {
       fragrances: "フレグランス",
       fragrancePapers: "フレグランスペーパー",
     },
+    hero: {
+      title: "HINOKI ESSENCE",
+      subtitle: "天然檜エキスフレグランス",
+      description:
+        "日本の美しい檜の森から生まれた、心を癒す天然フレグランス。千年の時を越えて受け継がれてきた檜の香りが、あなたの日常に深いリラクゼーションと自然の恵みをもたらします。",
+      cta: "檜コレクションを見る",
+      imageAlt: "檜の森の美しい風景",
+    },
     orderConfirmation: {
       title: "注文確認",
       thankYou: "ご注文ありがとうございます！",
@@ -194,6 +202,14 @@ export const translations = {
       all: "All",
       fragrances: "Fragrances",
       fragrancePapers: "Fragrance Papers",
+    },
+    hero: {
+      title: "HINOKI ESSENCE",
+      subtitle: "Natural Hinoki Extract Fragrance",
+      description:
+        "Born from the beautiful hinoki forests of Japan, a natural fragrance that heals the soul. The scent of hinoki, passed down through a millennium, brings deep relaxation and nature's blessings to your daily life.",
+      cta: "View Hinoki Collection",
+      imageAlt: "Beautiful landscape of hinoki forest",
     },
     footer: {
       quickLinks: "Quick Links",
