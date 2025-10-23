@@ -135,6 +135,16 @@ function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
                 </div>
               </div>
             </div>
+
+            {/* Notice Section */}
+            <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg animate-in slide-in-from-bottom delay-600">
+              <div className="flex items-start gap-3">
+                <i className="ri-information-line text-amber-600 text-lg flex-shrink-0 mt-0.5"></i>
+                <p className="text-sm text-amber-900 leading-relaxed">
+                  {t.hinokiEffects.notice}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

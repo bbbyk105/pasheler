@@ -220,6 +220,8 @@ export const translations = {
           eco: "環境にやさしい",
         },
       },
+      notice:
+        "※原料が天然の材木のため、採取時期や天候、木の状態によって、香りが微妙に異なる場合があります。（使用期限は、約1年）",
     },
     testimonials: {
       title: "お客様の声",
@@ -480,6 +482,8 @@ export const translations = {
           eco: "Eco-Friendly",
         },
       },
+      notice:
+        "※As the raw material is natural wood, the fragrance may vary slightly depending on the harvesting season, weather, and condition of the wood. (Expiration period: approximately 1 year)",
     },
     testimonials: {
       title: "Customer Reviews",
