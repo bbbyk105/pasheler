@@ -34,11 +34,11 @@ export const products: Product[] = [
   {
     id: 1,
     name: {
-      ja: "ヒノキフレグランスペーパー \n(木型)",
-      en: "Hinoki Fragrance Paper \n(Tree Shape)",
+      ja: "富士山 ひのきフレグランスペーパー \n(木型)",
+      en: "Mt.Fuji Hinoki Fragrance Paper \n(Tree Shape)",
     },
     description: {
-      ja: "100％ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
+      ja: "100%ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
       en: "Fragrance paper infused with 100% hinoki extract liquid, offering a refreshing and calming scent. Spray with the included mini bottle of hinoki water to revive the fragrance.",
     },
     category: "fragrancePapers",
@@ -73,11 +73,11 @@ export const products: Product[] = [
   {
     id: 2,
     name: {
-      ja: "ヒノキフレグランスペーパー \n(四角形)",
-      en: "Hinoki Fragrance Paper \n(Square Shape)",
+      ja: "富士山 ひのきフレグランスペーパー \n(四角形)",
+      en: "Mt.Fuji Hinoki Fragrance Paper \n(Square Shape)",
     },
     description: {
-      ja: "100％ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
+      ja: "100%ひのき抽出液をたっぷり染み込ませた、爽やかで落ち着く香りのフレグランスペーパー。付属のミニボトルのひのきウォーターを吹きかけると、香りがふんわり広がります。",
       en: "Fragrance paper infused with 100% hinoki extract liquid, offering a refreshing and calming scent. Spray with the included mini bottle of hinoki water to revive the fragrance.",
     },
     category: "fragrancePapers",
@@ -112,8 +112,8 @@ export const products: Product[] = [
   {
     id: 3,
     name: {
-      ja: "ひのきウォーター (3本セット)",
-      en: "Hinoki Aroma Water Mini Bottle (3-Pack)",
+      ja: "富士山 ひのきアロマウォーター \n(3本セット)",
+      en: "Mt.Fuji Hinoki Aroma Water Mini Bottle \n(3-Pack)",
     },
     description: {
       ja: "富士山の麓のひのき抽出液に、国産ひのきアロマをブレンドしたポータブルタイプのひのきウォーター3本セット。携帯用としてフレグランスペーパーと併せて使ったり、空間のリフレッシュミストとしても活用できます。",
@@ -133,8 +133,8 @@ export const products: Product[] = [
     ],
     ingredients: {
       ja: [
-        "富士ひのき蒸留水（100％天然）",
-        "国産ひのきアロマオイル（天然100％）",
+        "富士ひのき蒸留水（100%天然）",
+        "国産ひのきアロマオイル（天然100%）",
         "ミネラル",
       ],
       en: [

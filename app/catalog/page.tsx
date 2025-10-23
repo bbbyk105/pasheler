@@ -192,7 +192,7 @@ export default function CatalogPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="font-medium text-stone-800 group-hover:text-stone-600 transition-colors">
+                    <h3 className="font-medium text-stone-800 group-hover:text-stone-600 transition-colors whitespace-pre-line">
                       {product.name[language]}
                     </h3>
                     <p className="text-sm text-stone-600">

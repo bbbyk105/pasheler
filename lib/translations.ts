@@ -135,9 +135,9 @@ export const translations = {
       mainTitle: "千年の香り、",
       mainTitleLine2: "自然の恵み",
       intro:
-        "富士山の麓で育ったひのきから生まれた、自然の香りを持ち歩けるアイテムシリーズです。ひのきの蒸留水と天然アロマをブレンドした「ひのきウォーター」と、その香りを楽しむための「フレグランスペーパー」を組み合わせ、日常のさまざまなシーンで自然のやさしい香りをお届けします。",
+        "富士山の麓で育ったひのきから生まれた、自然の香りを持ち歩けるアイテムシリーズです。ひのきの蒸留水と天然アロマが染み出した「ひのきウォーター」と、その香りを楽しむための「フレグランスペーパー」を組み合わせ、日常のさまざまなシーンで自然のやさしい香りをお届けします。",
       description:
-        "100％天然の抽出水に、国産ひのきアロマオイルをブレンド。ミネラル豊富で、空間・肌・髪など多用途に活躍します。天然のひのき成分が、心を穏やかにしながら空間を清浄に整えます。",
+        "100％天然の抽出水に、国産ひのきアロマ成分が溶け出しています。ミネラル豊富で、空間・肌・髪など多用途に活躍します。天然のひのき成分が、心を穏やかにしながら空間を清浄に整えます。",
       imageAlt: "富士山の麓の檜の森",
       readMore: "もっと見る",
       showLess: "閉じる",
@@ -147,12 +147,12 @@ export const translations = {
         fragrancePaper: {
           title: "フレグランスペーパーについて",
           description:
-            "木材パルプを主原料としたバイオマス不織布に、ひのきウォーターを染み込ませています。使用しているセルロースやバイオマスプラスチック(PLA)は生分解性を持ち、一定条件のもとで分解され自然に還る、環境にやさしい素材です。",
+            "木材パルプを主原料としたバイオマス不織布に、純国産のヒノキアロマを染み込ませています。使用しているセルロースやバイオマスプラスチック(PLA)は生分解性を持ち、一定条件のもとで分解され自然に還る、環境にやさしい素材です。",
         },
         hinokiWater: {
           title: "ひのきウォーターについて",
           description:
-            "富士山の麓で育つひのきを低温乾燥させる際の蒸気から抽出した、天然100％のひのき抽出水。天然ひのきアロマオイルをブレンドし、清涼感と深い森林香を実現しています。",
+            "富士山の麓で育つひのきを低温乾燥させる際の蒸気から抽出した、天然100％のひのき抽出水。微量のアロマ成分が溶け出していて、清涼感と深い森林香を実現しています。",
         },
         stats: {
           natural: {
@@ -391,9 +391,9 @@ export const translations = {
       mainTitle: "Millennium Scent,",
       mainTitleLine2: "Nature's Blessing",
       intro:
-        "Born from hinoki grown at the foot of Mt. Fuji, this is a series of items that lets you carry nature's fragrance with you. Combining 'Hinoki Water' blended with distilled hinoki water and natural aroma, and 'Fragrance Paper' to enjoy its scent, we deliver the gentle fragrance of nature to various scenes of daily life.",
+        "Inspired by the serene forests at the foot of Mt. Fuji, this series captures the pure essence of Hinoki.Blending distilled Hinoki Water—rich with natural aroma—and elegant Fragrance Paper, it allows you to carry the calm and gentle scent of nature wherever you go.",
       description:
-        "Blending 100% natural extract water with domestic hinoki aroma oil. Rich in minerals, it serves multiple purposes for spaces, skin, and hair. Mt.Fuji hinoki components calm the mind while purifying the space.",
+        "100% natural extracted water infused with aromatic components from Japanese Hinoki.Rich in minerals, it can be used in many ways—for spaces, skin, and hair. The natural Hinoki essence soothes the mind while gently purifying the air around you.",
       imageAlt: "Hinoki forest at the foot of Mt. Fuji",
       readMore: "Read More",
       showLess: "Show Less",
@@ -403,12 +403,12 @@ export const translations = {
         fragrancePaper: {
           title: "About Fragrance Paper",
           description:
-            "Biomass non-woven fabric made mainly from wood pulp, infused with hinoki water. The cellulose and biomass plastic (PLA) used are biodegradable, decomposing under certain conditions and returning to nature - an environmentally friendly material.",
+            "Made primarily from wood-pulp–based biomass fabric, this eco-friendly sheet is infused with Hinoki aroma made in Japan. The cellulose and biodegradable PLA used in the material naturally break down under proper conditions, returning gently to the earth.",
         },
         hinokiWater: {
           title: "About Hinoki Water",
           description:
-            "100% Mt.Fuji hinoki extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Blended with Mt.Fuji hinoki aroma oil to achieve a refreshing and deep forest fragrance.",
+            "A 100% natural Hinoki extract water, drawn from the steam produced during the low-temperature drying of Hinoki wood grown at the foot of Mt. Fuji. Infused with trace aromatic components, it captures a refreshing coolness and the deep, grounding scent of a forest breeze.",
         },
         stats: {
           natural: {
