@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "./CartContext";
 import { translations } from "../lib/translations";
@@ -24,6 +24,22 @@ const effectIcons = [
 function HinokiEffectsModal({ isOpen, onClose }: HinokiEffectsModalProps) {
   const { language } = useCart();
   const t = translations[language];
+
+  // モーダルが開いている時に背景のスクロールを防ぐ
+  useEffect(() => {
+    if (isOpen) {
+      // モーダルが開いたら body のスクロールを無効化
+      document.body.style.overflow = "hidden";
+    } else {
+      // モーダルが閉じたら body のスクロールを有効化
+      document.body.style.overflow = "unset";
+    }
+
+    // クリーンアップ関数: コンポーネントがアンマウントされた時にスクロールを戻す
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
