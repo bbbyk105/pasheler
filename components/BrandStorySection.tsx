@@ -157,7 +157,7 @@ export default function BrandStorySection() {
           <div className="order-2 lg:order-1">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl transition-transform duration-700 ease-out hover:scale-[1.02] hover:shadow-2xl">
               <Image
-                src="/images/top1.webp"
+                src="/images/hinoki2.webp"
                 alt={t.brandStory.imageAlt}
                 fill
                 className="object-cover object-center transition-transform duration-700 ease-out hover:scale-105"

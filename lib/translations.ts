@@ -80,7 +80,7 @@ export const translations = {
     },
     hero: {
       title: "HINOKI ESSENCE",
-      subtitle: "天然檜エキスフレグランス",
+      subtitle: "富士山檜エキスフレグランス",
       description:
         "日本の美しい檜の森から生まれた、心を癒す天然フレグランス。千年の時を越えて受け継がれてきた檜の香りが、あなたの日常に深いリラクゼーションと自然の恵みをもたらします。",
       cta: "檜コレクションを見る",
@@ -332,7 +332,7 @@ export const translations = {
     },
     hero: {
       title: "HINOKI ESSENCE",
-      subtitle: "Natural Hinoki Extract Fragrance",
+      subtitle: "Mt.Fuji Hinoki Extract Fragrance",
       description:
         "Born from the beautiful hinoki forests of Japan, a natural fragrance that heals the soul. The scent of hinoki, passed down through a millennium, brings deep relaxation and nature's blessings to your daily life.",
       cta: "View Hinoki Collection",
@@ -393,7 +393,7 @@ export const translations = {
       intro:
         "Born from hinoki grown at the foot of Mt. Fuji, this is a series of items that lets you carry nature's fragrance with you. Combining 'Hinoki Water' blended with distilled hinoki water and natural aroma, and 'Fragrance Paper' to enjoy its scent, we deliver the gentle fragrance of nature to various scenes of daily life.",
       description:
-        "Blending 100% natural extract water with domestic hinoki aroma oil. Rich in minerals, it serves multiple purposes for spaces, skin, and hair. Natural hinoki components calm the mind while purifying the space.",
+        "Blending 100% natural extract water with domestic hinoki aroma oil. Rich in minerals, it serves multiple purposes for spaces, skin, and hair. Mt.Fuji hinoki components calm the mind while purifying the space.",
       imageAlt: "Hinoki forest at the foot of Mt. Fuji",
       readMore: "Read More",
       showLess: "Show Less",
@@ -408,7 +408,7 @@ export const translations = {
         hinokiWater: {
           title: "About Hinoki Water",
           description:
-            "100% natural hinoki extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Blended with natural hinoki aroma oil to achieve a refreshing and deep forest fragrance.",
+            "100% Mt.Fuji hinoki extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Blended with Mt.Fuji hinoki aroma oil to achieve a refreshing and deep forest fragrance.",
         },
         stats: {
           natural: {
@@ -473,7 +473,7 @@ export const translations = {
       promise: {
         title: "Our Commitment",
         description:
-          "Using 100% natural extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Rich in minerals and blended with 100% natural domestic hinoki aroma oil.",
+          "Using 100% Mt.Fuji extract water extracted from steam generated during low-temperature drying of hinoki grown at the foot of Mt. Fuji. Rich in minerals and blended with 100% Mt.Fuji domestic hinoki aroma oil.",
         features: {
           natural: "100% Natural Ingredients",
           domestic: "Domestic Hinoki",
@@ -490,7 +490,7 @@ export const translations = {
       prevButton: "Previous testimonial",
       nextButton: "Next testimonial",
       dotButton: "Show testimonial",
-      trustBadge: "100% Natural Ingredients | Domestic Hinoki",
+      trustBadge: "100% Mt.Fuji Ingredients | Domestic Hinoki",
       imageAlt: "'s photo",
       items: [
         {
