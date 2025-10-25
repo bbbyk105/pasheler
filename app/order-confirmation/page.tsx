@@ -210,9 +210,6 @@ export default function OrderConfirmationPage() {
                   </div>
                 ) : (
                   <div className="space-y-3 text-sm">
-                    <div className="text-stone-600 whitespace-pre-line">
-                      {t.checkout.pickupDetails}
-                    </div>
                     <p className="text-stone-600 mt-4">
                       {orderData.language === "ja"
                         ? "ご注文の準備ができましたら、メールでお知らせいたします。"
