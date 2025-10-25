@@ -11,7 +11,7 @@ interface ProductQuickViewProps {
   product: Product | null;
   isOpen: boolean;
   onClose: () => void;
-  onAddToCart: (product: Product, variantId: string) => void;
+  onAddToCart: (product: Product, variantId: string, quantity: number) => void;
 }
 
 export default function ProductQuickView({
@@ -24,6 +24,20 @@ export default function ProductQuickView({
   const [selectedVariant, setSelectedVariant] = useState("");
   const [quantity, setQuantity] = useState(1);
   const t = translations[language];
+
+  // モーダル表示時にスクロールを無効化
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // クリーンアップ
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (product && product.variants.length > 0) {
@@ -41,11 +55,14 @@ export default function ProductQuickView({
 
   const priceInCurrentCurrency = currentVariant.prices[currency];
   const isOutOfStock = currentVariant.stock === 0;
-  const maxQuantity = Math.min(currentVariant.stock, 10);
+  const maxQuantity = currentVariant.stock; // ✅ 在庫数まで選択可能に
 
   const handleAddToCart = () => {
     if (!isOutOfStock && quantity > 0) {
-      onAddToCart(product, selectedVariant);
+      // ✅ quantityを複数回ループしてaddToCartを呼び出す
+      for (let i = 0; i < quantity; i++) {
+        onAddToCart(product, selectedVariant, 1);
+      }
       onClose();
     }
   };
@@ -59,8 +76,11 @@ export default function ProductQuickView({
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
-        <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-6 overflow-y-auto">
+        <div
+          className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          onClick={(e) => e.stopPropagation()} // モーダル内クリックで閉じないように
+        >
           <div className="grid md:grid-cols-2 gap-8 p-8">
             {/* Product Image */}
             <div className="aspect-square bg-stone-50 rounded-lg overflow-hidden relative">
@@ -116,7 +136,10 @@ export default function ProductQuickView({
                       return (
                         <button
                           key={variant.id}
-                          onClick={() => setSelectedVariant(variant.id)}
+                          onClick={() => {
+                            setSelectedVariant(variant.id);
+                            setQuantity(1); // バリアント変更時に数量をリセット
+                          }}
                           disabled={variant.stock === 0}
                           className={`px-4 py-2 text-sm border rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
                             selectedVariant === variant.id
@@ -173,9 +196,17 @@ export default function ProductQuickView({
                     >
                       <i className="ri-subtract-line"></i>
                     </button>
-                    <span className="w-12 text-center font-medium">
-                      {quantity}
-                    </span>
+                    <input
+                      type="number"
+                      value={quantity}
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value) || 1;
+                        setQuantity(Math.max(1, Math.min(maxQuantity, value)));
+                      }}
+                      min="1"
+                      max={maxQuantity}
+                      className="w-16 text-center font-medium border-0 focus:outline-none"
+                    />
                     <button
                       onClick={() =>
                         setQuantity(Math.min(maxQuantity, quantity + 1))
@@ -186,6 +217,11 @@ export default function ProductQuickView({
                       <i className="ri-add-line"></i>
                     </button>
                   </div>
+                  <p className="text-xs text-stone-500 mt-1">
+                    {language === "ja"
+                      ? `最大${maxQuantity}個まで購入可能`
+                      : `Max ${maxQuantity} items available`}
+                  </p>
                 </div>
               )}
 
@@ -193,7 +229,7 @@ export default function ProductQuickView({
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="w-full py-3 bg-stone-800 text-white text-sm font-medium hover:bg-stone-700 transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-stone-300"
+                className="w-full py-3 bg-stone-800 text-white text-sm font-medium hover:bg-stone-700 transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-stone-300 rounded-lg"
               >
                 {isOutOfStock ? t.common.waitingForStock : t.common.addToCart}
               </button>

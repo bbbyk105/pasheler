@@ -24,18 +24,25 @@ export default function BestsellersSection() {
   // lib/productsから最初の3つの商品を取得（または特定の条件で選択）
   const bestsellers = products.slice(0, 3);
 
-  const handleAddToCart = (product: Product, variantId: string) => {
+  const handleAddToCart = (
+    product: Product,
+    variantId: string,
+    quantity: number = 1
+  ) => {
     const variant = product.variants.find((v) => v.id === variantId);
     if (!variant || variant.stock === 0) return;
 
-    addToCart({
-      id: product.id,
-      variantId: variant.id,
-      name: product.name[language],
-      price: variant.prices[currency],
-      image: product.image,
-      stock: variant.stock,
-    });
+    // quantityの回数分ループしてカートに追加
+    for (let i = 0; i < quantity; i++) {
+      addToCart({
+        id: product.id,
+        variantId: variant.id,
+        name: product.name[language],
+        price: variant.prices[currency],
+        image: product.image,
+        stock: variant.stock,
+      });
+    }
 
     setCartNotification({ show: true, productName: product.name[language] });
   };
