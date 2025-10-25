@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "../../components/CartContext";
 import Header from "../../components/Header";
@@ -12,6 +13,12 @@ export default function CheckoutPage() {
   const { items, language } = useCart();
   const router = useRouter();
   const t = translations[language];
+
+  // State management
+  const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">(
+    "delivery"
+  );
+  const [selectedCountry, setSelectedCountry] = useState("JP"); // デフォルトは日本
 
   const handleOrderComplete = (orderData: any) => {
     localStorage.setItem("orderData", JSON.stringify(orderData));
@@ -54,12 +61,21 @@ export default function CheckoutPage() {
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Checkout Form */}
             <div className="space-y-8">
-              <CheckoutForm onOrderComplete={handleOrderComplete} />
+              <CheckoutForm
+                onOrderComplete={handleOrderComplete}
+                deliveryMethod={deliveryMethod}
+                selectedCountry={selectedCountry}
+                onDeliveryMethodChange={setDeliveryMethod}
+                onCountryChange={setSelectedCountry}
+              />
             </div>
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <OrderSummary deliveryMethod="delivery" />
+              <OrderSummary
+                deliveryMethod={deliveryMethod}
+                selectedCountry={selectedCountry}
+              />
             </div>
           </div>
         </div>

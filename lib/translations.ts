@@ -56,6 +56,15 @@ export const translations = {
       pickupDetails:
         "東京都渋谷区神宮前1-1-1\n平日 10:00-18:00\n土日 11:00-17:00",
       secureCheckout: "SSL保護された安全な決済",
+      selectCountry: "配送先国を選択",
+      pickupWarningTitle: "対面受け取りについて",
+      pickupWarningMessage:
+        "対面受け取りはイベント開催時のみご利用いただけます。\n\n通常のご注文では配送をお選びください。",
+      backToDelivery: "配送に戻る",
+      confirmPickup: "対面受け取りを選択",
+      shippingFee: "送料",
+      freeShippingDomestic: "10,000円以上で送料無料",
+      freeShippingInternational: "30,000円以上で送料無料",
     },
     product: {
       quickView: "クイックビュー",
@@ -310,6 +319,15 @@ export const translations = {
       pickupDetails:
         "1-1-1 Jingumae, Shibuya-ku, Tokyo\nWeekdays 10:00-18:00\nWeekends 11:00-17:00",
       secureCheckout: "Secure checkout protected by SSL",
+      selectCountry: "Select Country",
+      pickupWarningTitle: "About In-Person Pickup",
+      pickupWarningMessage:
+        "In-person pickup is only available during events.\n\nFor regular orders, please choose delivery.",
+      backToDelivery: "Back to Delivery",
+      confirmPickup: "Confirm Pickup",
+      shippingFee: "Shipping Fee",
+      freeShippingDomestic: "Free shipping over ¥10,000",
+      freeShippingInternational: "Free shipping over A$300",
     },
     product: {
       quickView: "Quick View",

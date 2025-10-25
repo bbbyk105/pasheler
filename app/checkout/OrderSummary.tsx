@@ -1,21 +1,30 @@
 "use client";
 
 import { useCart } from "../../components/CartContext";
-import { formatPrice, getShippingFee } from "../../lib/currency";
+import { formatPrice } from "../../lib/currency";
+import { calculateShippingFee } from "../../lib/shipping";
 import { translations } from "../../lib/translations";
 import Image from "next/image";
 
 interface OrderSummaryProps {
   deliveryMethod: "delivery" | "pickup";
+  selectedCountry: string;
 }
 
-export default function OrderSummary({ deliveryMethod }: OrderSummaryProps) {
+export default function OrderSummary({
+  deliveryMethod,
+  selectedCountry,
+}: OrderSummaryProps) {
   const { items, getTotalPrice, language, currency } = useCart();
   const t = translations[language];
 
   const subtotal = getTotalPrice();
-  const shippingFee =
-    deliveryMethod === "delivery" ? getShippingFee(currency) : 0;
+  const shippingFee = calculateShippingFee({
+    countryCode: selectedCountry,
+    subtotal,
+    currency,
+    deliveryMethod,
+  });
   const tax = subtotal * 0.1;
   const total = subtotal + shippingFee + tax;
 
