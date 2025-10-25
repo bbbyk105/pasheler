@@ -27,9 +27,9 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen flex flex-col bg-white">
         <Header />
-        <main className="py-16 px-6">
+        <main className="flex-1 py-16 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl font-serif text-stone-800 mb-4">
               {t.cart.empty}
@@ -49,10 +49,10 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="py-16 px-6">
+      <main className="flex-1 py-16 px-6">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-serif text-stone-800 mb-8 text-center">
             {t.checkout.title}

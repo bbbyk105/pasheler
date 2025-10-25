@@ -11,10 +11,10 @@ export default function CheckoutCancelPage() {
   const t = translations[language];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
-      <main className="py-16 px-6">
+      <main className="flex-1 py-16 px-6">
         <div className="max-w-2xl mx-auto text-center">
           {/* Cancel Icon */}
           <div className="w-20 h-20 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
