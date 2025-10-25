@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       tax,
       deliveryMethod,
       selectedCountry,
-      language, // 言語を受け取る
+      language,
     } = body;
 
     if (!items || items.length === 0) {
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/cancel`,
-      locale: language === "ja" ? "ja" : "en", // ✅ 言語設定
+      locale: language === "ja" ? "ja" : "en",
       metadata: {
         deliveryMethod,
         selectedCountry,
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
         },
       }),
       phone_number_collection: {
-        enabled: true, // ✅ 電話番号入力を有効化
+        enabled: true,
       },
     });
 
