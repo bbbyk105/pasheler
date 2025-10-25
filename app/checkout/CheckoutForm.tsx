@@ -28,20 +28,27 @@ export default function CheckoutForm({
   const [showPickupModal, setShowPickupModal] = useState(false);
 
   const subtotal = getTotalPrice();
-  const shippingFee = calculateShippingFee({
+
+  // ✅ 宅配便の配送料を常に計算（表示用）
+  const deliveryShippingFee = calculateShippingFee({
     countryCode: selectedCountry,
     subtotal,
     currency,
-    deliveryMethod,
+    deliveryMethod: "delivery", // 常に宅配便として計算
   });
+
+  // ✅ 実際の配送料（選択された配送方法に基づく）
+  const actualShippingFee =
+    deliveryMethod === "pickup" ? 0 : deliveryShippingFee;
+
   const tax = subtotal * 0.1;
-  const total = subtotal + shippingFee + tax;
+  const total = subtotal + actualShippingFee + tax;
 
   const deliveryMethods: DeliveryMethod[] = [
     {
       id: "delivery",
       name: language === "ja" ? "宅配便" : "Home Delivery",
-      fee: shippingFee,
+      fee: deliveryShippingFee, // ✅ 常に宅配便の配送料を表示
       description: language === "ja" ? "配送料：" : "Delivery Fee: ",
     },
     {
@@ -89,7 +96,7 @@ export default function CheckoutForm({
             image: item.image,
           })),
           currency,
-          shippingFee,
+          shippingFee: actualShippingFee, // ✅ 実際の配送料を送信
           tax,
           deliveryMethod,
           selectedCountry,
@@ -179,8 +186,9 @@ export default function CheckoutForm({
                 ))}
               </select>
               <p className="mt-2 text-xs text-stone-500">
-                {t.checkout.shippingFee}: {formatPrice(shippingFee, currency)}
-                {shippingFee > 0 && (
+                {t.checkout.shippingFee}:{" "}
+                {formatPrice(deliveryShippingFee, currency)}
+                {deliveryShippingFee > 0 && (
                   <span className="ml-2">
                     (
                     {selectedCountry === "JP"
@@ -194,23 +202,6 @@ export default function CheckoutForm({
                 {language === "ja"
                   ? "※メールアドレス・電話番号・配送先住所は次のページで入力します"
                   : "* Email, phone number and shipping address will be entered on the next page"}
-              </p>
-            </div>
-          )}
-
-          {/* Pickup Information */}
-          {deliveryMethod === "pickup" && (
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <h3 className="font-medium text-stone-800 mb-2">
-                {t.checkout.pickupLocation}
-              </h3>
-              <div className="text-sm text-stone-600 whitespace-pre-line">
-                {t.checkout.pickupDetails}
-              </div>
-              <p className="mt-3 text-xs text-stone-400">
-                {language === "ja"
-                  ? "※メールアドレス・電話番号は次のページで入力します"
-                  : "* Email and phone number will be entered on the next page"}
               </p>
             </div>
           )}

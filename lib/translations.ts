@@ -51,11 +51,6 @@ export const translations = {
       pickupInPerson: "対面受け取り",
       deliveryFee: "配送料：￥550",
       pickupFree: "対面受け取り：無料",
-      pickupLocation: "受け取り場所",
-      pickupTime: "受け取り時間",
-      pickupDetails:
-        "東京都渋谷区神宮前1-1-1\n平日 10:00-18:00\n土日 11:00-17:00",
-      secureCheckout: "SSL保護された安全な決済",
       selectCountry: "配送先国を選択",
       pickupWarningTitle: "対面受け取りについて",
       pickupWarningMessage:
@@ -312,13 +307,8 @@ export const translations = {
       deliveryMethod: "Delivery Method",
       homeDelivery: "Home Delivery",
       pickupInPerson: "Pickup in Person",
-      deliveryFee: "Delivery Fee: $5.50",
       pickupFree: "Pickup in Person: Free",
-      pickupLocation: "Pickup Location",
-      pickupTime: "Pickup Time",
-      pickupDetails:
-        "1-1-1 Jingumae, Shibuya-ku, Tokyo\nWeekdays 10:00-18:00\nWeekends 11:00-17:00",
-      secureCheckout: "Secure checkout protected by SSL",
+
       selectCountry: "Select Country",
       pickupWarningTitle: "About In-Person Pickup",
       pickupWarningMessage:

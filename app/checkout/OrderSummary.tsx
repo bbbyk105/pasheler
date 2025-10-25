@@ -94,18 +94,6 @@ export default function OrderSummary({
           <span className="text-stone-800">{formatPrice(total, currency)}</span>
         </div>
       </div>
-
-      {/* Security Badge */}
-      <div className="mt-6 p-4 bg-green-50 rounded-lg">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 flex items-center justify-center">
-            <i className="ri-shield-check-line text-green-600"></i>
-          </div>
-          <span className="text-sm text-green-700">
-            {t.checkout.secureCheckout}
-          </span>
-        </div>
-      </div>
     </div>
   );
 }
