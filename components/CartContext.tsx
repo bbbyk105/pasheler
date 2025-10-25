@@ -29,24 +29,48 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [language, setLanguage] = useState<Language>("ja");
   const [currency, setCurrency] = useState<Currency>("JPY");
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load saved preferences
+  // ✅ 初回マウント時にlocalStorageから読み込み
   useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
     const savedLanguage = localStorage.getItem("language") as Language;
     const savedCurrency = localStorage.getItem("currency") as Currency;
 
+    if (savedCart) {
+      try {
+        setItems(JSON.parse(savedCart));
+      } catch (error) {
+        console.error("Failed to parse cart from localStorage:", error);
+      }
+    }
+
     if (savedLanguage) setLanguage(savedLanguage);
     if (savedCurrency) setCurrency(savedCurrency);
+
+    setIsInitialized(true);
   }, []);
 
-  // Save preferences
+  // ✅ カートが変更されたらlocalStorageに保存
   useEffect(() => {
-    localStorage.setItem("language", language);
-  }, [language]);
+    if (isInitialized) {
+      localStorage.setItem("cart", JSON.stringify(items));
+    }
+  }, [items, isInitialized]);
 
+  // ✅ 言語が変更されたらlocalStorageに保存
   useEffect(() => {
-    localStorage.setItem("currency", currency);
-  }, [currency]);
+    if (isInitialized) {
+      localStorage.setItem("language", language);
+    }
+  }, [language, isInitialized]);
+
+  // ✅ 通貨が変更されたらlocalStorageに保存
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem("currency", currency);
+    }
+  }, [currency, isInitialized]);
 
   const addToCart = (product: Omit<CartItem, "quantity">) => {
     setItems((prevItems) => {
@@ -95,7 +119,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalPrice = () => {
     return items.reduce((total, item) => {
-      // item.priceは既に現在の通貨での価格として保存されている
       return total + item.price * item.quantity;
     }, 0);
   };
