@@ -138,19 +138,6 @@ export default function Footer() {
                 </Link>
               </nav>
             </div>
-
-            {/* Company */}
-            <div className="space-y-4">
-              <h4 className="font-medium text-white">{t.company.title}</h4>
-              <nav className="space-y-2">
-                <Link
-                  href="/about"
-                  className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  {t.company.about}
-                </Link>
-              </nav>
-            </div>
           </div>
 
           {/* Bottom Bar */}
