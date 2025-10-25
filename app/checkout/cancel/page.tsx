@@ -1,14 +1,12 @@
 "use client";
 
 import { useCart } from "../../../components/CartContext";
-import { translations } from "../../../lib/translations";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import Link from "next/link";
 
 export default function CheckoutCancelPage() {
   const { language } = useCart();
-  const t = translations[language];
 
   return (
     <div className="min-h-screen flex flex-col bg-white">

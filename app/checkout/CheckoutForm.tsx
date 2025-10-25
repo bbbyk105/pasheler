@@ -9,7 +9,6 @@ import { COUNTRIES, calculateShippingFee } from "../../lib/shipping";
 import PickupConfirmModal from "../../components/PickupConfirmModal";
 
 interface CheckoutFormProps {
-  onOrderComplete: (orderData: any) => void;
   deliveryMethod: "delivery" | "pickup";
   selectedCountry: string;
   onDeliveryMethodChange: (method: "delivery" | "pickup") => void;
@@ -17,20 +16,16 @@ interface CheckoutFormProps {
 }
 
 export default function CheckoutForm({
-  onOrderComplete,
   deliveryMethod,
   selectedCountry,
   onDeliveryMethodChange,
   onCountryChange,
 }: CheckoutFormProps) {
-  const { items, getTotalPrice, clearCart, language, currency } = useCart();
+  const { items, getTotalPrice, language, currency } = useCart();
   const t = translations[language];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPickupModal, setShowPickupModal] = useState(false);
-  const [pendingDeliveryMethod, setPendingDeliveryMethod] = useState<
-    "delivery" | "pickup"
-  >("delivery");
 
   const subtotal = getTotalPrice();
   const shippingFee = calculateShippingFee({
@@ -60,7 +55,6 @@ export default function CheckoutForm({
 
   const handleDeliveryMethodChange = (method: "delivery" | "pickup") => {
     if (method === "pickup") {
-      setPendingDeliveryMethod("pickup");
       setShowPickupModal(true);
     } else {
       onDeliveryMethodChange(method);
@@ -74,7 +68,6 @@ export default function CheckoutForm({
 
   const handlePickupCancel = () => {
     setShowPickupModal(false);
-    setPendingDeliveryMethod("delivery");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -100,7 +93,7 @@ export default function CheckoutForm({
           tax,
           deliveryMethod,
           selectedCountry,
-          language, // 言語情報を追加
+          language,
         }),
       });
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useCart } from "../../components/CartContext";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -11,19 +10,13 @@ import { translations } from "../../lib/translations";
 
 export default function CheckoutPage() {
   const { items, language } = useCart();
-  const router = useRouter();
   const t = translations[language];
 
   // State management
   const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">(
     "delivery"
   );
-  const [selectedCountry, setSelectedCountry] = useState("JP"); // デフォルトは日本
-
-  const handleOrderComplete = (orderData: any) => {
-    localStorage.setItem("orderData", JSON.stringify(orderData));
-    router.push("/order-confirmation");
-  };
+  const [selectedCountry, setSelectedCountry] = useState("JP");
 
   if (items.length === 0) {
     return (
@@ -62,7 +55,6 @@ export default function CheckoutPage() {
             {/* Checkout Form */}
             <div className="space-y-8">
               <CheckoutForm
-                onOrderComplete={handleOrderComplete}
                 deliveryMethod={deliveryMethod}
                 selectedCountry={selectedCountry}
                 onDeliveryMethodChange={setDeliveryMethod}

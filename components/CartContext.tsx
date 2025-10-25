@@ -8,6 +8,7 @@ import {
   useEffect,
 } from "react";
 import { Language, Currency, CartItem } from "../lib/types";
+import { products } from "../lib/products";
 
 interface CartContextType {
   items: CartItem[];
@@ -31,6 +32,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [currency, setCurrency] = useState<Currency>("JPY");
   const [isInitialized, setIsInitialized] = useState(false);
 
+  // ✅ 商品データから価格情報を取得する関数
+  const getPricesForItem = (productId: number, variantId: string) => {
+    const product = products.find((p) => p.id === productId);
+    if (!product) return null;
+
+    const variant = product.variants.find((v) => v.id === variantId);
+    if (!variant) return null;
+
+    return variant.prices;
+  };
+
   // ✅ 初回マウント時にlocalStorageから読み込み
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
@@ -39,9 +51,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart));
+        const parsedCart = JSON.parse(savedCart);
+
+        // ✅ 商品データから最新の価格情報を取得して復元
+        const restoredCart = parsedCart
+          .map((item: any) => {
+            const prices = getPricesForItem(item.id, item.variantId);
+
+            if (!prices) {
+              console.warn("Product not found, removing from cart:", item);
+              return null; // 商品が見つからない場合はスキップ
+            }
+
+            return {
+              ...item,
+              prices, // 商品データから取得した最新の価格
+              price: prices[savedCurrency || "JPY"], // 保存されていた通貨での価格
+            };
+          })
+          .filter(Boolean); // null を除外
+
+        setItems(restoredCart);
       } catch (error) {
         console.error("Failed to parse cart from localStorage:", error);
+        localStorage.removeItem("cart");
       }
     }
 
@@ -51,10 +84,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsInitialized(true);
   }, []);
 
-  // ✅ カートが変更されたらlocalStorageに保存
+  // ✅ カートが変更されたらlocalStorageに保存（簡略版）
   useEffect(() => {
     if (isInitialized) {
-      localStorage.setItem("cart", JSON.stringify(items));
+      // pricesは保存しない（商品データから取得するため）
+      const cartToSave = items.map((item) => ({
+        id: item.id,
+        variantId: item.variantId,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+        quantity: item.quantity,
+        stock: item.stock,
+      }));
+      localStorage.setItem("cart", JSON.stringify(cartToSave));
     }
   }, [items, isInitialized]);
 
@@ -65,10 +108,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [language, isInitialized]);
 
-  // ✅ 通貨が変更されたらlocalStorageに保存
+  // ✅ 通貨が変更されたら、カート内の価格を更新
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem("currency", currency);
+
+      // 商品データから最新の価格を取得して更新
+      setItems((prevItems) =>
+        prevItems.map((item) => {
+          const prices = getPricesForItem(item.id, item.variantId);
+
+          if (!prices) {
+            console.error("Cannot find prices for item:", item);
+            return item;
+          }
+
+          return {
+            ...item,
+            prices,
+            price: prices[currency],
+          };
+        })
+      );
     }
   }, [currency, isInitialized]);
 

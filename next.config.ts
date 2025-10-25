@@ -3,7 +3,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // API Routesを使う場合はoutput: "export"を削除
   images: {
     remotePatterns: [
       {
