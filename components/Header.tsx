@@ -6,33 +6,40 @@ import { useCart } from "./CartContext";
 import CartSidebar from "./CartSidebar";
 import LanguageCurrencySelector from "./LanguageCurrencySelector";
 import { translations } from "../lib/translations";
+import { Language } from "../lib/types";
 import Image from "next/image";
 import HamburgerMenu from "./HamburgerMenu";
 
 export default function Header() {
-  const { getTotalItems, language, currency, setLanguage, setCurrency } =
-    useCart();
+  const { getTotalItems, language, setLanguage, setCurrency } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const totalItems = getTotalItems();
   const t = translations[language];
+
+  // ✅ 言語変更時に通貨も自動切り替え
+  const handleLanguageChange = (newLanguage: Language) => {
+    setLanguage(newLanguage);
+
+    if (newLanguage === "en") {
+      setCurrency("AUD");
+    } else {
+      setCurrency("JPY");
+    }
+  };
 
   return (
     <>
       <header className="bg-white border-b border-stone-200 sticky top-0 z-40">
         <div className="w-full px-6 py-3 md:py-4">
           <div className="flex items-center justify-between">
-            {/* Logo - 改善版 */}
+            {/* Logo */}
             <Link
               href="/"
               className="group flex items-center space-x-2 transition-all duration-300 hover:scale-105"
               aria-label="ホームへ戻る"
             >
-              {/* ロゴ画像コンテナ */}
               <div className="relative">
-                {/* 装飾的な背景（オプション） */}
                 <div className="absolute inset-0 bg-gradient-to-br from-stone-100 to-stone-50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                {/* ロゴ画像 */}
                 <div className="relative flex items-center justify-center">
                   <Image
                     src="/images/yawn_nap.webp"
@@ -40,7 +47,7 @@ export default function Header() {
                     width={60}
                     height={60}
                     className="object-contain transition-transform duration-300 group-hover:rotate-3"
-                    priority // LCPの最適化
+                    priority
                   />
                 </div>
               </div>
@@ -72,9 +79,7 @@ export default function Header() {
             <div className="flex items-center space-x-4">
               <LanguageCurrencySelector
                 language={language}
-                currency={currency}
-                onLanguageChange={setLanguage}
-                onCurrencyChange={setCurrency}
+                onLanguageChange={handleLanguageChange}
               />
 
               <button
