@@ -1,12 +1,19 @@
+// next.config.ts
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // API Routesを使う場合はoutput: "export"を削除
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   typescript: {
-    // ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 };
 
