@@ -171,7 +171,7 @@ export default function ContactContent() {
                 </h3>
                 <div className="flex gap-4">
                   <Link
-                    href="https://www.instagram.com/pachelar_room/"
+                    href="https://www.instagram.com/yawn.nap_/"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Instagramを開く"

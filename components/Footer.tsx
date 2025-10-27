@@ -75,7 +75,7 @@ export default function Footer() {
 
               <div className="flex gap-4">
                 <a
-                  href="https://www.instagram.com/pachelar_room/"
+                  href="https://www.instagram.com/yawn.nap_"
                   className="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 rounded-full transition-colors cursor-pointer"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -237,10 +237,16 @@ export default function HamburgerMenu() {
               {/* Social / footer */}
               <div className="mt-6 pb-8 pt-4">
                 <div className="flex items-center gap-4">
-                  <Social href="https://instagram.com" label="Instagram">
+                  <Social
+                    href="https://www.instagram.com/yawn.nap_"
+                    label="Instagram"
+                  >
                     <FaInstagram className="h-5 w-5" />
                   </Social>
-                  <Social href="https://x.com" label="X / Twitter">
+                  <Social
+                    href="https://x.com/kanabo_292929?t=evTOYumN6nB379phr_tp_Q"
+                    label="X / Twitter"
+                  >
                     <FaXTwitter className="h-5 w-5" />
                   </Social>
                   <Social href="mailto:hello@yawnnap.com" label="Email">
