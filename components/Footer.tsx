@@ -84,7 +84,7 @@ export default function Footer() {
                   <i className="ri-instagram-line text-sm"></i>
                 </a>
                 <a
-                  href="https://x.com/kanabo_292929?t=evTOYumN6nB379phr_tp_Q"
+                  href="https://x.com/kanabo_292929"
                   className="w-8 h-8 flex items-center justify-center bg-stone-800 hover:bg-stone-700 rounded-full transition-colors cursor-pointer"
                   target="_blank"
                   rel="noopener noreferrer"

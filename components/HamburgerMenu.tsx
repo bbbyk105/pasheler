@@ -244,7 +244,7 @@ export default function HamburgerMenu() {
                     <FaInstagram className="h-5 w-5" />
                   </Social>
                   <Social
-                    href="https://x.com/kanabo_292929?t=evTOYumN6nB379phr_tp_Q"
+                    href="https://x.com/kanabo_292929"
                     label="X / Twitter"
                   >
                     <FaXTwitter className="h-5 w-5" />
