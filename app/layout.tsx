@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Yawn Nap",
   },
   description:
-    "Yawn Nap（ヤウンナップ）は、富士山麓の檜（ひのき）の香りを閉じ込めたフレグランスペーパーや、天然ひのきウォーターを展開するライフスタイルブランド。和の香りで心を整え、リラックスできる空間をお届けします。Hinoki fragrance paper & natural aroma from Mt. Fuji — Made in Japan.",
+    "Yawn & Nap（ヨーンアンドナップ）は、富士山麓の檜（ひのき）の香りを閉じ込めたフレグランスペーパーや、天然ひのきウォーターを展開するライフスタイルブランド。和の香りで心を整え、リラックスできる空間をお届けします。Hinoki fragrance paper & natural aroma from Mt. Fuji — Made in Japan.",
   keywords: [
     // 日本語キーワード
     "富士山 お土産",
