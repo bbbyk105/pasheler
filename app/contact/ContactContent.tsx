@@ -8,7 +8,7 @@ import { useCart } from "../../components/CartContext";
 import Link from "next/link";
 import type { ContactFormData, ContactApiResponse } from "@/types/contact";
 
-export default function ContactContent() {
+function ContactContent() {
   const { language } = useCart();
   const t = baseTranslations[language]?.contact ?? baseTranslations.en.contact;
 
@@ -335,3 +335,5 @@ export default function ContactContent() {
     </div>
   );
 }
+
+export default ContactContent;
