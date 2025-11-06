@@ -125,7 +125,7 @@ export const products: Product[] = [
       {
         id: "3-3pack",
         prices: {
-          JPY: 1100,
+          JPY: 1500,
           AUD: 20,
         },
         stock: 20,
