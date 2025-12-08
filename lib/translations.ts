@@ -83,8 +83,8 @@ export const translations = {
       fragrancePapers: "フレグランスペーパー",
     },
     hero: {
-      title: "HINOKI ESSENCE",
-      subtitle: "富士山檜エキスフレグランス",
+      title: "FRAGRANCE",
+      subtitle: "富士山ひのきフレグランス",
       description:
         "日本の美しい檜の森から生まれた、心を癒す天然フレグランス。千年の時を越えて受け継がれてきた檜の香りが、あなたの日常に深いリラクゼーションと自然の恵みをもたらします。",
       cta: "檜コレクションを見る",
@@ -136,8 +136,8 @@ export const translations = {
     },
     brandStory: {
       tagline: "HINOKI ESSENCE - 富士の麓から届く、自然の香り",
-      mainTitle: "千年の香り、",
-      mainTitleLine2: "自然の恵み",
+      mainTitle: "香りがあなたをつれてゆく",
+      mainTitleLine2: "ポケットサイズの森林浴",
       intro:
         "富士山の麓で育ったひのきから生まれた、自然の香りを持ち歩けるアイテムシリーズです。ひのきの蒸留水と天然アロマが染み出した「ひのきウォーター」と、その香りを楽しむための「フレグランスペーパー」を組み合わせ、日常のさまざまなシーンで自然のやさしい香りをお届けします。",
       description:
@@ -240,15 +240,15 @@ export const translations = {
       items: [
         {
           name: "Joel Kim",
-          location: "東京",
+          location: "オーストラリア",
           rating: 5,
-          text: "ヒノキフレグランスを使い始めて2週間で、毎日の疲れがすっと抜けるようになりました。森林浴をしているような深いリラックス効果を感じています。",
+          text: "ずっと富士山に行ってみたいと思っていましたが、まだ訪れたことがありません。このフレッシュな檜の香りをかいだ瞬間、まるで富士山のふもとに立っているような気持ちになりました。日本らしさがぎゅっと詰まった香りを、自宅で楽しめるなんて本当に贅沢。“日本の山の香り” を初めて体験できて、とても嬉しいです。",
         },
         {
           name: "佐藤 恵子",
-          location: "大阪",
+          location: "アメリカ",
           rating: 4,
-          text: "リードディフューザーを寝室に置いてから、睡眠の質が格段に向上しました。檜の香りに包まれて眠るのが毎日の楽しみになっています。",
+          text: "香りが好きなので、富士山の檜ときいて、試してみたいと思いました。香りをかいで、日本に行ってみたくなりました。リフレッシュする香りですね。",
         },
         {
           name: "山田 真理子",
@@ -341,7 +341,7 @@ export const translations = {
       fragrancePapers: "Fragrance Papers",
     },
     hero: {
-      title: "HINOKI ESSENCE",
+      title: "FRAGRANCE",
       subtitle: "Mt.Fuji Hinoki Extract Fragrance",
       description:
         "Born from the beautiful hinoki forests of Japan, a natural fragrance that heals the soul. The scent of hinoki, passed down through a millennium, brings deep relaxation and nature's blessings to your daily life.",
@@ -507,15 +507,15 @@ export const translations = {
       items: [
         {
           name: "Joel Kim",
-          location: "Tokyo",
+          location: "Australia",
           rating: 5,
-          text: "After using Hinoki Fragrance for two weeks, I feel my daily fatigue melting away. It provides a deep relaxation effect as if I'm taking a forest bath.",
+          text: "I’ve always wanted to visit Mt. Fuji, but I haven’t had the chance yet. The moment I smelled this fresh hinoki scent, I felt as if I were standing at the foot of Mt. Fuji. Being able to enjoy such a distinctly Japanese fragrance at home feels truly luxurious. I’m so happy to experience the ‘scent of Japanese mountains’ for the first time.”",
         },
         {
           name: "Keiko Sato",
-          location: "Osaka",
+          location: "USA",
           rating: 4,
-          text: "Since placing the reed diffuser in my bedroom, my sleep quality has improved dramatically. Falling asleep surrounded by the scent of hinoki has become my daily pleasure.",
+          text: "I love fragrances, so when I heard about the hinoki from Mt. Fuji, I wanted to try it. After smelling it, I felt inspired to visit Japan. It’s such a refreshing scent.",
         },
         {
           name: "Mariko Yamada",
