@@ -83,7 +83,7 @@ export const translations = {
       fragrancePapers: "フレグランスペーパー",
     },
     hero: {
-      title: "FRAGRANCE",
+      title: "MT. FUJI FRAGRANCE",
       subtitle: "富士山ひのきフレグランス",
       description:
         "日本の美しい檜の森から生まれた、心を癒す天然フレグランス。千年の時を越えて受け継がれてきた檜の香りが、あなたの日常に深いリラクゼーションと自然の恵みをもたらします。",
@@ -341,7 +341,7 @@ export const translations = {
       fragrancePapers: "Fragrance Papers",
     },
     hero: {
-      title: "FRAGRANCE",
+      title: "MT. FUJI FRAGRANCE",
       subtitle: "Mt.Fuji Hinoki Extract Fragrance",
       description:
         "Born from the beautiful hinoki forests of Japan, a natural fragrance that heals the soul. The scent of hinoki, passed down through a millennium, brings deep relaxation and nature's blessings to your daily life.",
