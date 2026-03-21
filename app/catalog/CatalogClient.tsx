@@ -8,7 +8,11 @@ import CartNotification from "../../components/CartNotification";
 import ProductQuickView from "../../components/ProductQuickView";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { products, type Product } from "../../lib/products";
+import {
+  products,
+  productPrimaryImage,
+  type Product,
+} from "../../lib/products";
 import { translations } from "../../lib/translations";
 import { formatPrice } from "../../lib/currency";
 
@@ -26,7 +30,12 @@ export default function CatalogClient() {
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const t = translations[language];
-  const categories = ["all", "fragrances", "fragrancePapers"] as const;
+  const categories = [
+    "all",
+    "fragrances",
+    "fragrancePapers",
+    "candles",
+  ] as const;
   type Category = (typeof categories)[number];
 
   const filteredProducts = products.filter(
@@ -53,7 +62,7 @@ export default function CatalogClient() {
       name: product.name[language],
       price: variant.prices[currency],
       prices: variant.prices,
-      image: product.image,
+      image: productPrimaryImage(product),
       stock: variant.stock,
     });
     setNotification({ show: true, productName: product.name[language] });
@@ -163,39 +172,39 @@ export default function CatalogClient() {
 
               return (
                 <div key={product.id} className="group">
-                  <div className="relative aspect-square mb-4 overflow-hidden bg-stone-50 rounded-lg">
+                  <div className="relative aspect-square mb-4 overflow-hidden rounded-lg bg-stone-50 ring-1 ring-stone-900/[0.06] shadow-sm transition-[box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_20px_50px_-12px_rgba(28,25,23,0.16)]">
                     <Image
-                      src={product.image}
+                      src={productPrimaryImage(product)}
                       alt={`${product.name[language]}（フレグランスペーパー）`}
                       fill
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover object-top will-change-transform transition-[transform] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                       priority={false}
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-900/20 via-stone-900/[0.02] to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+                      aria-hidden
+                    />
 
-                    {/* Stock Status Badge */}
-                    <div className="absolute top-4 left-4">
-                      {isOutOfStock ? (
-                        <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
-                          {t.common.outOfStock}
-                        </span>
-                      ) : hasLowStock ? (
-                        <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 rounded-full">
-                          {language === "ja" ? "残りわずか" : "Low Stock"}
-                        </span>
-                      ) : (
-                        <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
-                          {t.common.inStock}
-                        </span>
-                      )}
-                    </div>
+                    {(isOutOfStock || hasLowStock) && (
+                      <div className="absolute top-4 left-4">
+                        {isOutOfStock ? (
+                          <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
+                            {t.common.outOfStock}
+                          </span>
+                        ) : (
+                          <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 rounded-full">
+                            {language === "ja" ? "残りわずか" : "Low Stock"}
+                          </span>
+                        )}
+                      </div>
+                    )}
 
                     {/* Quick Action Buttons */}
-                    <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 translate-y-1 group-hover:translate-y-0 group-hover:opacity-100 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       <button
                         onClick={() => handleQuickView(product)}
-                        className="w-8 h-8 flex items-center justify-center bg-white/90 hover:bg-white rounded-full shadow-sm transition-colors cursor-pointer"
+                        className="w-8 h-8 flex items-center justify-center rounded-full bg-white/95 shadow-md ring-1 ring-stone-900/5 backdrop-blur-sm transition-[background-color,box-shadow] duration-300 hover:bg-white cursor-pointer"
                         aria-label={`${product.name[language]}のクイックビュー`}
                       >
                         <i className="ri-eye-line text-sm text-stone-700" />
@@ -204,7 +213,7 @@ export default function CatalogClient() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="font-medium text-stone-800 group-hover:text-stone-600 transition-colors whitespace-pre-line">
+                    <h3 className="font-medium text-stone-800 transition-colors duration-300 ease-out group-hover:text-stone-600 whitespace-pre-line">
                       {product.name[language]}
                     </h3>
                     <p className="text-sm text-stone-600">

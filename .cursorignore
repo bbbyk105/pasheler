@@ -1,0 +1,68 @@
+# Cursor がインデックス・コンテキストに含めないパス（.gitignore と同様の記法）
+# コード編集には影響せず、AI の参照範囲と負荷を抑えます。
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+.yarn-integrity
+jspm_packages/
+
+# Next.js / ビルド成果物
+.next/
+out/
+build/
+dist/
+
+# テスト・カバレッジ
+coverage/
+.nyc_output/
+
+# 環境変数・シークレット（コード参照不要）
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+.dev.vars
+
+# ログ
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# デプロイ・キャッシュ
+.vercel
+.cache/
+.parcel-cache/
+.eslintcache
+.npm/
+.turbo/
+.bundle-analyzer/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# TypeScript キャッシュ
+*.tsbuildinfo
+
+# OS / エディタ
+.DS_Store
+.idea/
+
+# バイナリ画像（パスはコード内で参照可能。中身のインデックスを避ける）
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.png
+public/**/*.webp
+public/**/*.gif
+public/**/*.ico
+public/**/*.mp4
+public/**/*.webm
+public/**/*.pdf

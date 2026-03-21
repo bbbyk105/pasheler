@@ -23,6 +23,7 @@ export default function ProductQuickView({
   const { language, currency } = useCart();
   const [selectedVariant, setSelectedVariant] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const t = translations[language];
 
   // モーダル表示時にスクロールを無効化
@@ -45,6 +46,7 @@ export default function ProductQuickView({
         product.variants.find((v) => v.stock > 0) || product.variants[0];
       setSelectedVariant(firstAvailableVariant.id);
       setQuantity(1);
+      setSelectedImageIndex(0);
     }
   }, [product]);
 
@@ -56,6 +58,8 @@ export default function ProductQuickView({
   const priceInCurrentCurrency = currentVariant.prices[currency];
   const isOutOfStock = currentVariant.stock === 0;
   const maxQuantity = currentVariant.stock; // ✅ 在庫数まで選択可能に
+
+  const galleryImages = product.images;
 
   const handleAddToCart = () => {
     if (!isOutOfStock && quantity > 0) {
@@ -82,17 +86,56 @@ export default function ProductQuickView({
           onClick={(e) => e.stopPropagation()} // モーダル内クリックで閉じないように
         >
           <div className="grid md:grid-cols-2 gap-8 p-8">
-            {/* Product Image */}
-            <div className="aspect-square bg-stone-50 rounded-lg overflow-hidden relative">
-              <Image
-                src={product.image}
-                alt={`${product.name[language]}の商品画像`}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover object-top"
-                loading="eager"
-                priority
-              />
+            {/* Product images */}
+            <div className="space-y-3">
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-stone-50 ring-1 ring-stone-900/[0.06]">
+                <Image
+                  src={galleryImages[selectedImageIndex] ?? galleryImages[0]}
+                  alt={`${product.name[language]} — ${selectedImageIndex + 1}/${galleryImages.length}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain object-center"
+                  loading="eager"
+                  priority
+                />
+              </div>
+              {galleryImages.length > 1 && (
+                <div
+                  className="flex gap-2 overflow-x-auto pb-1"
+                  role="tablist"
+                  aria-label={
+                    language === "ja" ? "商品画像の切り替え" : "Product photos"
+                  }
+                >
+                  {galleryImages.map((src, index) => (
+                    <button
+                      key={`${src}-${index}`}
+                      type="button"
+                      role="tab"
+                      aria-selected={selectedImageIndex === index}
+                      aria-label={
+                        language === "ja"
+                          ? `画像 ${index + 1} を表示`
+                          : `Show photo ${index + 1}`
+                      }
+                      onClick={() => setSelectedImageIndex(index)}
+                      className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-md bg-stone-100 ring-2 transition-shadow focus:outline-none focus-visible:ring-stone-800 flex items-center justify-center ${
+                        selectedImageIndex === index
+                          ? "ring-stone-800 shadow-md"
+                          : "ring-transparent opacity-80 hover:opacity-100"
+                      }`}
+                    >
+                      <Image
+                        src={src}
+                        alt=""
+                        width={64}
+                        height={64}
+                        className="h-full w-full object-contain object-center p-0.5"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Product Info */}
@@ -164,24 +207,22 @@ export default function ProductQuickView({
                 </div>
               )}
 
-              {/* Stock Info */}
-              <div className="flex items-center gap-2">
-                {isOutOfStock ? (
-                  <span className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-full">
-                    {t.common.outOfStock}
-                  </span>
-                ) : currentVariant.stock <= 5 ? (
-                  <span className="px-3 py-1 text-sm bg-orange-100 text-orange-700 rounded-full">
-                    {language === "ja"
-                      ? `残り${currentVariant.stock}個`
-                      : `${currentVariant.stock} left`}
-                  </span>
-                ) : (
-                  <span className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-full">
-                    {t.common.inStock}
-                  </span>
-                )}
-              </div>
+              {/* Stock Info（売り切れ・残りわずかのみ表示） */}
+              {(isOutOfStock || currentVariant.stock <= 5) && (
+                <div className="flex items-center gap-2">
+                  {isOutOfStock ? (
+                    <span className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded-full">
+                      {t.common.outOfStock}
+                    </span>
+                  ) : (
+                    <span className="px-3 py-1 text-sm bg-orange-100 text-orange-700 rounded-full">
+                      {language === "ja"
+                        ? `残り${currentVariant.stock}個`
+                        : `${currentVariant.stock} left`}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Quantity Selection */}
               {!isOutOfStock && (

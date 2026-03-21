@@ -27,6 +27,7 @@
     "typescript": "^5"
   },
   "devDependencies": {
-    "@types/nodemailer": "^7.0.2"
+    "@types/nodemailer": "^7.0.2",
+    "baseline-browser-mapping": "^2.10.9"
   }
 }

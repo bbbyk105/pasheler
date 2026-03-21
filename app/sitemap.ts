@@ -1,45 +1,42 @@
-// app/sitemap.ts
 import type { MetadataRoute } from "next";
-import { products } from "../lib/products"; // ← 商品データを直接読み込む
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://yawnnap.shop";
+  const lastModified = new Date();
 
-  // 共通ページ
-  const staticPages: MetadataRoute.Sitemap = [
+  const routes: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/`, lastModified, changeFrequency: "weekly", priority: 1 },
     {
-      url: `${baseUrl}/`,
-      lastModified: new Date(),
+      url: `${SITE_URL}/catalog`,
+      lastModified,
       changeFrequency: "weekly",
-      priority: 1.0,
+      priority: 0.95,
     },
     {
-      url: `${baseUrl}/catalog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      url: `${SITE_URL}/contact`,
+      lastModified,
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.7,
     },
     {
-      url: `${baseUrl}/order-confirmation`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
+      url: `${SITE_URL}/legal/terms`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.35,
+    },
+    {
+      url: `${SITE_URL}/legal/privacy-policy`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.35,
+    },
+    {
+      url: `${SITE_URL}/legal/tokushoho`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.45,
     },
   ];
 
-  // 商品ページ（lib/products.tsに id や slug がある想定）
-  const productPages: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${baseUrl}/products/${product.id}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }));
-
-  return [...staticPages, ...productPages];
+  return routes;
 }

@@ -2,67 +2,115 @@
 import type { Metadata } from "next";
 import CatalogClient from "./CatalogClient";
 import Script from "next/script";
-// もしサーバーでも使える products があるなら読み込めます
 import { products } from "../../lib/products";
+import { SITE_URL, absoluteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "フレグランスペーパー | Yawn Nap",
+  title: "商品一覧 | フレグランスペーパー・キャンドル・ひのきウォーター",
   description:
-    "富士山檜（ひのき）の香りを閉じ込めたフレグランスペーパー。和の香りで心を整える日本製の香りの紙。日本のお土産・ギフトにも最適です。Hinoki fragrance paper from Mt. Fuji.",
+    "富士山麓の檜（ひのき）の香りを届ける Yawn Nap の全商品。フレグランスペーパー、富士ヒノキキャンドル、ゆずブレンド、ひのきアロマウォーター。日本製・ギフトに。",
   openGraph: {
     type: "website",
-    url: "https://yawnnap.shop/catalog",
+    url: `${SITE_URL}/catalog`,
     siteName: "Yawn Nap",
-    title: "フレグランスペーパー – Hinoki Fragrance Paper | Yawn Nap",
+    title:
+      "商品一覧 – Hinoki Fragrance Paper & Candles | Yawn Nap",
     description:
-      "富士山麓の檜の香り。Hinoki fragrance paper（日本製）：ギフト・お土産・トラベルに。",
+      "富士山麓の檜の香り。フレグランスペーパー・キャンドル・ひのきウォーターのラインナップ。",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Yawn Nap — Hinoki fragrance paper",
+        alt: "Yawn Nap — 商品一覧",
       },
     ],
     locale: "ja_JP",
-    alternateLocale: "en_US",
   },
   alternates: {
-    canonical: "https://yawnnap.shop/catalog",
+    canonical: `${SITE_URL}/catalog`,
   },
   robots: { index: true, follow: true },
   keywords: [
     "フレグランスペーパー",
+    "ひのき キャンドル",
     "富士山 檜",
-    "ひのき フレグランス",
-    "Japanese fragrance paper",
-    "Hinoki fragrance paper",
+    "ひのき ウォーター",
+    "Japanese hinoki candle",
     "Mt. Fuji souvenir",
-    "Made in Japan gift",
-    "和の香り",
-    "リラックス",
   ],
 };
 
 export default function CatalogPage() {
-  // 任意：構造化データ（ItemList）。価格通貨などが状態依存なら省略OK
-  const itemList = {
+  const catalogUrl = `${SITE_URL}/catalog`;
+
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: products.slice(0, 24).map((p: any, idx: number) => ({
-      "@type": "ListItem",
-      position: idx + 1,
-      name: p?.name?.ja ?? p?.name?.en ?? "Fragrance Paper",
-      // 画像URLが相対パスならフルURL化するのが理想
-    })),
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "ホーム",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "商品一覧",
+            item: catalogUrl,
+          },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        name: "Yawn Nap 商品一覧",
+        numberOfItems: products.length,
+        itemListElement: products.map((p, idx) => {
+          const v = p.variants[0];
+          const inStock = v && v.stock > 0;
+          return {
+            "@type": "ListItem",
+            position: idx + 1,
+            item: {
+              "@type": "Product",
+              name: p.name.ja,
+              description:
+                p.description.ja.length > 200
+                  ? `${p.description.ja.slice(0, 197)}…`
+                  : p.description.ja,
+              image: p.images.map((src) => absoluteUrl(src)),
+              sku: String(p.id),
+              brand: {
+                "@type": "Brand",
+                name: "Yawn Nap",
+              },
+              offers: {
+                "@type": "Offer",
+                priceCurrency: "JPY",
+                price: v?.prices.JPY ?? 0,
+                availability: inStock
+                  ? "https://schema.org/InStock"
+                  : "https://schema.org/OutOfStock",
+                url: catalogUrl,
+              },
+            },
+          };
+        }),
+      },
+    ],
   };
 
   return (
     <>
       <Script
-        id="catalog-itemlist"
+        id="catalog-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
       />
       <CatalogClient />
     </>

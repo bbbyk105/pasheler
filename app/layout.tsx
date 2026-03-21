@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "../components/CartContext";
 import { Noto_Serif_JP } from "next/font/google";
+import { SITE_URL, absoluteUrl } from "@/lib/site";
 
 const notoSerifJP = Noto_Serif_JP({
   weight: ["400", "700"],
@@ -9,7 +10,7 @@ const notoSerifJP = Noto_Serif_JP({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.yawnnap.shop"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       "Yawn Nap | 富士山檜の香りとフレグランスペーパー – Hinoki Fragrance Paper from Mt. Fuji",
@@ -44,13 +45,12 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    url: "https://www.yawnnap.shop",
+    url: SITE_URL,
     siteName: "Yawn Nap",
     title: "Yawn Nap | Hinoki Fragrance Paper & Natural Aroma from Mt. Fuji",
     description:
       "Discover Yawn Nap — Japanese-made Hinoki fragrance paper inspired by Mt. Fuji. Natural, relaxing scent for home, gift, and travel. Made in Japan.",
     locale: "ja_JP",
-    alternateLocale: "en_US",
     images: [
       {
         url: "/opengraph-image.png",
@@ -68,11 +68,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.png"],
   },
   alternates: {
-    canonical: "https://www.yawnnap.shop",
-    languages: {
-      "ja-JP": "/",
-      "en-US": "/en",
-    },
+    canonical: SITE_URL,
   },
   robots: { index: true, follow: true },
   icons: {
@@ -99,19 +95,39 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Yawn Nap",
-              url: "https://www.yawnnap.shop",
-              logo: "https://www.yawnnap.shop/logo.png",
-              description:
-                "富士山麓の檜の香りを閉じ込めたフレグランスペーパーブランド",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "JP",
-              },
-              sameAs: [
-                "https://www.instagram.com/yawn.nap_",
-                "https://x.com/kanabo_292929",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${SITE_URL}/#organization`,
+                  name: "Yawn Nap",
+                  url: SITE_URL,
+                  logo: {
+                    "@type": "ImageObject",
+                    url: absoluteUrl("/opengraph-image.png"),
+                    width: 1200,
+                    height: 630,
+                  },
+                  description:
+                    "富士山麓の檜（ひのき）の香りを届けるライフスタイルブランド。フレグランスペーパー、アロマキャンドル、天然ひのきウォーター。",
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: "JP",
+                  },
+                  sameAs: [
+                    "https://www.instagram.com/yawn.nap_",
+                    "https://x.com/kanabo_292929",
+                  ],
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${SITE_URL}/#website`,
+                  url: SITE_URL,
+                  name: "Yawn Nap",
+                  description:
+                    "富士山麓の檜の香り。フレグランスペーパー・キャンドル・ひのきウォーターのオンラインストア。",
+                  publisher: { "@id": `${SITE_URL}/#organization` },
+                  inLanguage: ["ja-JP", "en"],
+                },
               ],
             }),
           }}

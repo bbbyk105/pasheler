@@ -81,6 +81,7 @@ export const translations = {
       all: "すべて",
       fragrances: "フレグランス",
       fragrancePapers: "フレグランスペーパー",
+      candles: "キャンドル",
     },
     hero: {
       title: "MT. FUJI FRAGRANCE",
@@ -339,6 +340,7 @@ export const translations = {
       all: "All",
       fragrances: "Fragrances",
       fragrancePapers: "Fragrance Papers",
+      candles: "Candles",
     },
     hero: {
       title: "MT. FUJI FRAGRANCE",

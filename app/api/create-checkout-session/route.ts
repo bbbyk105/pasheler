@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { SITE_URL } from "@/lib/site";
+
+const appBaseUrl = (
+  process.env.NEXT_PUBLIC_APP_URL || SITE_URL
+).replace(/\/$/, "");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-10-29.clover",
@@ -39,7 +44,7 @@ export async function POST(request: NextRequest) {
             name: item.name,
             images: item.image.startsWith("http")
               ? [item.image]
-              : [`${process.env.NEXT_PUBLIC_APP_URL}${item.image}`],
+              : [`${appBaseUrl}${item.image}`],
           },
           unit_amount: Math.round(item.price * (currency === "JPY" ? 1 : 100)),
         },
@@ -80,8 +85,8 @@ export async function POST(request: NextRequest) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/checkout/cancel`,
+      success_url: `${appBaseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appBaseUrl}/checkout/cancel`,
       locale: language === "ja" ? "ja" : "en",
       metadata: {
         deliveryMethod,
