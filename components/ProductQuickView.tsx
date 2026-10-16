@@ -44,6 +44,8 @@ export default function ProductQuickView({
     if (product && product.variants.length > 0) {
       const firstAvailableVariant =
         product.variants.find((v) => v.stock > 0) || product.variants[0];
+      // 商品が切り替わったら選択状態を初期化する
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedVariant(firstAvailableVariant.id);
       setQuantity(1);
       setSelectedImageIndex(0);

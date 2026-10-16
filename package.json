@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.1.0",
@@ -14,9 +14,9 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.13",
-    "next": "^16.0.7",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.1",
+    "next": "16.4.1",
     "nodemailer": "^7.0.9",
     "postcss": "^8.4.47",
     "react": "^19.2.1",

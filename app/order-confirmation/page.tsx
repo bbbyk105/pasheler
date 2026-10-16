@@ -53,6 +53,8 @@ export default function OrderConfirmationPage() {
     if (data) {
       try {
         const parsedData: OrderData = JSON.parse(data);
+        // localStorage の注文データを初回表示に載せる
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setOrderData(parsedData);
         localStorage.removeItem("orderData");
       } catch (error) {

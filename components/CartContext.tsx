@@ -71,6 +71,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
           })
           .filter(Boolean); // null を除外
 
+        // localStorage はマウント後にしか読めない
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setItems(restoredCart);
       } catch (error) {
         console.error("Failed to parse cart from localStorage:", error);
@@ -114,6 +116,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("currency", currency);
 
       // 商品データから最新の価格を取得して更新
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setItems((prevItems) =>
         prevItems.map((item) => {
           const prices = getPricesForItem(item.id, item.variantId);
