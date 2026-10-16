@@ -24,7 +24,19 @@ export default function ProductQuickView({
   const [selectedVariant, setSelectedVariant] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectionProduct, setSelectionProduct] = useState(product);
   const t = translations[language];
+
+  if (product !== selectionProduct) {
+    setSelectionProduct(product);
+    if (product && product.variants.length > 0) {
+      const firstAvailableVariant =
+        product.variants.find((v) => v.stock > 0) || product.variants[0];
+      setSelectedVariant(firstAvailableVariant.id);
+      setQuantity(1);
+      setSelectedImageIndex(0);
+    }
+  }
 
   // モーダル表示時にスクロールを無効化
   useEffect(() => {
@@ -39,16 +51,6 @@ export default function ProductQuickView({
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
-
-  useEffect(() => {
-    if (product && product.variants.length > 0) {
-      const firstAvailableVariant =
-        product.variants.find((v) => v.stock > 0) || product.variants[0];
-      setSelectedVariant(firstAvailableVariant.id);
-      setQuantity(1);
-      setSelectedImageIndex(0);
-    }
-  }, [product]);
 
   if (!product || !isOpen) return null;
 

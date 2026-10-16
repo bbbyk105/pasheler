@@ -111,7 +111,7 @@ export default function CheckoutForm({
       }
 
       if (data.url) {
-        window.location.href = data.url;
+        window.location.assign(data.url);
       } else {
         throw new Error("Checkout URL not found");
       }

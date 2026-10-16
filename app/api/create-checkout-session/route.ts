@@ -6,12 +6,16 @@ const appBaseUrl = (
   process.env.NEXT_PUBLIC_APP_URL || SITE_URL
 ).replace(/\/$/, "");
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-10-29.clover",
-});
-
 export async function POST(request: NextRequest) {
   try {
+    const key = process.env.STRIPE_SECRET_KEY;
+    if (!key) {
+      throw new Error("STRIPE_SECRET_KEY is not set");
+    }
+    const stripe = new Stripe(key, {
+      apiVersion: "2025-10-29.clover",
+    });
+
     const body = await request.json();
     console.log("Received request body:", body);
 

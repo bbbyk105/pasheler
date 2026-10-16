@@ -1,23 +1,18 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useCart } from "../../../components/CartContext";
-import { translations } from "../../../lib/translations";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import Link from "next/link";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
-  const { language, currency, clearCart } = useCart();
-  const t = translations[language];
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const { language, clearCart } = useCart();
+  const sessionId = searchParams.get("session_id");
 
   useEffect(() => {
-    const session_id = searchParams.get("session_id");
-    setSessionId(session_id);
-
     // カートをクリア（初回のみ実行）
     clearCart();
 

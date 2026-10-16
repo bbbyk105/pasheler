@@ -71,6 +71,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
           })
           .filter(Boolean); // null を除外
 
+        // localStorage はマウント後にしか読めない
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setItems(restoredCart);
       } catch (error) {
         console.error("Failed to parse cart from localStorage:", error);
@@ -108,30 +110,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [language, isInitialized]);
 
-  // ✅ 通貨が変更されたら、カート内の価格を更新
+  // ✅ 通貨が変更されたら localStorage に保存
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem("currency", currency);
-
-      // 商品データから最新の価格を取得して更新
-      setItems((prevItems) =>
-        prevItems.map((item) => {
-          const prices = getPricesForItem(item.id, item.variantId);
-
-          if (!prices) {
-            console.error("Cannot find prices for item:", item);
-            return item;
-          }
-
-          return {
-            ...item,
-            prices,
-            price: prices[currency],
-          };
-        })
-      );
     }
   }, [currency, isInitialized]);
+
+  const setCurrencyAndPrices = (next: Currency) => {
+    setCurrency(next);
+    setItems((prevItems) =>
+      prevItems.map((item) => {
+        const prices = getPricesForItem(item.id, item.variantId);
+
+        if (!prices) {
+          console.error("Cannot find prices for item:", item);
+          return item;
+        }
+
+        return {
+          ...item,
+          prices,
+          price: prices[next],
+        };
+      })
+    );
+  };
 
   const addToCart = (product: Omit<CartItem, "quantity">) => {
     setItems((prevItems) => {
@@ -201,7 +205,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         getTotalPrice,
         clearCart,
         setLanguage,
-        setCurrency,
+        setCurrency: setCurrencyAndPrices,
       }}
     >
       {children}

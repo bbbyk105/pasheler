@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useCart } from "../../components/CartContext";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -28,12 +29,12 @@ export default function CheckoutPage() {
               {t.cart.empty}
             </h1>
             <p className="text-stone-600 mb-8">{t.cart.emptyMessage}</p>
-            <a
+            <Link
               href="/"
               className="inline-flex items-center gap-2 px-8 py-3 bg-stone-800 text-white text-sm font-medium hover:bg-stone-700 transition-colors whitespace-nowrap cursor-pointer"
             >
               {t.common.continueShopping}
-            </a>
+            </Link>
           </div>
         </main>
         <Footer />
