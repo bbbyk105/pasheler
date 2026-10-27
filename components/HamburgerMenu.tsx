@@ -168,30 +168,18 @@ export default function HamburgerMenu() {
                   />
                 </Section>
 
-                {/* BRAND (sample – keep commented if unused) */}
-                {false && (
-                  <Section
-                    title="Brand"
-                    open={catsOpen.brand}
-                    onToggle={() => toggle("brand")}
-                  >
-                    <MenuLink
-                      href="/about"
-                      label="About Us"
-                      onDone={() => setOpen(false)}
-                    />
-                    <MenuLink
-                      href="/story"
-                      label="Brand Story"
-                      onDone={() => setOpen(false)}
-                    />
-                    <MenuLink
-                      href="/journal"
-                      label="Journal"
-                      onDone={() => setOpen(false)}
-                    />
-                  </Section>
-                )}
+                {/* BRAND（ブログ） */}
+                <Section
+                  title="Brand"
+                  open={catsOpen.brand}
+                  onToggle={() => toggle("brand")}
+                >
+                  <MenuLink
+                    href="/blog"
+                    label="Blog"
+                    onDone={() => setOpen(false)}
+                  />
+                </Section>
 
                 {/* SUPPORT */}
                 <Section

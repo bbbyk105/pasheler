@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       home: "ホーム",
       products: "商品",
+      blog: "ブログ",
       contact: "お問い合わせ",
     },
     common: {
@@ -123,6 +124,8 @@ export const translations = {
         message: "メッセージを入力してください",
       },
       submit: "送信",
+      turnstileUnavailable:
+        "送信前の確認を読み込めませんでした。ページを再読み込みするか、メール（hello@yawnnap.com）でお問い合わせください。",
       phoneHours: "平日 9:00–18:00（日本時間）",
       charactersSuffix: "文字",
       addressMultiline: "静岡県富士市松本 42-31\n日本",
@@ -264,6 +267,7 @@ export const translations = {
     nav: {
       home: "Home",
       products: "Products",
+      blog: "Blog",
       contact: "Contact",
     },
     common: {
@@ -386,6 +390,8 @@ export const translations = {
         message: "Tell us how we can help you...",
       },
       submit: "SEND MESSAGE",
+      turnstileUnavailable:
+        "We couldn't load the verification check. Please reload the page, or email us at hello@yawnnap.com.",
       phoneHours: "Mon–Fri 9AM–6PM JST",
       charactersSuffix: "characters",
       addressMultiline: "42-31 Matsumoto, Fuji-shi,\nShizuoka, Japan",

@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import TurnstileWidget from "../../components/TurnstileWidget";
 import { translations as baseTranslations } from "../../lib/translations";
 import { useCart } from "../../components/CartContext";
 import Link from "next/link";
 import type { ContactFormData, ContactApiResponse } from "@/types/contact";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 
 function ContactContent() {
   const { language } = useCart();
@@ -24,6 +27,20 @@ function ContactContent() {
     type: "success" | "error" | null;
     message: string;
   }>({ type: null, message: "" });
+
+  // Turnstile のトークンは1回しか使えないので、送信のたびに確認欄を作り直す
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
+  const [turnstileFailed, setTurnstileFailed] = useState(false);
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+    setTurnstileFailed(false);
+  }, []);
+  const clearTurnstileToken = useCallback(() => setTurnstileToken(""), []);
+  const handleTurnstileError = useCallback(() => {
+    setTurnstileToken("");
+    setTurnstileFailed(true);
+  }, []);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,7 +64,7 @@ function ContactContent() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const data: ContactApiResponse = await response.json();
@@ -73,6 +90,8 @@ function ContactContent() {
       });
     } finally {
       setIsSubmitting(false);
+      setTurnstileToken("");
+      setTurnstileKey((k) => k + 1);
     }
   };
 
@@ -311,9 +330,26 @@ function ContactContent() {
                   </p>
                 </div>
 
+                <TurnstileWidget
+                  key={turnstileKey}
+                  siteKey={TURNSTILE_SITE_KEY}
+                  language={language}
+                  onVerify={handleTurnstileVerify}
+                  onExpire={clearTurnstileToken}
+                  onError={handleTurnstileError}
+                />
+                {turnstileFailed && (
+                  <p
+                    role="alert"
+                    className="text-sm text-red-700 whitespace-pre-line"
+                  >
+                    {t.turnstileUnavailable}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !turnstileToken}
                   className="w-full py-3 bg-stone-800 text-white text-sm sm:text-base font-medium rounded-lg hover:bg-stone-700 transition-colors whitespace-nowrap cursor-pointer disabled:bg-stone-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (

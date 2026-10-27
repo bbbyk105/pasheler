@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { HINOKI_SECTION_HREF } from "@/lib/site";
 import { useCart } from "./CartContext";
 
 export default function Footer() {
@@ -15,6 +16,8 @@ export default function Footer() {
       shop: {
         title: "ショップ",
         allProducts: "すべての商品",
+        hinoki: "富士ヒノキについて",
+        blog: "ブログ",
         contact: "お問い合わせ",
       },
       legal: {
@@ -38,6 +41,8 @@ export default function Footer() {
       shop: {
         title: "Shop",
         allProducts: "All Products",
+        hinoki: "About Fuji Hinoki",
+        blog: "Blog",
         contact: "Contact Us",
       },
       legal: {
@@ -104,6 +109,18 @@ export default function Footer() {
                   className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
                 >
                   {t.shop.allProducts}
+                </Link>
+                <Link
+                  href={HINOKI_SECTION_HREF}
+                  className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  {t.shop.hinoki}
+                </Link>
+                <Link
+                  href="/blog"
+                  className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  {t.shop.blog}
                 </Link>
                 <Link
                   href="/contact"

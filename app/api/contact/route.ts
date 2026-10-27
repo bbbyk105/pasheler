@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import type { ContactFormData, ContactApiResponse } from "@/types/contact";
+import type { ContactRequestBody, ContactApiResponse } from "@/types/contact";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+
+/** メールの HTML 本文に入れる前に、入力をタグとして解釈されない形にする */
+function escapeHtml(value: string): string {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const body: ContactFormData = await request.json();
-    const { name, email, subject, message } = body;
+    const body: ContactRequestBody = await request.json();
+    const { name, email, subject, message, turnstileToken } = body;
 
     // バリデーション
     if (!name || !email || !subject || !message) {
@@ -40,6 +51,26 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Cloudflare Turnstile（bot による自動送信を止める）
+    const remoteIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+    if (!(await verifyTurnstileToken(turnstileToken, remoteIp))) {
+      return NextResponse.json<ContactApiResponse>(
+        {
+          success: false,
+          message:
+            "送信前の確認ができませんでした。ページを再読み込みして、もう一度お試しください",
+        },
+        { status: 403 }
+      );
+    }
+
+    const safe = {
+      name: escapeHtml(name),
+      email: escapeHtml(email),
+      subject: escapeHtml(subject),
+      message: escapeHtml(message),
+    };
 
     // Nodemailerトランスポーター設定
     const transporter = nodemailer.createTransport({
@@ -87,28 +118,28 @@ ${message}
             <div style="margin-bottom: 20px;">
               <h3 style="color: #57534e; font-size: 14px; margin-bottom: 8px;">【お名前】</h3>
               <p style="color: #292524; font-size: 16px; margin: 0; padding: 10px; background-color: #fafaf9; border-radius: 4px;">
-                ${name}
+                ${safe.name}
               </p>
             </div>
 
             <div style="margin-bottom: 20px;">
               <h3 style="color: #57534e; font-size: 14px; margin-bottom: 8px;">【メールアドレス】</h3>
               <p style="color: #292524; font-size: 16px; margin: 0; padding: 10px; background-color: #fafaf9; border-radius: 4px;">
-                <a href="mailto:${email}" style="color: #292524; text-decoration: none;">${email}</a>
+                <a href="mailto:${safe.email}" style="color: #292524; text-decoration: none;">${safe.email}</a>
               </p>
             </div>
 
             <div style="margin-bottom: 20px;">
               <h3 style="color: #57534e; font-size: 14px; margin-bottom: 8px;">【件名】</h3>
               <p style="color: #292524; font-size: 16px; margin: 0; padding: 10px; background-color: #fafaf9; border-radius: 4px;">
-                ${subject}
+                ${safe.subject}
               </p>
             </div>
 
             <div style="margin-bottom: 20px;">
               <h3 style="color: #57534e; font-size: 14px; margin-bottom: 8px;">【メッセージ】</h3>
               <p style="color: #292524; font-size: 16px; margin: 0; padding: 15px; background-color: #fafaf9; border-radius: 4px; white-space: pre-wrap; line-height: 1.6;">
-                ${message}
+                ${safe.message}
               </p>
             </div>
 

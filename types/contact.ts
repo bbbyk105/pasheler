@@ -5,6 +5,11 @@ export interface ContactFormData {
   message: string;
 }
 
+/** API へ送る内容（フォームの入力 + Turnstile のトークン） */
+export interface ContactRequestBody extends ContactFormData {
+  turnstileToken?: string;
+}
+
 export interface ContactApiResponse {
   success: boolean;
   message: string;
