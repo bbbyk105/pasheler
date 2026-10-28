@@ -228,7 +228,6 @@ export const products: Product[] = [
       "/candle/yuzu2.jpg",
       "/candle/yuzu3.jpg",
       "/candle/yuzu4.jpg",
-      "/candle/yuzu5.jpg",
     ],
     variants: [
       {
