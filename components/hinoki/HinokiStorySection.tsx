@@ -110,8 +110,13 @@ export default function HinokiStorySection() {
           <p className="font-en-accent text-[10px] md:text-xs tracking-[0.4em] text-hinoki-brown uppercase">
             100% Mt. Fuji Hinoki
           </p>
-          <h2 className="font-ja-display text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight text-black md:leading-tight lg:leading-tight">
-            100% 国産のヒノキから生まれた
+          {/* break-keep と <wbr />：Safari でも <wbr /> の位置でだけ折り、言葉の途中で折らない */}
+          <h2 className="font-ja-display text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight text-black md:leading-tight lg:leading-tight break-keep">
+            100% 国産の
+            <wbr />
+            ヒノキから
+            <wbr />
+            生まれた
             <br />
             <span className="text-hinoki-gold">爽やかな森の香り。</span>
           </h2>
@@ -151,8 +156,11 @@ export default function HinokiStorySection() {
               <span className="text-hinoki-gold font-bold">
                 &ldquo;厳しい自然&rdquo;
               </span>
-              で、 ゆっくりと育ったヒノキは、木目が細かく密度が高い
-              <span className="text-black font-bold">「富士ヒノキ」</span>
+              で、ゆっくりと育ったヒノキは、木目が細かく密度が高い
+              {/* 文節で折れないブラウザ（Safari）でも、名前の途中で改行しない */}
+              <span className="text-black font-bold whitespace-nowrap">
+                「富士ヒノキ」
+              </span>
               として高い品質を保持しながら育林されています。
             </p>
 
@@ -223,19 +231,17 @@ export default function HinokiStorySection() {
             </div>
 
             <div className="relative space-y-4">
-              <div className="flex items-center gap-3 mb-4">
+              {/* 右上の大きい番号に見出しが重ならないよう、右を空ける */}
+              <div className="flex items-center gap-3 mb-4 pr-14 md:pr-16">
                 <div className="w-1 h-8 bg-hinoki-gold rounded-full" />
                 <h3 className="font-ja-display text-lg md:text-xl tracking-wide text-black">
                   香りづけは「富士ヒノキ抽出水 + ヒノキ精油 +
                   フレッシュなヒノキチップ」だけ
                 </h3>
               </div>
+              {/* 日本語の文を行で分けて書くと、つなぎ目に半角スペースが入るので 1 行で書く */}
               <p className="text-sm md:text-base text-zinc-700 leading-relaxed md:leading-relaxed">
-                化学的な香料を使用せず、 天然の蒸留水と精油（0.5～1%
-                以下に希釈）だけの香りです。
-                敏感な方でも心地よく使えるようにブレンドしていますが、
-                アロマ水はフレグランスペーパーに吹きかけてお使いください。
-                （肌に吹きかけ赤みが出る場合はご使用をお控え下さい。）
+                化学的な香料を使用せず、天然の蒸留水と精油（0.5～1%以下に希釈）だけの香りです。敏感な方でも心地よく使えるようにブレンドしていますが、アロマ水はフレグランスペーパーに吹きかけてお使いください。（肌に吹きかけ赤みが出る場合はご使用をお控え下さい。）
               </p>
             </div>
           </div>
@@ -248,16 +254,14 @@ export default function HinokiStorySection() {
             </div>
 
             <div className="relative space-y-4">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-4 pr-14 md:pr-16">
                 <div className="w-1 h-8 bg-hinoki-gold rounded-full" />
                 <h3 className="font-ja-display text-lg md:text-xl tracking-wide text-black">
                   素材は環境にやさしいバイオマス不織布
                 </h3>
               </div>
               <p className="text-sm md:text-base text-zinc-700 leading-relaxed md:leading-relaxed">
-                フレグランスペーパーの素材は、
-                土に還りやすいバイオマス不織布を使用しています。
-                旅先や飛行機の中などでもリラックスのお供に、お使い下さい。
+                フレグランスペーパーの素材は、土に還りやすいバイオマス不織布を使用しています。旅先や飛行機の中などでもリラックスのお供に、お使い下さい。
               </p>
             </div>
           </div>

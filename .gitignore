@@ -123,3 +123,6 @@ storybook-static/
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+
+# e2e (tester.army) の出力
+.e2e/

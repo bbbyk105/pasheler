@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "./CartContext";
 import CartNotification from "./CartNotification";
+import PhraseText from "./PhraseText";
 import ProductQuickView from "./ProductQuickView";
 import {
   products,
@@ -19,7 +20,8 @@ const candleProducts = products.filter((p) => p.category === "candles");
 const copy = {
   ja: {
     eyebrow: "富士山麓の香りを、暮らしの灯りに",
-    title: "ふと火を灯すだけで、\n部屋が「森のふもと」に変わる",
+    // 「|」は改行してよい位置（components/PhraseText.tsx）
+    title: "ふと火を灯すだけで、\n部屋が「森のふもと」に|変わる",
     lead:
       "富士ヒノキを蒸留するときだけに得られる、貴重なオイルをたっぷり閉じ込めたキャンドルです。リビングでもバスルームでも、やわらかく広がる檜の香りが、あなたの時間をそっと包み込みます。",
     block2Title: "慌ただしい一日のあとに、\n深呼吸したくなる香り",
@@ -100,8 +102,8 @@ export default function CandleSection() {
           <p className="text-sm font-medium text-emerald-800/90 mb-4">
             {c.eyebrow}
           </p>
-          <h2 className="text-[1.65rem] md:text-4xl font-serif text-stone-900 leading-snug whitespace-pre-line">
-            {c.title}
+          <h2 className="text-[1.65rem] md:text-4xl font-serif text-stone-900 leading-snug whitespace-pre-line break-keep">
+            <PhraseText text={c.title} />
           </h2>
         </header>
 
@@ -206,7 +208,8 @@ export default function CandleSection() {
                     </div>
                   )}
 
-                  <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 translate-y-1 group-hover:translate-y-0 group-hover:opacity-100 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                  {/* マウスでは乗せたときだけ出す。スマホは乗せられないので、いつも出しておく */}
+                  <div className="absolute top-4 right-4 flex flex-col gap-2 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-y-1 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:opacity-100 focus-within:opacity-100 focus-within:translate-y-0">
                     <button
                       type="button"
                       onClick={() => {

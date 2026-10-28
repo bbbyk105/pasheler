@@ -3,6 +3,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 日本語の改行。ブラウザは日本語を 1 文字ごとにどこでも折るので、そのままだと「富士ヒノ／キ」のように
+   言葉の途中で行が変わる。
+   - word-break: auto-phrase … 文節で折る（Chrome・Edge。<html lang="ja"> が要る。未対応のブラウザは今までどおり）
+   - text-wrap: pretty … 最後の行に「す。」だけが残るのを避ける
+   - line-break: strict … 行頭に「ッ」「ゃ」「ー」などが来ないようにする
+   - overflow-wrap: break-word … 長い英数字や URL は、はみ出す前に折る（anywhere は最小幅まで変わるので使わない） */
+@layer base {
+  body {
+    word-break: auto-phrase;
+    text-wrap: pretty;
+    line-break: strict;
+    overflow-wrap: break-word;
+  }
+}
+
 /* 富士ヒノキの LP・ブログ（旧 hinokifragrance.com）の土台。
    フォントの変数は lib/hinoki-fonts.ts。見出しは :where で詳細度を 0 にして、
    font-en-display などのクラスが勝つようにする */

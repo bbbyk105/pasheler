@@ -144,12 +144,21 @@ export default function ProductIntroSection() {
             Fragrance Paper from Mt. Fuji
           </p>
 
-          <h2 className="font-ja-display text-2xl md:text-3xl lg:text-4xl leading-relaxed tracking-wide text-black md:leading-relaxed lg:leading-relaxed">
-            ストレスを感じたとき
+          {/* break-keep と <wbr />：Safari でも <wbr /> の位置でだけ折り、言葉の途中で折らない */}
+          <h2 className="font-ja-display text-2xl md:text-3xl lg:text-4xl leading-relaxed tracking-wide text-black md:leading-relaxed lg:leading-relaxed break-keep">
+            ストレスを
+            <wbr />
+            感じたとき
             <br />
-            シュッとひと吹き。
+            シュッと
+            <wbr />
+            ひと吹き。
             <br />
-            ひと呼吸でふっと軽くなる、
+            ひと呼吸で
+            <wbr />
+            ふっと
+            <wbr />
+            軽くなる、
             <br />
             <span className="text-hinoki-gold">森の香り。</span>
           </h2>

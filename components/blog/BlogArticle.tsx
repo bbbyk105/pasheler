@@ -297,6 +297,7 @@ export default function BlogArticle({
           <div className="container mx-auto px-4 sm:px-6 max-w-[1200px]">
             <button
               onClick={() => setIsTocOpen(!isTocOpen)}
+              aria-expanded={isTocOpen}
               className="w-full py-3 flex items-center justify-between text-sm font-medium text-zinc-900"
             >
               <span className="flex items-center gap-2">
@@ -311,25 +312,15 @@ export default function BlogArticle({
             </button>
 
             {isTocOpen && (
-              <nav className="py-4 border-t border-zinc-100">
-                <ul className="space-y-1">
-                  {toc.map((item) => (
-                    <li key={item.id}>
-                      <button
-                        onClick={() => scrollToHeading(item.id)}
-                        className={`block w-full text-left py-2 px-3 rounded text-sm transition-all ${
-                          item.level === 3 ? "pl-6" : ""
-                        } ${
-                          activeId === item.id
-                            ? "text-zinc-900 font-medium border-l-2 border-zinc-900"
-                            : "text-zinc-500 hover:text-zinc-900"
-                        }`}
-                      >
-                        {item.text}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+              <nav
+                aria-label="目次"
+                className="pb-3 border-t border-zinc-200 max-h-[60vh] overflow-y-auto"
+              >
+                <TocList
+                  toc={toc}
+                  activeId={activeId}
+                  onSelect={scrollToHeading}
+                />
               </nav>
             )}
           </div>
@@ -453,29 +444,16 @@ export default function BlogArticle({
           {/* PC用サイドバー目次 */}
           {toc.length > 0 && (
             <aside className="hidden lg:block w-64 shrink-0">
-              <div className="sticky top-24">
-                <p className="text-sm font-bold text-zinc-900 mb-4 px-3">
+              <div className="sticky top-28">
+                <p className="font-ja-display text-base tracking-[0.2em] text-zinc-900 pb-3 border-b border-zinc-900">
                   目次
                 </p>
-                <nav>
-                  <ul className="space-y-1 text-sm">
-                    {toc.map((item) => (
-                      <li key={item.id}>
-                        <button
-                          onClick={() => scrollToHeading(item.id)}
-                          className={`block w-full text-left py-2 px-3 rounded transition-all ${
-                            item.level === 3 ? "pl-6 text-xs" : ""
-                          } ${
-                            activeId === item.id
-                              ? "text-zinc-900 font-medium border-l-2 border-zinc-900"
-                              : "text-zinc-500 hover:text-zinc-900"
-                          }`}
-                        >
-                          {item.text}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
+                <nav aria-label="目次">
+                  <TocList
+                    toc={toc}
+                    activeId={activeId}
+                    onSelect={scrollToHeading}
+                  />
                 </nav>
               </div>
             </aside>
@@ -514,5 +492,60 @@ export default function BlogArticle({
         </Link>
       </div>
     </article>
+  );
+}
+
+// 目次の並び（PC のサイドバーとスマホの開閉式で共通）。
+// 大見出し（h2）に 01, 02… と番号を振り、細い線で区切る。小見出し（h3）は番号の位置まで下げる。
+// いま読んでいる見出しは、番号を金色・文字を濃くするだけにして、太さや位置は変えない（行が折り返し直さないように）
+function TocList({
+  toc,
+  activeId,
+  onSelect,
+}: {
+  toc: TocItem[];
+  activeId: string;
+  onSelect: (id: string) => void;
+}) {
+  // 各項目の時点で、大見出しがいくつ目か（h2 の通し番号）
+  const chapterNumbers = toc.map(
+    (_, index) =>
+      toc.slice(0, index + 1).filter((item) => item.level === 2).length
+  );
+  return (
+    <ol className="text-sm">
+      {toc.map((item, index) => {
+        const isActive = activeId === item.id;
+        const isChapter = item.level === 2;
+        return (
+          <li
+            key={item.id}
+            className={isChapter ? "border-t border-zinc-200 first:border-t-0" : ""}
+          >
+            <button
+              type="button"
+              onClick={() => onSelect(item.id)}
+              aria-current={isActive ? "location" : undefined}
+              className={`flex w-full items-baseline gap-3 text-left leading-relaxed transition-colors ${
+                isChapter ? "py-3" : "pb-2 pl-8 text-[13px]"
+              } ${
+                isActive ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-900"
+              }`}
+            >
+              {isChapter && (
+                <span
+                  className={`w-5 shrink-0 font-en-display text-xs lining-nums tabular-nums transition-colors ${
+                    isActive ? "text-hinoki-gold" : "text-zinc-400"
+                  }`}
+                >
+                  {String(chapterNumbers[index]).padStart(2, "0")}
+                </span>
+              )}
+              <span>{item.text}</span>
+            </button>
+          </li>
+        );
+      })}
+    </ol>
   );
 }

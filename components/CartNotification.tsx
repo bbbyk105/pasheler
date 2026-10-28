@@ -27,7 +27,7 @@ export default function CartNotification({ show, productName, onClose }: CartNot
   return (
     <div
       className={`fixed top-20 right-6 bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50 transition-all duration-300 ${
-        show ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+        show ? 'translate-x-0 opacity-100 visible' : 'translate-x-full opacity-0 invisible'
       }`}
     >
       <div className="flex items-center gap-3">

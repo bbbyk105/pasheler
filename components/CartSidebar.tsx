@@ -35,9 +35,11 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
       )}
 
       {/* Sidebar */}
+      {/* 閉じているあいだは invisible にする。画面の右の外に置いただけだと、影が右端に帯になって出て、
+          キーボードでも中に入れてしまう。visibility も transition に入れて、閉じる動きが終わってから消す */}
       <div
-        className={`fixed top-0 right-0 h-full w-96 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 h-full w-full max-w-96 bg-white shadow-2xl z-50 transform transition-[transform,visibility] duration-300 ease-in-out ${
+          isOpen ? "translate-x-0 visible" : "translate-x-full invisible"
         }`}
       >
         <div className="h-full flex flex-col">
@@ -48,9 +50,10 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             </h2>
             <button
               onClick={onClose}
+              aria-label={language === "ja" ? "カートを閉じる" : "Close cart"}
               className="w-8 h-8 flex items-center justify-center text-stone-500 hover:text-stone-800 transition-colors cursor-pointer"
             >
-              <i className="ri-close-line text-xl"></i>
+              <i className="ri-close-line text-xl" aria-hidden></i>
             </button>
           </div>
 

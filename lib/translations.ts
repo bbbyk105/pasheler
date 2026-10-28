@@ -86,7 +86,8 @@ export const translations = {
     },
     hero: {
       title: "MT. FUJI FRAGRANCE",
-      subtitle: "富士山ひのきフレグランス",
+      // 見出しの「|」は改行してよい位置（components/PhraseText.tsx）
+      subtitle: "富士山|ひのき|フレグランス",
       description:
         "日本の美しい檜の森から生まれた、心を癒す天然フレグランス。千年の時を越えて受け継がれてきた檜の香りが、あなたの日常に深いリラクゼーションと自然の恵みをもたらします。",
       cta: "檜コレクションを見る",
@@ -140,8 +141,8 @@ export const translations = {
     },
     brandStory: {
       tagline: "HINOKI ESSENCE - 富士の麓から届く、自然の香り",
-      mainTitle: "香りがあなたをつれてゆく",
-      mainTitleLine2: "ポケットサイズの森林浴",
+      mainTitle: "香りがあなたを|つれてゆく",
+      mainTitleLine2: "ポケットサイズの|森林浴",
       intro:
         "富士山の麓で育ったひのきから生まれた、自然の香りを持ち歩けるアイテムシリーズです。ひのきの蒸留水と天然アロマが染み出した「ひのきウォーター」と、その香りを楽しむための「フレグランスペーパー」を組み合わせ、日常のさまざまなシーンで自然のやさしい香りをお届けします。",
       description:
