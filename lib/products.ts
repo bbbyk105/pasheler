@@ -1,3 +1,5 @@
+import type { Currency } from "./types";
+
 export interface ProductVariant {
   id: string;
   prices: {
@@ -34,6 +36,22 @@ export interface Product {
 /** 一覧・カート・決済用の代表画像 */
 export function productPrimaryImage(product: Product): string {
   return product.images[0] ?? "";
+}
+
+/** 一番安いバリアント（一覧に出す価格・「カートに追加」で入れるもの） */
+export function cheapestVariant(
+  product: Product,
+  currency: Currency
+): ProductVariant | undefined {
+  return product.variants.reduce<ProductVariant | undefined>(
+    (min, variant) =>
+      !min || variant.prices[currency] < min.prices[currency] ? variant : min,
+    undefined
+  );
+}
+
+export function findProduct(id: number): Product | undefined {
+  return products.find((product) => product.id === id);
 }
 
 export const products: Product[] = [

@@ -68,6 +68,12 @@ export default function Header() {
                 {t.nav.products}
               </Link>
               <Link
+                href="/blog"
+                className="text-stone-700 hover:text-stone-900 transition-colors duration-200"
+              >
+                {t.nav.blog}
+              </Link>
+              <Link
                 href="/contact"
                 className="text-stone-700 hover:text-stone-900 transition-colors duration-200"
               >

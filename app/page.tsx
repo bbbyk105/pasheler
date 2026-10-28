@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import HomePage from "./HomePage";
 import { SITE_URL, absoluteUrl } from "@/lib/site";
+import { getBlogPosts } from "@/lib/blog/microcms";
+import { toBlogCardPost } from "@/lib/blog/utils";
 
 export const metadata: Metadata = {
   title: {
@@ -49,6 +51,10 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function Page() {
-  return <HomePage />;
+export const revalidate = 360; // ブログの新着を早めに反映
+
+export default async function Page() {
+  const { posts } = await getBlogPosts({ limit: 3 });
+  // ブログ欄（BlogSection）はクライアントコンポーネントなので本文を渡さない
+  return <HomePage blogPosts={posts.map(toBlogCardPost)} />;
 }

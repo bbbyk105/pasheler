@@ -7,9 +7,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        // /_next/ は止めない（CSS・JS・画像が取れず、Google がページを正しく描画できなくなる）
         disallow: [
           "/api/",
-          "/_next/",
           "/private/",
           "/cart",
           "/checkout",
