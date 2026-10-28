@@ -5,6 +5,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "./CartContext";
+import PhraseText from "./PhraseText";
 import { translations } from "../lib/translations";
 
 export default function HeroCarousel() {
@@ -36,8 +37,8 @@ export default function HeroCarousel() {
                 {t.hero.title}
               </h1>
               <div className="space-y-4">
-                <h2 className="text-2xl lg:text-3xl font-medium text-stone-100">
-                  {t.hero.subtitle}
+                <h2 className="text-2xl lg:text-3xl font-medium text-stone-100 break-keep">
+                  <PhraseText text={t.hero.subtitle} />
                 </h2>
                 <p className="text-base lg:text-lg text-stone-200 leading-relaxed max-w-2xl mx-auto drop-shadow">
                   {t.hero.description}

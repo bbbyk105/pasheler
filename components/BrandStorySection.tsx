@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "./CartContext";
+import PhraseText from "./PhraseText";
 import { translations } from "../lib/translations";
 
 interface HinokiEffectsModalProps {
@@ -201,10 +202,10 @@ export default function BrandStorySection() {
                 {t.brandStory.tagline}
               </div>
 
-              <h2 className="text-4xl lg:text-5xl font-serif text-stone-800 leading-tight animate-in fade-in slide-in-from-top duration-700 ease-out delay-100">
-                {t.brandStory.mainTitle}
+              <h2 className="text-4xl lg:text-5xl font-serif text-stone-800 leading-tight break-keep animate-in fade-in slide-in-from-top duration-700 ease-out delay-100">
+                <PhraseText text={t.brandStory.mainTitle} />
                 <br />
-                {t.brandStory.mainTitleLine2}
+                <PhraseText text={t.brandStory.mainTitleLine2} />
               </h2>
 
               <p className="text-lg text-stone-600 leading-relaxed animate-in fade-in slide-in-from-bottom duration-700 ease-out delay-200">
