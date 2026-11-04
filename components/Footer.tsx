@@ -70,9 +70,10 @@ export default function Footer() {
             {/* Brand */}
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-['Pacifico'] text-white mb-2">
+                {/* フッターは全ページに入るので、見出しタグ（h3・h4）は使わない */}
+                <p className="text-xl font-['Pacifico'] text-white mb-2">
                   Pachelar Room
-                </h3>
+                </p>
                 <p className="text-sm text-stone-400 leading-relaxed">
                   {t.brand.description}
                 </p>
@@ -102,8 +103,8 @@ export default function Footer() {
 
             {/* Shop */}
             <div className="space-y-4">
-              <h4 className="font-medium text-white">{t.shop.title}</h4>
-              <nav className="space-y-2">
+              <p className="font-medium text-white">{t.shop.title}</p>
+              <nav aria-label={t.shop.title} className="space-y-2">
                 <Link
                   href="/catalog"
                   className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"
@@ -133,8 +134,8 @@ export default function Footer() {
 
             {/* Legal */}
             <div className="space-y-4">
-              <h4 className="font-medium text-white">{t.legal.title}</h4>
-              <nav className="space-y-2">
+              <p className="font-medium text-white">{t.legal.title}</p>
+              <nav aria-label={t.legal.title} className="space-y-2">
                 <Link
                   href="/legal/privacy-policy"
                   className="block text-sm text-stone-400 hover:text-white transition-colors cursor-pointer"

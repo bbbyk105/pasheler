@@ -69,6 +69,17 @@ export const translations = {
       howToUse: "使用方法",
       selectSize: "サイズを選択",
       addedToCart: "カートに追加されました",
+      breadcrumb: "パンくずリスト",
+      backToCatalog: "商品一覧に戻る",
+    },
+    notFound: {
+      title: "ページが見つかりませんでした",
+      // 「|」は改行してよい位置（components/PhraseText.tsx）
+      message:
+        "お探しのページは、|移動または削除された|可能性があります。|URLに誤りがないか|ご確認ください。",
+      home: "トップページへ",
+      catalog: "商品一覧を見る",
+      blog: "ブログを読む",
     },
     catalog: {
       title: "商品一覧",
@@ -332,6 +343,16 @@ export const translations = {
       howToUse: "How to Use",
       selectSize: "Select Size",
       addedToCart: "Added to cart",
+      breadcrumb: "Breadcrumb",
+      backToCatalog: "Back to all products",
+    },
+    notFound: {
+      title: "Page not found",
+      message:
+        "The page you are looking for may have been moved or deleted. Please check the URL.",
+      home: "Back to Home",
+      catalog: "View Products",
+      blog: "Read the Blog",
     },
     catalog: {
       title: "Product Catalog",

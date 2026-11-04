@@ -32,8 +32,15 @@ export default function BlogList({
           <p className="font-en-accent text-[10px] md:text-xs tracking-[0.4em] text-hinoki-brown uppercase">
             Forest Journal
           </p>
-          <h1 className="font-ja-display text-4xl md:text-5xl lg:text-6xl tracking-wide text-black">
+          {/* 大きな英字は飾り。ページの見出し（h1）は、その下の日本語（トップ・お問い合わせと同じ形） */}
+          <p
+            aria-hidden="true"
+            className="font-ja-display text-4xl md:text-5xl lg:text-6xl tracking-wide text-black"
+          >
             BLOGS
+          </p>
+          <h1 className="font-ja-display text-sm md:text-base tracking-[0.3em] text-zinc-700">
+            ブログ
           </h1>
           <p className="text-sm md:text-base text-zinc-600 max-w-2xl mx-auto leading-relaxed md:leading-relaxed">
             富士山麓の自然、富士ヒノキの魅力、

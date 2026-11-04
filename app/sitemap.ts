@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { getAllBlogSitemapEntries, getCategories } from "@/lib/blog/microcms";
+import { productPath, products } from "@/lib/products";
 
 /** サイトマップの最大URL数（Google推奨は50,000） */
 const SITEMAP_URL_LIMIT = 50000;
@@ -9,8 +10,6 @@ const SITEMAP_URL_LIMIT = 50000;
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lastModified = new Date();
-
   // ブログ記事（全件）。ブログ一覧は最新記事が並ぶので、最終更新 = 記事の最終更新
   const blogEntries = await getAllBlogSitemapEntries();
   const latestPostUpdatedAt = blogEntries
@@ -18,45 +17,50 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .sort()
     .at(-1);
 
+  // 固定ページには lastmod を付けない。生成のたびに「今」を入れると実際の更新日と合わず、
+  // Google がこのサイトの lastmod（記事の正しい更新日も）を当てにしなくなる。
+  // トップも同じ（新着記事は 3 件だけで商品も載るので、いちばん新しい記事の更新日とは合わない）
   const routes: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/`, lastModified, changeFrequency: "weekly", priority: 1 },
+    { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 },
     {
       url: `${SITE_URL}/catalog`,
-      lastModified,
       changeFrequency: "weekly",
       priority: 0.95,
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: latestPostUpdatedAt ?? lastModified,
+      lastModified: latestPostUpdatedAt,
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/contact`,
-      lastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/legal/terms`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.35,
     },
     {
       url: `${SITE_URL}/legal/privacy-policy`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.35,
     },
     {
       url: `${SITE_URL}/legal/tokushoho`,
-      lastModified,
       changeFrequency: "yearly",
       priority: 0.45,
     },
   ];
+
+  // 商品ページ（lib/products.ts の全商品）
+  const productPages: MetadataRoute.Sitemap = products.map((product) => ({
+    url: `${SITE_URL}${productPath(product)}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
 
   // カテゴリ一覧（1ページ目のみ）。slug 未設定のカテゴリはページが存在しないので載せない
   const categories = await getCategories();
@@ -69,7 +73,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   const blogPages: MetadataRoute.Sitemap = blogEntries
-    .slice(0, SITEMAP_URL_LIMIT - routes.length - categoryPages.length)
+    .slice(
+      0,
+      SITEMAP_URL_LIMIT - routes.length - productPages.length - categoryPages.length,
+    )
     .map((entry) => ({
       url: `${SITE_URL}/blog/${entry.path}`,
       lastModified: entry.updatedAt,
@@ -77,5 +84,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-  return [...routes, ...categoryPages, ...blogPages];
+  return [...routes, ...productPages, ...categoryPages, ...blogPages];
 }

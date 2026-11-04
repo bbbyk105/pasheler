@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCart } from "./CartContext";
 import {
   cheapestVariant,
+  productPath,
   productPrimaryImage,
   type Product,
 } from "../lib/products";
@@ -35,20 +37,28 @@ export default function ProductCard({
   return (
     <div className="group">
       <div className="relative aspect-square mb-4 overflow-hidden rounded-lg bg-stone-50 ring-1 ring-stone-900/[0.06] shadow-sm transition-[box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_20px_50px_-12px_rgba(28,25,23,0.16)]">
-        <Image
-          src={productPrimaryImage(product)}
-          alt={product.name[language]}
-          fill
-          className="object-cover object-center will-change-transform transition-[transform] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+        {/* 写真も商品ページへ。商品名のリンクと行き先が同じなので、読み上げ・Tab では飛ばす */}
+        <Link
+          href={productPath(product)}
+          className="absolute inset-0"
+          tabIndex={-1}
+          aria-hidden="true"
+        >
+          <Image
+            src={productPrimaryImage(product)}
+            alt={product.name[language]}
+            fill
+            className="object-cover object-center will-change-transform transition-[transform] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        </Link>
         <div
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-900/20 via-stone-900/[0.02] to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
           aria-hidden
         />
 
         {(isOutOfStock || hasLowStock) && (
-          <div className="absolute top-4 left-4">
+          <div className="pointer-events-none absolute top-4 left-4">
             {isOutOfStock ? (
               <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
                 {t.common.outOfStock}
@@ -73,7 +83,7 @@ export default function ProductCard({
         </div>
 
         {/* カテゴリバッジ */}
-        <div className="absolute bottom-4 left-4 opacity-0 translate-y-1 group-hover:translate-y-0 group-hover:opacity-100 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+        <div className="pointer-events-none absolute bottom-4 left-4 opacity-0 translate-y-1 group-hover:translate-y-0 group-hover:opacity-100 transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
           <span className="px-2 py-1 text-xs font-medium bg-stone-100 text-stone-700 rounded-full">
             {t.categories[product.category as keyof typeof t.categories] ||
               product.category}
@@ -83,7 +93,7 @@ export default function ProductCard({
 
       <div className="space-y-2">
         <h3 className="font-medium text-stone-800 transition-colors duration-300 ease-out group-hover:text-stone-600">
-          {product.name[language]}
+          <Link href={productPath(product)}>{product.name[language]}</Link>
         </h3>
         <p className="text-sm text-stone-600 font-medium">
           {formatPrice(priceInCurrentCurrency, currency)}

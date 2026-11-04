@@ -33,13 +33,18 @@ export default function HeroCarousel() {
         <div className="text-center px-8 lg:px-16">
           <div className="max-w-4xl mx-auto space-y-8">
             <div>
-              <h1 className="text-5xl lg:text-7xl font-serif font-light text-white leading-tight mb-6 drop-shadow-lg">
+              {/* 大きな英字は飾り。ページの見出し（h1）は、検索される言葉の入った日本語のほう。
+                  同じことを言うので、読み上げでは英字を飛ばす */}
+              <p
+                aria-hidden="true"
+                className="text-5xl lg:text-7xl font-serif font-light text-white leading-tight mb-6 drop-shadow-lg"
+              >
                 {t.hero.title}
-              </h1>
+              </p>
               <div className="space-y-4">
-                <h2 className="text-2xl lg:text-3xl font-medium text-stone-100 break-keep">
+                <h1 className="text-2xl lg:text-3xl font-medium text-stone-100 break-keep">
                   <PhraseText text={t.hero.subtitle} />
-                </h2>
+                </h1>
                 <p className="text-base lg:text-lg text-stone-200 leading-relaxed max-w-2xl mx-auto drop-shadow">
                   {t.hero.description}
                 </p>
