@@ -43,13 +43,11 @@ export const metadata: Metadata = {
     "Made in Japan gift",
     "Japanese aroma brand",
   ],
+  // url・title・description はページごとに書く（トップは app/page.tsx）。ここに書くと、
+  // 書いていないページ（法務・404 など）がトップの URL と文言を名乗ってしまう
   openGraph: {
     type: "website",
-    url: SITE_URL,
     siteName: "Yawn Nap",
-    title: "Yawn Nap | Hinoki Fragrance Paper & Natural Aroma from Mt. Fuji",
-    description:
-      "Discover Yawn Nap — Japanese-made Hinoki fragrance paper inspired by Mt. Fuji. Natural, relaxing scent for home, gift, and travel. Made in Japan.",
     locale: "ja_JP",
     images: [
       {
@@ -62,14 +60,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yawn Nap | Hinoki Fragrance Paper from Mt. Fuji",
-    description:
-      "富士山麓の檜（ひのき）の香りを閉じ込めたフレグランスペーパー。ナチュラルで穏やかな香りを日常に。",
     images: ["/opengraph-image.png"],
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  // canonical はページごとに書く。ここに書くと、書き忘れたページ（404 など）がトップを指してしまう
   robots: { index: true, follow: true },
   icons: {
     icon: "/favicon.ico",

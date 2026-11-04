@@ -1,4 +1,4 @@
-import type { Currency } from "./types";
+import type { Currency, Language } from "./types";
 
 export interface ProductVariant {
   id: string;
@@ -11,6 +11,8 @@ export interface ProductVariant {
 
 export interface Product {
   id: number;
+  /** 商品ページの URL（/products/{slug}）。英小文字・数字・ハイフン。公開後は変えない */
+  slug: string;
   name: {
     ja: string;
     en: string;
@@ -54,9 +56,24 @@ export function findProduct(id: number): Product | undefined {
   return products.find((product) => product.id === id);
 }
 
+export function findProductBySlug(slug: string): Product | undefined {
+  return products.find((product) => product.slug === slug);
+}
+
+/** 商品ページのパス */
+export function productPath(product: Product): string {
+  return `/products/${product.slug}`;
+}
+
+/** 1 行で出すときの商品名（名前の改行は、カードで折り返すためのもの） */
+export function productDisplayName(product: Product, language: Language): string {
+  return product.name[language].replace(/\s+/g, " ").trim();
+}
+
 export const products: Product[] = [
   {
     id: 1,
+    slug: "hinoki-fragrance-paper-tree",
     name: {
       ja: "富士山 ひのきフレグランスペーパー \n(木型)",
       en: "Mt.Fuji Hinoki Fragrance Paper \n(Tree Shape)",
@@ -96,6 +113,7 @@ export const products: Product[] = [
   },
   {
     id: 2,
+    slug: "hinoki-fragrance-paper-square",
     name: {
       ja: "富士山 ひのきフレグランスペーパー \n(四角形)",
       en: "Mt.Fuji Hinoki Fragrance Paper \n(Square Shape)",
@@ -135,6 +153,7 @@ export const products: Product[] = [
   },
   {
     id: 3,
+    slug: "hinoki-aroma-water-3-pack",
     name: {
       ja: "富士山 ひのきアロマウォーター \n(3本セット)",
       en: "Mt.Fuji Hinoki Aroma Water Mini Bottle \n(3-Pack)",
@@ -174,6 +193,7 @@ export const products: Product[] = [
   },
   {
     id: 4,
+    slug: "fuji-hinoki-candle",
     name: {
       ja: "富士ヒノキキャンドル",
       en: "Mt. Fuji HINOKI Candle",
@@ -214,6 +234,7 @@ export const products: Product[] = [
   },
   {
     id: 5,
+    slug: "fuji-hinoki-yuzu-candle",
     name: {
       ja: "富士ヒノキ × ゆずキャンドル",
       en: "Mt. Fuji HINOKI × YUZU Candle",

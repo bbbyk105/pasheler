@@ -9,12 +9,14 @@ import { expect } from "e2e";
  */
 test("閉じているカートは見えず、開け閉めできる", async ({ app, screen }) => {
   await app.open("/catalog");
-  const heading = screen.getByRole("heading", "ショッピングカート");
-  await expect(heading).toBeHidden();
+  // 引き出しの「ショッピングカート」は全ページに入るので見出しタグにしていない（tests/seo-markup.e2e.ts）。
+  // 代わりに名前の付いた aside（complementary）にして、読み上げでも見つけられるようにしている
+  const cart = screen.getByRole("complementary", "ショッピングカート");
+  await expect(cart).toBeHidden();
 
   await screen.getByRole("button", "カート（0個の商品）").tap();
-  await expect(heading).toBeVisible();
+  await expect(cart).toBeVisible();
 
   await screen.getByRole("button", "カートを閉じる").tap();
-  await expect(heading).toBeHidden();
+  await expect(cart).toBeHidden();
 });

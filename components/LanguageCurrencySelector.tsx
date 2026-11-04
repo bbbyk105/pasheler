@@ -53,9 +53,9 @@ export default function LanguageCurrencySelector({
       {isOpen && (
         <div className="absolute top-full right-0 mt-1 w-40 bg-white border border-stone-200 rounded-lg shadow-lg z-50">
           <div className="p-3">
-            <h3 className="text-xs font-medium text-stone-600 mb-2">
+            <p className="text-xs font-medium text-stone-600 mb-2">
               Language / 言語
-            </h3>
+            </p>
             <div className="space-y-1">
               {Object.entries(languageLabels).map(([lang, label]) => (
                 <button

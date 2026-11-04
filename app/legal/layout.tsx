@@ -51,10 +51,13 @@ export default function LegalLayout({
           {/* サイドメニュー */}
           <aside className="lg:w-64 flex-shrink-0">
             <div className="bg-white rounded-lg border border-stone-200 p-4 sticky top-6">
-              <h3 className="text-sm font-medium text-stone-800 mb-3">
+              <p className="text-sm font-medium text-stone-800 mb-3">
                 {language === "ja" ? "法務情報" : "Legal Information"}
-              </h3>
-              <nav className="space-y-1">
+              </p>
+              <nav
+                aria-label={language === "ja" ? "法務情報" : "Legal Information"}
+                className="space-y-1"
+              >
                 {navItems.map((item) => (
                   <Link
                     key={item.href}

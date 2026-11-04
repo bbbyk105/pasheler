@@ -37,7 +37,10 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
       {/* Sidebar */}
       {/* 閉じているあいだは invisible にする。画面の右の外に置いただけだと、影が右端に帯になって出て、
           キーボードでも中に入れてしまう。visibility も transition に入れて、閉じる動きが終わってから消す */}
-      <div
+      {/* 全ページのヘッダーに入るので、見出しタグ（h2・h3）は使わない（使うと h1 より前に見出しが並ぶ）。
+          代わりに名前の付いた aside にして、読み上げでも見つけられるようにする */}
+      <aside
+        aria-label={t.cart.title}
         className={`fixed top-0 right-0 h-full w-full max-w-96 bg-white shadow-2xl z-50 transform transition-[transform,visibility] duration-300 ease-in-out ${
           isOpen ? "translate-x-0 visible" : "translate-x-full invisible"
         }`}
@@ -45,9 +48,9 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
         <div className="h-full flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-stone-200">
-            <h2 className="text-xl font-serif text-stone-800">
+            <p className="text-xl font-serif text-stone-800">
               {t.cart.title}
-            </h2>
+            </p>
             <button
               onClick={onClose}
               aria-label={language === "ja" ? "カートを閉じる" : "Close cart"}
@@ -63,9 +66,9 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
               <div className="w-16 h-16 flex items-center justify-center bg-stone-100 rounded-full mb-4">
                 <i className="ri-shopping-bag-line text-2xl text-stone-600"></i>
               </div>
-              <h3 className="text-lg font-serif text-stone-800 mb-2">
+              <p className="text-lg font-serif text-stone-800 mb-2">
                 {t.cart.empty}
-              </h3>
+              </p>
               <p className="text-stone-600 text-center mb-6">
                 {t.cart.emptyMessage}
               </p>
@@ -103,9 +106,9 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         </div>
 
                         <div className="flex-1 space-y-2">
-                          <h3 className="font-medium text-stone-800 text-sm">
+                          <p className="font-medium text-stone-800 text-sm">
                             {item.name}
-                          </h3>
+                          </p>
                           <p className="text-stone-600 text-sm">
                             {formatPrice(item.price, currency)}
                           </p>
@@ -211,7 +214,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             </>
           )}
         </div>
-      </div>
+      </aside>
     </>
   );
 }
